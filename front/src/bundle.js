@@ -5,6 +5,3 @@ const imported = importer([
   require.context('./Attach/', true, /\./),
 ]);
 
-import './Blocks/post/post';
-import './Basic/button/button';
-import './Blocks/menu/menu';
