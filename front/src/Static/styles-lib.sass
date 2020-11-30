@@ -1,4 +1,8 @@
 /* <StylesLib> */
+$bodyFontSize: 14
+@function px_to_em($pixelVal, $parentsSize: $bodyFontSize)
+  @return ($pixelVal / $parentsSize) * 1em
+
 *
   box-sizing: border-box
 
@@ -27,13 +31,17 @@ $libValues: ('v1': -1em, '0': 0em, 'o25': 0.25em, 'o5': 0.5em, 'o75': 0.75em, '1
   justify-content: space-between
 .aic
   align-items: center
+.aife
+  align-items: flex-end
+.aifs
+  align-items: flex-start
 
 // STOP: POSITION
-.prel
+.rel
   position: relative
-.pabs
+.abs
   position: absolute
-.pfix
+.fix
   position: fixed
 *
   @include propGenerator(('.top': 'top', '.bottom': 'bottom', '.right': 'right', '.left': 'left'))
@@ -88,6 +96,14 @@ $libValues: ('v1': -1em, '0': 0em, 'o25': 0.25em, 'o5': 0.5em, 'o75': 0.75em, '1
   text-align: center
 .taj
   text-align: justify
+.tar
+  text-align: right 
+
+// STOP: FONT
+.fwb
+  font-weight: bold
+.fwn
+  font-weight: normal
 
 // STOP: SPECIAL
 .rub

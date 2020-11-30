@@ -1,0 +1,29 @@
+$sectionContentGutter: px_to_em(36)
+$sectionContentShadowGutter: 2.5em
+
+.section__content
+   width: 50%
+   padding-right: $sectionContentGutter
+
+   p
+      margin-top: 0
+      margin-bottom: px_to_em(10)
+      &:last-child
+         margin-bottom: 0
+
+   &-title
+      
+   &-text
+      z-index: 20
+   &-shadow
+      z-index: 10
+      left: $sectionContentShadowGutter
+
+.section_reversed
+   .section__content
+      padding-right: 0
+      padding-left: $sectionContentGutter
+
+      &-shadow
+         left: auto
+         right: $sectionContentShadowGutter

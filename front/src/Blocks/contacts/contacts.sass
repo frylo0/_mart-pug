@@ -1,0 +1,60 @@
+.contacts
+   margin-bottom: px_to_em(88)
+
+   $contactsCardSize: px_to_em(48)
+   &__card
+      width: $contactsCardSize
+      img
+         width: $contactsCardSize
+         height: $contactsCardSize
+      span
+         white-space: pre
+
+      &-extra-imgs
+         width: $contactsCardSize
+         height: $contactsCardSize
+
+      &-img-copy
+         @for $i from 1 through 4
+            &[data-i="#{$i}"]
+               animation-delay: $i * 0.75s
+               z-index: #{15 - $i}
+      
+      &.aife // phone icon
+         img
+            width: px_to_em(43)
+            height: auto
+         .contacts__card-img-copy
+            animation-name: fly-away-left 
+            animation-duration: 3s
+            animation-iteration-count: infinite
+      &.aifs // email icon
+         img
+            width: px_to_em(50)
+            height: auto
+         .contacts__card-img-copy
+            animation-name: fly-away-right
+            animation-duration: 3s
+            animation-iteration-count: infinite
+
+      $animationFlyAwayStartOpacity: 0.5
+      @keyframes fly-away-right
+         0%
+            transform: translate(0, 0)
+            opacity: $animationFlyAwayStartOpacity
+         100%
+            transform: translate(20px, 10px)
+            opacity: 0
+      @keyframes fly-away-left
+         0%
+            transform: translate(0, 0)
+            opacity: $animationFlyAwayStartOpacity
+         100%
+            transform: translate(-20px, 10px)
+            opacity: 0
+
+$contactsGutter: px_to_em(70)
+#contact_instagram
+   margin: 0 $contactsGutter
+#contact_phone
+   margin-right: $contactsGutter * 2 / 3

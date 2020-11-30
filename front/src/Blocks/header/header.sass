@@ -1,0 +1,27 @@
+$headerLogoWidth: px_to_em(307)
+   
+@import __menu/header__menu
+.header
+   padding-top: px_to_em(46)
+   padding-bottom: px_to_em(46)
+   z-index: 100
+   background: linear-gradient($-c1 80%, transparent)
+
+   &_small
+      background: $-c1
+      box-shadow: 0 3px 5px #00000010
+   
+   &__logo
+      width: $headerLogoWidth
+      height: px_to_em(77)
+      transform-origin: 0% 50%
+
+      img
+         width: px_to_em(349)
+         height: px_to_em(108)
+         margin-left: px_to_em(-15)
+         margin-top: px_to_em(-9)
+
+   &__slogan
+      font-size: px_to_em(24)
+      margin-bottom: px_to_em(14, 21)

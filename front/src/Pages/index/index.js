@@ -4,3 +4,6 @@ import './../../bundle';
 import { globalEventone } from '../../Plugins/eventone.js';
 
 globalEventone();
+
+import './../../Blocks/section/section';
+import './../../Blocks/contacts/contacts';

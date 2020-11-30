@@ -1,0 +1,19 @@
+.section__presentation
+   width: calc(50% - #{$sectionContentGutter}
+   margin-left: $sectionContentGutter
+
+   &-front, &-back
+      width: px_to_em(339)
+      height: px_to_em(339)
+      background-repeat: no-repeat
+      background-size: cover
+
+   &-front
+      border-radius: 50%
+      transform: translateY(-0.25em)
+      
+   &-back
+.section_reversed
+   .section__presentation
+      margin-left: 0
+      margin-right: $sectionContentGutter

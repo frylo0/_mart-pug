@@ -1,0 +1,21 @@
+include __menu/header__menu.pug
+mixin header()
+  header.header.fix.top0.left0.w100&attributes(attributes)
+    +devicer().row.aic.mA
+      .header__logo
+        img(src="./attach/img/logo-pc.jpg")
+      .col.tar
+        span.header__slogan.ff-ars-i.fwn
+          | Сайт психолога 
+          +link('Ирены Беркуты', '#')
+        +header__menu({
+          'Главная': './',
+          'О себе': './about_me',
+          'О проекте': './about_project',
+          'Консультации психолога': './consult',
+          'Мероприятия': './events',
+          'Нумерология': './numerology',
+          'Магазин шпаргалок': './shop', 
+          'Блог': './blog',
+          'Контакты': './contacts',
+        })

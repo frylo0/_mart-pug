@@ -1,8 +1,9 @@
+@import './Static/styles-lib'
+
 @import './Static/colors'
 @import './Static/fonts'
 @import './Static/decore'
 
-@import './Static/styles-lib'
 
 *
   box-sizing: border-box
@@ -11,11 +12,20 @@
 
 body
   margin: 0
-  color: $-c-text
-  background: $-c-background
+  color: $-c6
+  font-size: 14px
+  line-height: 16px
   font-family: var(--f-rlw)
-  background-color: $-c-background
+  background-color: $-c1
 
 ::selection
-  background: $-c-highlight-50
+  background: $-c2
 
+@import Basic/link/link
+@import Basic/devicer/devicer
+@import Basic/button/button
+@import Basic/title/title
+@import Blocks/header/header
+@import Blocks/footer/footer
+@import Blocks/scroll-top-button/scroll-top-button
+@import Basic/arrow/arrow

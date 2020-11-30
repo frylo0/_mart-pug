@@ -1,1 +1,26 @@
+$headerHeight: 123/16*1rem
+$sectionMainMT: 47/16*1rem
+$sectionMainHeight: calc(100vh - #{$headerHeight} - #{$sectionMainMT} - 2px)
+   
 @import ../../bundle
+
+body
+   padding-top: $headerHeight
+
+.section
+   margin-top: 2.5em
+
+   &_main
+      margin-top: $sectionMainMT
+      height: $sectionMainHeight
+
+      .section__presentation
+         &-front, &-back
+            width: $sectionMainHeight
+            height: $sectionMainHeight
+
+.contacts
+   margin-top: px_to_em(68)
+
+@import ../../Blocks/section/section
+@import ../../Blocks/contacts/contacts
