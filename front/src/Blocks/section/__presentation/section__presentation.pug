@@ -1,4 +1,7 @@
-mixin section__presentation(sectionImage)
-   .section__presentation.row.jcc&attributes(attributes)
+include ../__sales-block/section__sales-block.pug
+mixin section__presentation(sectionImage, isMain)
+   .section__presentation.rel.row.jcc&attributes(attributes)
+      if isMain
+         +section__sales-block()
       .section__presentation-back.w100.h100(style=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url(./attach/img/photo_${sectionImage});`)
          .section__presentation-front.w100.h100(style=`background-image: url(./attach/img/photo_${sectionImage});`)

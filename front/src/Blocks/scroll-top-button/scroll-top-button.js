@@ -10,8 +10,8 @@ $(document).ready(() => {
 
    function toggleButton(e) {
       if (window.scrollY < 100)
-         $(pref).addClass('dn');
+         $(pref).fadeOut(250);
       else
-         $(pref).removeClass('dn');
+         $(pref).fadeIn(250);
    }
 });
