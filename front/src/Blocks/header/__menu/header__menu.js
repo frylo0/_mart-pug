@@ -1,6 +1,7 @@
 $(document).ready(() => {
    class UnderlineManipulator {
-      constructor($underline, $defaultElement) {
+      constructor($underlineStatic, $underline, $defaultElement, $menu) {
+         this.$menu = $menu;
          this.$underline = $underline;
          this.underline = $underline[0];
 
@@ -8,13 +9,18 @@ $(document).ready(() => {
          this.position = {};
 
          this.revertPosition();
+         $underlineStatic.css(this._getTargetPos($defaultElement));
       }
 
+      _getMenuPos() {
+         return this.$menu[0].getBoundingClientRect();
+      }
       _getTargetPos($target) {
          const targetRect = $target[0].getBoundingClientRect();
+         const menuPos = this._getMenuPos();
          return {
-            left: targetRect.left+'px',
-            top: targetRect.bottom+'px',
+            left: targetRect.left - menuPos.left +'px',
+            top: targetRect.bottom - menuPos.top +'px',
             width: targetRect.width+'px',
          };
       }
@@ -35,21 +41,18 @@ $(document).ready(() => {
       moveToTarget($target) {
          this.animate(this._getTargetPos($target));
       }
-      updatePosition(toUp) {
-         let stepSize = 63, topFloat = parseFloat(this.position.top);
-         this.position.top = topFloat + (toUp ? +stepSize : -stepSize) + 'px';
-         this.animate(this.position);
-      }
       revertPosition() {
          this.moveToTarget(this.$defaultElement);
       }
    }
    const pref = '.header__menu'; // prefix for current folder
 
-   const $underline = $(pref+'-underline');
+   const $underlineStatic = $(pref+'-underline'),
+      $underline = $(pref+'-underline_main');
+   const $menu = $(pref);
    const $lis = $(pref+'-li');
 
-   const manipulator = new UnderlineManipulator($underline, $lis.first());
+   const manipulator = new UnderlineManipulator($underlineStatic, $underline, $lis.first(), $menu);   
    window.menuManipulator = manipulator;
 
    let hoveredLi;

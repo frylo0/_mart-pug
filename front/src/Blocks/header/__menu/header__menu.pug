@@ -1,5 +1,6 @@
 mixin header__menu(menu)
-  .header__menu&attributes(attributes)
+  .header__menu.rel&attributes(attributes)
+    .header__menu-underline.header__menu-underline_main.abs
     .header__menu-underline.abs
     each href, li in menu
       +link(li, href).header__menu-li.ml1o25.rel
