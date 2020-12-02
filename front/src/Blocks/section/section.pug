@@ -1,14 +1,14 @@
 include __content/section__content.pug
 include __presentation/section__presentation.pug
 
-mixin section(title, shadowImage, sectionImage, reversed = false, isMain = false)
+mixin section(title, shadowImage, sectionImage, href, reversed = false, isMain = false)
    section.section.row.rel(class=(reversed ? 'section_reversed' : ''))&attributes(attributes)
       if block
-         +section__content(title, shadowImage)
+         +section__content(title, shadowImage, href)
             block
       else
-         +section__content(title, shadowImage)
-      +section__presentation(sectionImage, isMain)
+         +section__content(title, shadowImage, href)
+      +section__presentation(sectionImage, isMain, href)
       if isMain
          .section__arrows.abs.bottom2o5.left0.w100
             +arrow('down', 'inherit', 50).mA

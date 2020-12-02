@@ -14,7 +14,7 @@ html(lang="en")
     +header()
     +scroll-top-button()
     +devicer()
-      +section('О себе', 'shadow_heart.svg', '3T5A9848-2.jpg', false, true).section_main
+      +section('О себе', 'shadow_heart.svg', '3T5A9848-2.jpg', './about-me', false, true).section_main
         p.
           Lacus in iaculis ut ut facilisi suspendisse pharetra. 
           Scelerisque convallis ac tellus felis mauris egestas amet, 
@@ -30,11 +30,11 @@ html(lang="en")
           Pellentesque pellentesque mattis morbi odio turpis nam. 
           Tellus interdum scelerisque leo ac id dictumst. Rhoncus, 
           dictum commodo tincidunt ornare sit odio pellentesque amet pretium.
-      +section('О проекте', 'shadow_light-bulb.svg', '3T5A0480-1.jpg', true)
-      +section('Консультации психолога', 'shadow_users.svg', '3T5A0328.jpg')
-      +section('Мероприятия', 'shadow_clock.svg', '3T5A0149.jpg', true)
-      +section('Нумерология', 'shadow_earth-globe.svg', '3T5A0395.jpg')
-      +section('Мероприятия', 'shadow_shopping-bag.svg', '3T5A0160-1.jpg', true)
-      +section('Блог', 'shadow_message.svg', '3T5A0219.jpg')
+      +section('О проекте', 'shadow_light-bulb.svg', '3T5A0480-1.jpg', './about-project', true)
+      +section('Консультации психолога', 'shadow_users.svg', '3T5A0328.jpg', './consult')
+      +section('Мероприятия', 'shadow_clock.svg', '3T5A0149.jpg', './events', true)
+      +section('Нумерология', 'shadow_earth-globe.svg', '3T5A0395.jpg', './numerology')
+      +section('Магазин шпаргалок', 'shadow_shopping-bag.svg', '3T5A0160-1.jpg', './shop', true)
+      +section('Блог', 'shadow_message.svg', '3T5A0219.jpg', './blog')
       +contacts()
     +footer()

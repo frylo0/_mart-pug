@@ -1,4 +1,4 @@
-mixin section__content(title, shadowImage)
+mixin section__content(title, shadowImage, href)
    .section__content.col.jcc&attributes(attributes)
       .rel
          .section__content-text.rel
@@ -17,6 +17,7 @@ mixin section__content(title, shadowImage)
                      occaecat cupidatat non proident, sunt in culpa qui officia 
                      deserunt mollit anim id est laborum.
             center
-               +button('Читать далее')
+               a(href=href)
+                  +button('Читать далее')
          .section__content-shadow.abs.top0
             img(src=`./attach/img/${shadowImage}`)
