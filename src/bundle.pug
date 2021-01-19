@@ -1,5 +1,15 @@
 - function px_to_em(pixelVal, parentSize = 16) { return (pixelVal / parentSize) + 'em'; }
 
+:php
+   //$JF = './../../../just-field/dist';
+   $JF = './../jf-cms';
+
+   require_once "$JF/php/JustField.php";
+   require_once "$JF/php/orm.config.php";
+   $db = new JustField\DB($orm);
+
+   $ASSETS = "$JF/Assets/";
+
 include Basic/link/link.pug
 include Basic/button/button.pug
 include Basic/devicer/devicer.pug

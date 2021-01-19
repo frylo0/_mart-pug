@@ -3,13 +3,6 @@ include ../../bundle.pug
 include ../../Blocks/section/section.pug
 include ../../Blocks/contacts/contacts.pug
 
-:php
-   require_once '../../../just-field/dist/php/JustField.php';
-   require_once '../../../just-field/dist/php/orm.config.php';
-   $db = new JustField\DB($orm);
-
-   $ASSETS = './../../../just-field/dist/Assets/';
-
 
 <!DOCTYPE html>
 html(lang="en")
