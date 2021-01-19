@@ -1,0 +1,13 @@
+mixin section__content(title, shadowImage, href)
+   .section__content.col.jcc&attributes(attributes)
+      .rel
+         .section__content-text.rel
+            +title('<?= $title ?>')
+            .mtb1o5
+               if block
+                  block
+            center
+               a(href!=`<?= $link ?>`)
+                  +button('Читать далее')
+         .section__content-shadow.abs.top0
+            img(src!=`<?= $icon ?>`)

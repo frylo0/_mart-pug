@@ -1,0 +1,15 @@
+include __content/section__content.pug
+include __presentation/section__presentation.pug
+
+mixin section()
+   section.section.row.rel(class!=`<?= $is_image_left ? 'section_reversed' : '' ?> <?= $isMain ? 'section_main' : '' ?>`)&attributes(attributes)
+      +section__content()
+         if block
+            block
+      +section__presentation()
+      <?php if ($isMain) : ?>
+         .section__arrows.abs.bottom2o5.left0.w100
+            +arrow('down', 'inherit', 50).mA
+            +arrow('down', 'inherit', 50).mA
+            +arrow('down', 'inherit', 50).mA
+      <?php endif; ?>
