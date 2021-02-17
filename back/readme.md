@@ -1,10 +1,9 @@
 # Backend
 Оставляй заметки тут
 
-запуск
-python manage.py runserver
-
-админка
-/admin
-login - Admin
-pass - Nimda
+| **Key**      | Value                         |
+|--------------|-------------------------------|
+| **Запуск**   | python manage.py runserver    |
+| **Админка**  | /admin                        |
+| **Login**    | Admin                         |
+| **Password** | Nimba                         |
