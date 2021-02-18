@@ -2,6 +2,7 @@
 
 {%load static%}
 
+
 {%block head%}
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,11 +13,11 @@
    {%block content%}
       <header class="header fix top0 left0 w100">
          <div class="devicer mA row aic mA">
-            <div class="header__logo"><a class="cup" href="./shop"><img src="{%static 'Attach/Images/logo-pc.jpg'%}"></a>
+            <div class="header__logo"><a class="cup" href="./shop"><img src="{{head.icon_header.url}}"></a>
             </div>
-            <div class="col tar"><span class="header__slogan ff-ars-i fwn">Сайт психолога <a
+            <div class="col tar"><span class="header__slogan ff-ars-i fwn">{{head.title}} <a
                      class="link dib shadow_link"
-                     href="#">Ирены Беркуты</a></span>
+                     href="#">{{head.name}}</a></span>
                <div class="header__menu rel">
                   <div class="header__menu-underline header__menu-underline_main abs"></div>
                   <div class="header__menu-underline abs"></div><a
@@ -46,7 +47,7 @@
             </svg></div>
       </button>
       <div class="devicer mA">
-         <section class="section row rel  section_main">
+         <section class="section row rel  section_main {%if articles1.location %} section_reversed{%endif%} ">
             <div class="section__content col jcc">
                <div class="rel">
                   <div class="section__content-text rel">
@@ -63,7 +64,7 @@
                               <div class="button__inflation button__inflation_6 abs"></div>
                            </button></a></center>
                   </div>
-                  <div class="section__content-shadow abs top0"><img src="{% static 'Attach/Images/'%}{{articles1.icon}}"></div>
+                  <div class="section__content-shadow abs top0"><img src="{{articles1.icon.url}}"></div>
                </div>
             </div>
             <div class="section__presentation rel row jcc">
@@ -131,9 +132,9 @@
                         href="#">Подробнее</a>
                   </a></div><a class="cup" href="#">
                   <div class="section__presentation-back w100 h100"
-                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{%static 'Attach/Images/photo_3T5A9848-2.jpg'%}');">
+                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{{articles1.image.url}}');">
                      <div class="section__presentation-front w100 h100"
-                          style="background-image: url('{%static 'Attach/Images/photo_3T5A9848-2.jpg'%}');"></div>
+                          style="background-image: url('{{articles1.image.url}}');"></div>
                   </div>
                </a>
             </div>
@@ -158,7 +159,7 @@
                   </svg></div>
             </div>
          </section>
-         <section class="section row rel section_reversed ">
+         <section class="section row rel {%if art2.location %} section_reversed{%endif%}">
             <div class="section__content col jcc">
                <div class="rel">
                   <div class="section__content-text rel">
@@ -175,18 +176,18 @@
                               <div class="button__inflation button__inflation_6 abs"></div>
                            </button></a></center>
                   </div>
-                  <div class="section__content-shadow abs top0"><img src="{%static 'Attach/Images/'%}{{art2.icon}}"></div>
+                  <div class="section__content-shadow abs top0"><img src="{{art2.icon.url}}"></div>
                </div>
             </div>
             <div class="section__presentation rel row jcc"><a class="cup" href="#">
                   <div class="section__presentation-back w100 h100"
-                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{%static 'Attach/Images/photo_3T5A0480-1.jpg'%}');">
+                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{{art2.image.url}}');">
                      <div class="section__presentation-front w100 h100"
-                          style="background-image: url('{%static 'Attach/Images/photo_3T5A0480-1.jpg'%}');"></div>
+                          style="background-image: url('{{art2.image.url}}');"></div>
                   </div>
                </a></div>
          </section>
-         <section class="section row rel  ">
+         <section class="section row rel {%if art3.location %} section_reversed{%endif%}">
             <div class="section__content col jcc">
                <div class="rel">
                   <div class="section__content-text rel">
@@ -203,18 +204,18 @@
                               <div class="button__inflation button__inflation_6 abs"></div>
                            </button></a></center>
                   </div>
-                  <div class="section__content-shadow abs top0"><img src="{%static 'Attach/Images/'%}{{art3.icon}}"></div>
+                  <div class="section__content-shadow abs top0"><img src="{{art3.icon.url}}"></div>
                </div>
             </div>
             <div class="section__presentation rel row jcc"><a class="cup" href="#">
                   <div class="section__presentation-back w100 h100"
-                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{%static 'Attach/Images/photo_3T5A0328.jpg'%}');">
+                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{{art3.image.url}}');">
                      <div class="section__presentation-front w100 h100"
-                          style="background-image: url('{%static 'Attach/Images/photo_3T5A0328.jpg'%}');"></div>
+                          style="background-image: url('{{art3.image.url}}');"></div>
                   </div>
                </a></div>
          </section>
-         <section class="section row rel section_reversed ">
+         <section class="section row rel {%if art4.location %} section_reversed{%endif%}">
             <div class="section__content col jcc">
                <div class="rel">
                   <div class="section__content-text rel">
@@ -231,18 +232,18 @@
                               <div class="button__inflation button__inflation_6 abs"></div>
                            </button></a></center>
                   </div>
-                  <div class="section__content-shadow abs top0"><img src="{%static 'Attach/Images/'%}{{art4.icon}}"></div>
+                  <div class="section__content-shadow abs top0"><img src="{{art4.icon.url}}"></div>
                </div>
             </div>
             <div class="section__presentation rel row jcc"><a class="cup" href="#">
                   <div class="section__presentation-back w100 h100"
-                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{%static 'Attach/Images/photo_3T5A0149.jpg'%}');">
+                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{{art4.image.url}}');">
                      <div class="section__presentation-front w100 h100"
-                          style="background-image: url('{%static 'Attach/Images/photo_3T5A0149.jpg'%}');"></div>
+                          style="background-image: url('{{art4.image.url}}');"></div>
                   </div>
                </a></div>
          </section>
-         <section class="section row rel  ">
+         <section class="section row rel {%if art5.location %} section_reversed{%endif%} ">
             <div class="section__content col jcc">
                <div class="rel">
                   <div class="section__content-text rel">
@@ -259,18 +260,18 @@
                               <div class="button__inflation button__inflation_6 abs"></div>
                            </button></a></center>
                   </div>
-                  <div class="section__content-shadow abs top0"><img src="{%static 'Attach/Images/'%}{{art5.icon}}"></div>
+                  <div class="section__content-shadow abs top0"><img src="{{art5.icon.url}}"></div>
                </div>
             </div>
             <div class="section__presentation rel row jcc"><a class="cup" href="#">
                   <div class="section__presentation-back w100 h100"
-                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{%static 'Attach/Images/photo_3T5A0395.jpg'%}');">
+                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{{art5.image.url}}');">
                      <div class="section__presentation-front w100 h100"
-                          style="background-image: url('{%static 'Attach/Images/photo_3T5A0395.jpg'%}');"></div>
+                          style="background-image: url('{{art5.image.url}}');"></div>
                   </div>
                </a></div>
          </section>
-         <section class="section row rel section_reversed ">
+         <section class="section row rel {%if art6.location %} section_reversed{%endif%} ">
             <div class="section__content col jcc">
                <div class="rel">
                   <div class="section__content-text rel">
@@ -287,18 +288,18 @@
                               <div class="button__inflation button__inflation_6 abs"></div>
                            </button></a></center>
                   </div>
-                  <div class="section__content-shadow abs top0"><img src="{%static 'Attach/Images/'%}{{art6.icon}}"></div>
+                  <div class="section__content-shadow abs top0"><img src="{{art6.icon.url}}"></div>
                </div>
             </div>
             <div class="section__presentation rel row jcc"><a class="cup" href="#">
                   <div class="section__presentation-back w100 h100"
-                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{%static 'Attach/Images/photo_3T5A0160-1.jpg'%}');">
+                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{{art6.image.url}}');">
                      <div class="section__presentation-front w100 h100"
-                          style="background-image: url('{%static 'Attach/Images/photo_3T5A0160-1.jpg'%}');"></div>
+                          style="background-image: url('{{art6.image.url}}');"></div>
                   </div>
                </a></div>
          </section>
-         <section class="section row rel  ">
+         <section class="section row rel {%if art7.location %} section_reversed{%endif%} ">
             <div class="section__content col jcc">
                <div class="rel">
                   <div class="section__content-text rel">
@@ -315,43 +316,43 @@
                               <div class="button__inflation button__inflation_6 abs"></div>
                            </button></a></center>
                   </div>
-                  <div class="section__content-shadow abs top0"><img src="{%static 'Attach/Images/'%}{{art7.icon}}"></div>
+                  <div class="section__content-shadow abs top0"><img src="{{art7.icon.url}}"></div>
                </div>
             </div>
             <div class="section__presentation rel row jcc"><a class="cup" href="#">
                   <div class="section__presentation-back w100 h100"
-                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{%static 'Attach/Images/photo_3T5A0219.jpg'%}');">
+                       style="background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('{{art7.image.url}}');">
                      <div class="section__presentation-front w100 h100"
-                          style="background-image: url('{%static 'Attach/Images/photo_3T5A0219.jpg'%}');"></div>
+                          style="background-image: url('{{art7.image.url}}');"></div>
                   </div>
                </a></div>
          </section>
          <div class="contacts">
             <center class="title ff-ars-b mb2">Контакты</center>
             <div class="row jcc mb1"><a class="contacts__card col aic" href="#"><img class="mbo25"
-                       src="{%static 'Attach/Images/'%}{{ctn1.icon}}"><span>{{ctn1.contact}}</span></a><a
+                       src="{{ctn1.icon.url}}"><span>{{ctn1.contact}}</span></a><a
                   class="contacts__card col aic" href="#" id="contact_instagram"><img class="mbo25"
-                       src="{%static 'Attach/Images/'%}{{ctn2.icon}}"><span>{{ctn2.contact}}</span></a><a
+                       src="{{ctn2.icon.url}}"><span>{{ctn2.contact}}</span></a><a
                   class="contacts__card col aic" href="#"><img class="mbo25"
-                       src="{%static 'Attach/Images/'%}{{ctn3.icon}}"><span>{{ctn3.contact}}</span></a></div>
+                       src="{{ctn3.icon.url}}"><span>{{ctn3.contact}}</span></a></div>
             <div class="row jcc"><a class="contacts__card contacts__card_extra col aife" href="tel:79780000000"
                   id="contact_phone">
                   <div class="contacts__card-extra-imgs row jcc aic mbo25 rel"><img
-                          src="{%static 'Attach/Images/'%}{{ctn4.icon}}"><img class="contacts__card-img-copy abs"
-                          src="{%static 'Attach/Images/'%}{{ctn4.icon}}" data-i="1"><img
+                          src="{{ctn4.icon.url}}"><img class="contacts__card-img-copy abs"
+                          src="{{ctn4.icon.url}}" data-i="1"><img
                           class="contacts__card-img-copy abs"
-                          src="{%static 'Attach/Images/'%}{{ctn4.icon}}" data-i="2"><img
+                          src="{{ctn4.icon.url}}" data-i="2"><img
                           class="contacts__card-img-copy abs"
-                          src="{%static 'Attach/Images/'%}{{ctn4.icon}}" data-i="3"><img
+                          src="{{ctn4.icon.url}}" data-i="3"><img
                           class="contacts__card-img-copy abs"
-                          src="{%static 'Attach/Images/'%}{{ctn4.icon}}" data-i="4"></div><span{{ctn4.contact}}</span>
+                          src="{{ctn4.icon.url}}" data-i="4"></div><span{{ctn4.contact}}</span>
                </a><a class="contacts__card contacts__card_extra col aifs" href="mailto:email.email@email.email1">
                   <div class="contacts__card-extra-imgs row jcc aic mbo25 rel"><img
-                          src="{%static 'Attach/Images/'%}{{ctn5.icon}}"><img class="contacts__card-img-copy abs"
-                          src="{%static 'Attach/Images/'%}{{ctn5.icon}}" data-i="1"><img class="contacts__card-img-copy abs"
-                          src="{%static 'Attach/Images/'%}{{ctn5.icon}}" data-i="2"><img class="contacts__card-img-copy abs"
-                          src="{%static 'Attach/Images/'%}{{ctn5.icon}}" data-i="3"><img class="contacts__card-img-copy abs"
-                          src="{%static 'Attach/Images/'%}{{ctn5.icon}}" data-i="4"></div>
+                          src="{{ctn5.icon.url}}"><img class="contacts__card-img-copy abs"
+                          src="{{ctn5.icon.url}}" data-i="1"><img class="contacts__card-img-copy abs"
+                          src="{{ctn5.icon.url}}" data-i="2"><img class="contacts__card-img-copy abs"
+                          src="{{ctn5.icon.url}}" data-i="3"><img class="contacts__card-img-copy abs"
+                          src="{{ctn5.icon.url}}" data-i="4"></div>
                   <span>{{ctn5.contact}}</span>
                </a></div>
          </div>
