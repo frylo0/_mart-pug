@@ -4,5 +4,6 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('', views.home, name = 'index')
+    path('', views.my_redirect, name = 'redirect'),
+    path('home/', views.home, name = 'index')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

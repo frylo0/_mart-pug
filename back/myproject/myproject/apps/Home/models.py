@@ -2,12 +2,20 @@ from django.db import models
 
 # Create your models here.
 
+class Meta:
+    verbose_name = 'Главная страница'
+
+
 class Header(models.Model):
     name = models.CharField('имя на шапке',max_length = 300)
     title = models.CharField('заголовок на шапке',max_length = 300)
-    icon_header = models.ImageField('фотка в шапке',upload_to = 'image/')
+    icon_header = models.ImageField('фотка в шапке',upload_to = 'media/image/')
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Шапка'
+        verbose_name_plural = 'Шапка'
 
 class Articles(models.Model):
     id = models.IntegerField("номер (лучше не трогать)",primary_key=True)
@@ -19,10 +27,27 @@ class Articles(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Секции'
+        verbose_name_plural ='Секции'
+
 
 class Сontacts(models.Model):
     id = models.IntegerField("номер (лучше не трогать)",primary_key=True)
     contact = models.CharField("контакт",max_length = 300)
-    icon = models.FileField('имя иконки(вместе с расширением)',upload_to = 'image/')
+    icon = models.FileField('имя иконки(вместе с расширением)',upload_to = 'media/image/')
     def __str__(self):
         return self.contact
+
+    class Meta:
+        verbose_name = 'Контакты'
+        verbose_name_plural = 'Контакты'
+
+class ButtomPanel(models.Model):
+    left_text = models.CharField('текст в нижней панели',max_length = 400)
+    def __str__(self):
+        return 'Нижняя панель'
+
+    class Meta:
+        verbose_name = 'Нижняя панель'
+        verbose_name_plural = 'Нижняя панель'
