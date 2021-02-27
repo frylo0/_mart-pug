@@ -1,8 +1,8 @@
 mixin footer()
-   .footer.po5.w100&attributes(attributes)
-      +devicer().row.jcsb
-         span Ирена Беркута &copy; 2020
-         .row
+   .footer.po5.w100.rel&attributes(attributes)
+      +devicer()
+         span.footer__copywrite Ирена Беркута &copy; 2020
+         .row.footer__production
             span.mr2 prod: 
                +link('Frity', 'http://frity.ru/')
             span icons: 

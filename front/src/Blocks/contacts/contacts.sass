@@ -4,12 +4,19 @@
    $contactsCardSize: px_to_em(48)
    &__card
       width: $contactsCardSize
+
+      @media screen and ( max-width: $-stop-phone-max )
+         font-size: 0.8em
+
       img
          width: $contactsCardSize
          height: $contactsCardSize
-      span
+      > span
          white-space: pre
-
+         @media screen and ( max-width: $-stop-phone-max )
+            font-size: 1.25em
+            > span
+               display: block
       &-extra-imgs
          width: $contactsCardSize
          height: $contactsCardSize
@@ -58,3 +65,5 @@ $contactsGutter: px_to_em(70)
    margin: 0 $contactsGutter
 #contact_phone
    margin-right: $contactsGutter * 2 / 3
+   > span > span
+      text-align: right

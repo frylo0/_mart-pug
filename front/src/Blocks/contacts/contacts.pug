@@ -13,7 +13,7 @@ mixin contacts__card_extra(text, icon, iconPos)
          img(src=`./attach/img/${icon}`, data-i="2").contacts__card-img-copy.abs
          img(src=`./attach/img/${icon}`, data-i="3").contacts__card-img-copy.abs
          img(src=`./attach/img/${icon}`, data-i="4").contacts__card-img-copy.abs
-      span= text
+      span!= text
 
 mixin contacts()
    .contacts&attributes(attributes)
@@ -23,5 +23,5 @@ mixin contacts()
          +contacts__card('@inst.account', 'contacts_instagram.png')#contact_instagram
          +contacts__card('skypelogin', 'contacts_skype.png')
       .row.jcc
-         +contacts__card_extra('+7 (978) 000-00-00', 'contacts_phone-call.svg', "right")#contact_phone
-         +contacts__card_extra('email.email@email.email', 'contacts_email.svg', "left")
+         +contacts__card_extra('<span>+7 (978)</span>000-00-00', 'contacts_phone-call.svg', "right")#contact_phone
+         +contacts__card_extra('<span>email.email</span>@email.email', 'contacts_email.svg', "left")

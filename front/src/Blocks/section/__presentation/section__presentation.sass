@@ -1,11 +1,21 @@
 @import ../__sales-block/section__sales-block
 .section__presentation
-   width: calc(50% - #{$sectionContentGutter}
+   @media screen and ( min-width: $-stop-tablet-min )
+      width: calc(50% - #{$sectionContentGutter}
    margin-left: $sectionContentGutter
 
    &-front, &-back
-      width: px_to_em(339)
-      height: px_to_em(339)
+      @media screen and ( min-width: $-stop-tablet-min )
+         width: px_to_em(339)
+         height: px_to_em(339)
+         max-width: calc(50vw - 1em)
+      @media screen and ( max-width: $-stop-phone-max )
+         $squareSize: calc(100vw - 5em)
+         $squareSizeMax: px_to_em(500)
+         width: $squareSize
+         height: $squareSize
+         max-width: $squareSizeMax
+         max-height: $squareSizeMax
       background-repeat: no-repeat
       background-size: cover
 
@@ -14,7 +24,14 @@
       transform: translateY(-0.25em)
       
    &-back
+
+   @media screen and ( max-width: $-stop-phone-max )
+      margin-left: 0
+
 .section_reversed
    .section__presentation
       margin-left: 0
       margin-right: $sectionContentGutter
+      
+      @media screen and ( max-width: $-stop-phone-max )
+         margin-right: 0

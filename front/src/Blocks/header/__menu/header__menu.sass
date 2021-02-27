@@ -14,3 +14,15 @@
 
       &_main
          background: $-c2
+   
+   @media screen and ( max-width: $-stop-phone-max )
+      &-li
+         display: none
+
+      &::after
+         content: ''
+         display: block
+         width: 3em
+         height: 3em
+         cursor: pointer
+         background: url('./attach/img/menu-burger.svg') center/contain no-repeat
