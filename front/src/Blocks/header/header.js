@@ -55,7 +55,6 @@ $(document).ready(() => {
    const $menuMobile = $('.header__menu-content');
    $menuButton.on('click', e => {
       if (window.innerWidth < MOBILE_BREAK) {
-         console.log('menu toggle');
          $menuMobile.slideToggle().promise().then(() => window.menuManipulator.revertPosition());
       }
    });
