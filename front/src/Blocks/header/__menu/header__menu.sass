@@ -16,8 +16,27 @@
          background: $-c2
    
    @media screen and ( max-width: $-stop-phone-max )
-      &-li
+      &-content
          display: none
+         position: absolute
+         bottom: 0
+         right: 0
+         transform: translateY(100%)
+         background: $-c2
+         color: white
+         padding: 1.25em
+         
+      &-li
+         white-space: normal
+         margin-top: 0.75em
+         &:first-child
+            margin-top: 0
+         
+      &-underline
+         &:not(&_main)
+            display: none
+         &_main
+            background: $-c1
 
       &::after
          content: ''

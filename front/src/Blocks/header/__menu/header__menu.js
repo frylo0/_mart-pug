@@ -67,7 +67,10 @@ $(document).ready(() => {
    $lis.on('mouseenter', liHoverIn);
    $lis.on('mouseleave', liHoverOut);
 
-   $(window).on('resize', () => resizeTimediffer.ifReached(() => manipulator.revertPosition(true)));
+   $(window).on('resize', () => resizeTimediffer.ifReached(() => {
+      if (window.innerWidth > window.MOBILE_BREAK) $(pref + '-content').css('display', '');
+      manipulator.revertPosition(true);
+   }));
 
    async function liHoverIn(e) {
       hoveredLi = e.target;

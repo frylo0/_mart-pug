@@ -2,6 +2,7 @@ import './__menu/header__menu';
 
 $(document).ready(() => {
    const MOBILE_BREAK = 900;
+   window.MOBILE_BREAK = MOBILE_BREAK;
    const pref = '.header';
 
    function changeDirectionStuff(headerType, sloganAnimation, logoTransform, headerPadding) {
@@ -46,5 +47,16 @@ $(document).ready(() => {
             paddingTop: '0',
             paddingBottom: '0.5em',
          });
+   });
+
+
+   // STOP: mobile menu
+   const $menuButton = $('.header__menu');
+   const $menuMobile = $('.header__menu-content');
+   $menuButton.on('click', e => {
+      if (window.innerWidth < MOBILE_BREAK) {
+         console.log('menu toggle');
+         $menuMobile.slideToggle().promise().then(() => window.menuManipulator.revertPosition());
+      }
    });
 });
