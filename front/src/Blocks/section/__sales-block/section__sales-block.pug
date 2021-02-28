@@ -3,11 +3,12 @@ mixin section__sales-block()
       a(href="./sales").cup.tdn
          - let i = -1, D = 150, R = D/2;
          - let R2 = R**2, total = 20, padding = 3, middle = total / 2, step = D / total;
+         - const EM = 14;
          while i++ < total
             - let wi = R - (R2 - ((i - middle)*step + step/2)**2)**0.5
             - if (wi + padding < R) wi += padding;
-            .section__sales-block-round-fixer(style=`width:${wi}px;height:${step}px`)
-            .section__sales-block-round-fixer(style=`width:${wi}px;height:${step}px`)
+            .section__sales-block-round-fixer(style=`width:${wi/EM}em;height:${step/EM}em`)
+            .section__sales-block-round-fixer(style=`width:${wi/EM}em;height:${step/EM}em`)
          .mto25 Только сегодня скидка на все курсы 
-         .section__sales-block-percent.mto75 20% 
+         .section__sales-block-percent 20% 
          a.abs.bottom1o25.ct-abs_horiz.fwb(href="#") Подробнее
