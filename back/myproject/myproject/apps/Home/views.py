@@ -21,4 +21,4 @@ def home(request):
 
 
 def my_redirect(request):
-    return redirect('/home/')
+    return redirect('/shpargalki/home/')
