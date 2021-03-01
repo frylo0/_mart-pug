@@ -3,26 +3,21 @@ from django.shortcuts import redirect
 from .models import Articles,Сontacts,Header,ButtomPanel
 # Create your views here.
 def home(request):
-    art1 = Articles.objects.get(id = 1)
-    art2 = Articles.objects.get(id = 2)
-    art3 = Articles.objects.get(id = 3)
-    art4 = Articles.objects.get(id = 4)
-    art5 = Articles.objects.get(id = 5)
-    art6 = Articles.objects.get(id = 6)
-    art7 = Articles.objects.get(id = 7)
-    cnt = Сontacts.objects.get(id = 1)
-    cnt1 = Сontacts.objects.get(id = 2)
-    cnt2 = Сontacts.objects.get(id = 3)
-    cnt3 = Сontacts.objects.get(id = 4)
-    cnt4 = Сontacts.objects.get(id = 5)
+    article_main = Articles.objects.get(id = 1)
+    articles = [Articles.objects.get(id = i) for i in range(2, 8)]
+    contacts = [Сontacts.objects.get(id = i) for i in range(1, 6)]
     header = Header.objects.get()
     panel = ButtomPanel.objects.get()
-    str = cnt3.contact
-    s = str[0:1]+'('+str[1:5]+')'+' '+str[5:8]+'-'+str[8:10]+'-'+str[10:12]
-    print(s)
+    phone_str = contacts[3].contact
+    phone = '<span>'+phone_str[0:2]+' ('+phone_str[2:5]+')</span>'+' '+phone_str[5:8]+'-'+phone_str[8:10]+'-'+phone_str[10:12]
+    email_str = contacts[4].contact
+    email = '<span>' + '</span><span>@'.join(email_str.split('@')) + '</span>'
+    print(phone)
     return render(request, 'home/index.html',
-    {'articles1':art1,'art2':art2, 'art3':art3, 'art4':art4, 'art5':art5, 'art6':art6, 'art7':art7,
-   'ctn1':cnt, 'ctn2':cnt1, 'ctn3':cnt2, 'ctn4':cnt3, 'ctn5':cnt4, 'head':header,'panel':panel,'Phone_conatct':s})
+    {'article_main': article_main, 'articles': articles, 
+     'contact': contacts, 
+     'head':header, 'panel':panel, 
+     'Phone_contact':phone ,'Email_contact':email })
 
 
 def my_redirect(request):
