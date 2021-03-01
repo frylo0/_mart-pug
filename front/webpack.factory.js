@@ -25,7 +25,7 @@ function factory(options) {
     HtmlWebpackPlugins.push(
       new HtmlWebpackPlugin({
         template: pugPage, //from
-        filename: `./${pageFilename}.html`, //to //./dist/{name}.html
+        filename: `./${pageFilename}/${pageFilename}.html`, //to //./dist/{name}.html
         chunks: [pageFilename],
       })
     );
