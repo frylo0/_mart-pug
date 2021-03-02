@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django-cleanup',
     'Shop.apps.ShopConfig',
     'Blog.apps.BlogConfig',
     'Home.apps.HomeConfig',
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
 ]
 
 MIDDLEWARE = [
