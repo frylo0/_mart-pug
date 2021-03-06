@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django-cleanup',
+    'django_cleanup',
     'Shop.apps.ShopConfig',
     'Blog.apps.BlogConfig',
     'Home.apps.HomeConfig',
@@ -132,5 +132,5 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT,'static')
 
 STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')]
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/spargalki/media/'
 MEDOA_ROOT = os.path.join(PROJECT_ROOT,'media')

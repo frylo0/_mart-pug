@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.utils.safestring import mark_safe
 from .models import Articles,Сontacts,Header,ButtomPanel
 # Create your views here.
 def home(request):

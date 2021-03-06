@@ -10,6 +10,10 @@
    &-percent
       color: $-c5-50
       font-size: px_to_em(32)
+      margin-top: 0.75em
+
+      @media screen and ( max-width: $-stop-phone-max )
+         margin-top: 0.45em
 
    &-round-fixer
       //border: 1px solid black
@@ -21,3 +25,7 @@
          float: right
          clear: right
          height: 10px
+   
+   @media screen and ( max-width: $-stop-phone-max )
+      transform: translateX(2.5em)
+      font-size: 0.8em

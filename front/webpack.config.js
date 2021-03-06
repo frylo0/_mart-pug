@@ -14,7 +14,7 @@ console.log(`MODE: ${mode}`);
 const config = {
   entry: entries, //entry points of project
   output: {
-    filename: mode == 'development' ? '[name].bundle.js' : '[name].[hash].js', //main -> main.bundle.js
+    filename: './[name]/index.js', //mode == 'development' ? '[name].bundle.js' : '[name].[hash].js', //main -> main.bundle.js
     path: path.resolve(__dirname, 'dist'), //target folder
   },
   plugins: [
@@ -27,7 +27,8 @@ const config = {
     }),
     new MiniCssExtractPlugin({ //scss compilation //./dist/index.css
       moduleFilename: ({ name }) => {
-        return mode == 'development' ? `${name}.bundle.css` : '[name].[hash].css';
+        return `./${name}/css.css`;
+        // return mode == 'development' ? `${name}.bundle.css` : '[name].[hash].css';
       },
     }),
     new webpack.ProvidePlugin({ //connecting jquery
@@ -86,14 +87,14 @@ const config = {
         test: /\.(png|svg|jpe?g|gif)$/, //proccessing of images
         loader: 'file-loader', //move files to ./dist folder
         options: {
-          name: './attach/img/[name].[ext]' //way to files in destination and there names
+          name: './Attach/Images/[name].[ext]' //way to files in destination and there names
         }
       },
       {
         test: /\.(ttf|woff|woff2|eot|otf)$/, //processing fonts
         loader: 'file-loader', //move files to ./dist folder
         options: {
-          name: './attach/font/[name].[ext]' //way to files in destination and there names
+          name: './Attach/Fonts/[name].[ext]' //way to files in destination and there names
         }
       },
       {
@@ -104,14 +105,14 @@ const config = {
         test: /\.mp3$/,
         loader: 'file-loader', //move files to ./dist folder
         options: {
-          name: './attach/music/[name].[ext]' //way to files in destination and there names
+          name: './Attach/Music/[name].[ext]' //way to files in destination and there names
         }
       },
       {
         test: /\.mp4$/,
         loader: 'file-loader', //move files to ./dist folder
         options: {
-          name: './attach/video/[name].[ext]' //way to files in destination and there names
+          name: './Attach/Video/[name].[ext]' //way to files in destination and there names
         }
       },
     ]

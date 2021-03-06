@@ -1,2 +1,23 @@
 .footer
    border-top: 1px solid $-c2
+   
+   > .devicer
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+
+      @media screen and ( max-width: $-stop-phone-max )
+         flex-direction: column
+         align-items: flex-end
+         padding: 0
+         
+         .footer
+            &__copywrite
+               font-weight: bold
+               left: 0.5em 
+               position: absolute
+            &__production
+               flex-direction: column
+               align-items: flex-end
+               span
+                  margin-right: 0

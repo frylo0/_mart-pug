@@ -1,22 +1,28 @@
 include __menu/header__menu.pug
 mixin header()
-  header.header.fix.top0.left0.w100&attributes(attributes)
-    +devicer().row.aic.mA
-      .header__logo
-        a(href="./shop").cup
-          img(src="./attach/img/logo-pc.jpg")
-      .col.tar
-        span.header__slogan.ff-ars-i.fwn
-          | Сайт психолога 
-          +link('Ирены Беркуты', '#')
-        +header__menu({
-          'Главная': './',
-          'О себе': './about-me',
-          'О проекте': './about-project',
-          'Консультации психолога': './consult',
-          'Мероприятия': './events',
-          'Нумерология': './numerology',
-          'Магазин шпаргалок': './shop', 
-          'Блог': './blog',
-          'Контакты': './contacts',
-        })
+   header.header.fix.top0.left0.w100&attributes(attributes)
+      +devicer()
+         .header__wrapper.row.aic.mA
+            .header__logo
+               a(href="./shop").cup
+                  img(src="../Attach/Images/logo-pc.jpg")
+            .header__menu-wrapper.col.tar
+               span.header__slogan.header__slogan_pc.ff-ars-i.fwn
+                  | Сайт психолога 
+                  +link('Ирены Беркуты', '#')
+               +header__menu({
+                  'Главная': './',
+                  'О себе': './about-me',
+                  'О проекте': './about-project',
+                  'Консультации психолога': './consult',
+                  'Мероприятия': './events',
+                  'Нумерология': './numerology',
+                  'Магазин шпаргалок': './shop', 
+                  'Блог': './blog',
+                  'Контакты': './contacts',
+               })
+         .header__slogan_mobile.row.jcsb.aic
+            .header__mobile-line
+            span.header__slogan.ff-ars-i.fwn
+               | Сайт психолога 
+               +link('Ирены Беркуты', '#')
