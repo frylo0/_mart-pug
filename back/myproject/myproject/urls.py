@@ -18,9 +18,12 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+PREFIX = 'shpargalki'
+
 urlpatterns = [
-    path('',include('Home.urls')),
-    path('blog/',include('Blog.urls')),
-    path('shop/',include('Shop.urls')),
-    path('admin/', admin.site.urls),
+    path(f'{PREFIX}/',include('Home.urls')),
+    path(f'{PREFIX}/blog/',include('Blog.urls')),
+    path(f'{PREFIX}/shop/',include('Shop.urls')),
+    path(f'{PREFIX}/admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

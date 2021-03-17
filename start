@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+sudo sh -c "python3 ./back/myproject/manage.py runserver 1123 >> ./manage.log 2>&1 &"
+echo 'Started'
