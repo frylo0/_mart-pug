@@ -57,8 +57,11 @@ $(document).ready(() => {
       $underline = $(pref+'-underline_main');
    const $menu = $(pref);
    const $lis = $(pref+'-li');
+   
+   const $currentLi = $lis.first();
+   $currentLi.on('click', e => e.preventDefault());
 
-   const manipulator = new UnderlineManipulator($underlineStatic, $underline, $lis.first(), $menu);   
+   const manipulator = new UnderlineManipulator($underlineStatic, $underline, $currentLi, $menu);
    window.menuManipulator = manipulator;
 
    let hoveredLi;
