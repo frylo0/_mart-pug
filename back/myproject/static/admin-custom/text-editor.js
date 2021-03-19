@@ -28,6 +28,10 @@ class DjangoEditor {
          },
 
          tools: {
+            paragraph: {
+               class: Paragraph,
+               inlineToolbar: true,
+            },
             header: {
                class: Header,
                shortcut: 'CMD+SHIFT+H',
@@ -40,6 +44,10 @@ class DjangoEditor {
                class: List,
                inlineToolbar: true,
                shortcut: 'CMD+SHIFT+L',
+            },
+            underline: {
+               class: Underline,
+               shortcut: 'CMD+SHIFT+U',
             },
          }
       });
@@ -70,7 +78,7 @@ class DjangoEditor {
             for (const block of blocks) {
                const text = block.data.text;
                switch (block.type) {
-                  case 'paragraph': res += `<p>${text}</p>`; break;
+                  case 'paragraph': res += `<p align="${block.data.alignment}">${text}</p>`; break;
                   case 'header': res += `<h${block.data.level}>${text}</h${block.data.level}>`; break;
                   case 'list':
                      let type = block.data.style == 'unordered' ? 'u' : 'o';
