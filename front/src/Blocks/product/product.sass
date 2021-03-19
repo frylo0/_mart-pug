@@ -1,0 +1,24 @@
+.product
+   $size: px_to_em(232)
+   width: $size
+
+   &__image
+      width: $size
+      height: $size
+      background-position: center
+      background-size: cover
+      background-repeat: no-repeat
+      border-radius: px_to_em(5)
+
+   &__title
+   &__description
+      font-size: px_to_em(13)
+   &__footer
+      a
+         width: calc(50% - 0.5em)
+         &:nth-child(2) .button
+            background: $-c3
+      .button
+         width: 100%
+   &__price
+      bottom: -1.25em

@@ -1,7 +1,7 @@
 include ../__sales-block/section__sales-block.pug
-mixin section__presentation(sectionImage, isMain, href)
+mixin section__presentation(sectionImage, isSales, href)
    .section__presentation.rel.row.jcc&attributes(attributes)
-      if isMain
+      if isSales
          +section__sales-block()
       a(href=href).cup
          .section__presentation-back.w100.h100(style=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url(../Attach/Images/photo_${sectionImage});`)

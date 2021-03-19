@@ -1,15 +1,24 @@
 include __content/section__content.pug
 include __presentation/section__presentation.pug
 
-mixin section(title, shadowImage, sectionImage, href, reversed = false, isMain = false)
-   section.section.row.rel(class=(reversed ? 'section_reversed' : ''))&attributes(attributes)
+//-
+   options = {
+      reversed: bool,
+      isMain: bool,
+      noReadMore: bool,
+      arrows: bool,
+      sales: bool,
+   }
+
+mixin section(title, shadowImage, sectionImage, href, options = {})
+   section.section.row.rel(class=(options.reversed ? 'section_reversed' : ''))&attributes(attributes)
       if block
-         +section__content(title, shadowImage, href)
+         +section__content(title, shadowImage, href, !options.noReadMore)
             block
       else
-         +section__content(title, shadowImage, href)
-      +section__presentation(sectionImage, isMain, href)
-      if isMain
+         +section__content(title, shadowImage, href, !options.noReadMore)
+      +section__presentation(sectionImage, options.sales, href)
+      if options.arrows
          .section__arrows.abs.bottom2o5.left0.w100
             +arrow('down', 'inherit', 50).mA
             +arrow('down', 'inherit', 50).mA

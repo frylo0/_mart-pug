@@ -1,0 +1,13 @@
+@import ../product/product
+.recommended-products
+   .product
+      $gutter: px_to_em(36)
+      &:nth-child(even)
+         margin-right: $gutter * 2
+      &:nth-child(odd)
+         margin-right: $gutter
+      &:last-child
+         margin-right: 0
+         
+   .more-recommended
+      margin-top: 3.4em

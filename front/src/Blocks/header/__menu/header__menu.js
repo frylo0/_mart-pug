@@ -58,7 +58,8 @@ $(document).ready(() => {
    const $menu = $(pref);
    const $lis = $(pref+'-li');
    
-   const $currentLi = $lis.first();
+   const currentPage = window.location.pathname.split('/').pop();
+   const $currentLi = $($lis.toArray().find(li => li.href.includes('/' + currentPage))) || $lis.first();
    $currentLi.on('click', e => e.preventDefault());
 
    const manipulator = new UnderlineManipulator($underlineStatic, $underline, $currentLi, $menu);

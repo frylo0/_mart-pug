@@ -1,0 +1,11 @@
+mixin product(title, price, description, image)
+   .product&attributes(attributes).col
+      .product__image.rel(style=`background-image: linear-gradient(#ffffff00 8.85%, #F6D3CE90), url('../Attach/Images/${image}');`)
+         .product__title.ct-abs_horiz.bottomo5.w100.tac.ff-ars-b.fz1o25= title
+      .product__description.taj.mtb1= description
+      .product__footer.row.jcsb.w100
+         a(href='#')
+            +button('Подробнее')
+         a(href='#')
+            +button('Купить').rel
+               .product__price.ct-abs_horiz.w100= `${price} руб`
