@@ -1,0 +1,18 @@
+.text-editor
+   
+[data-json]
+   a:link, a
+      @extend .link
+      text-decoration: underline 
+      text-decoration-color: $-c3
+      display: inline-block
+      transition: 0.2s ease
+      will-change: transform, text-shadow, text-decoration
+      
+      &:hover
+         transform: translateY(-3px)
+         text-decoration: none
+         text-shadow: 0 4px $-c3
+      
+   mark
+      background-color: $-c2
