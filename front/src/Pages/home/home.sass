@@ -8,7 +8,12 @@ body
    padding-top: $headerHeight
 
 .section
-   margin-top: 2.5em
+   $marginSize: calc((100vh - #{px_to_em(339)}) / 2.5)
+   margin-top: $marginSize
+
+   @media screen and ( min-width: $-stop-tablet-min )
+      &:last-of-type
+         margin-bottom: $marginSize
 
    @media screen and ( min-width: $-stop-tablet-min )
       &_main
