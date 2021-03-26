@@ -22,7 +22,7 @@ PREFIX = 'shpargalki'
 
 urlpatterns = [
     path(PREFIX+'/',include('Home.urls')),
-    path(PREFIX+'blog/',include('Blog.urls')),
-    path(PREFIX+'shop/',include('Shop.urls')),
-    path(PREFIX+'admin/', admin.site.urls),
+    path(PREFIX+'/blog/',include('Blog.urls')),
+    path(PREFIX+'/shop/',include('Shop.urls')),
+    path(PREFIX+'/admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
