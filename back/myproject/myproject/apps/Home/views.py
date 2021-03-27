@@ -17,7 +17,7 @@ def home(request):
     {'article_main': article_main, 'articles': articles,
      'contact': contacts,
      'head':header, 'panel':panel,
-     'Phone_contact':phone ,'Email_contact':email,'version':version})
+     'Phone_contact':phone ,'Email_contact':email,'version':version.version_css})
 
 
 def my_redirect(request):

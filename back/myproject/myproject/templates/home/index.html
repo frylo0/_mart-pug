@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>Шпаргалка для лучшей жизни</title>
-      <link href="{%static version.version_css%}" rel="stylesheet">
+      <link href="{%static 'home/css.css'%}?ver={{version}}" rel="stylesheet">
       {%endblock%}
 
    {%block content%}
@@ -262,5 +262,5 @@
                      href="https://www.flaticon.com/authors/gregor-cresnar">Gregor Cresnar</a></span></div>
          </div>
       </div>
-      <script src="{%static version.version_js%}"></script>
+      <script src="{%static 'home/index.js'%}?ver={{version}}"></script>
   {%endblock%}

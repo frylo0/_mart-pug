@@ -54,7 +54,6 @@ class ButtomPanel(models.Model):
 
 class Style(models.Model):
     version_css = models.CharField('версия css',max_length = 500)
-    version_js = models.CharField('версия js',max_length = 500)
 
     class Meta:
         verbose_name = 'Версия'
