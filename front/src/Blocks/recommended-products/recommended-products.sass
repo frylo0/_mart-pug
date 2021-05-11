@@ -1,5 +1,10 @@
 @import ../product/product
 .recommended-products
+   width: 100%
+   
+   &__content
+      flex-wrap: wrap
+
    .product
       $gutter: px_to_em(36)
       &:nth-child(even)
@@ -11,3 +16,56 @@
          
    .more-recommended
       margin-top: 3.4em
+      
+   @media screen and ( min-width: $-stop-pc-max )
+      .product
+         $size: px_to_em(231)
+         width: $size
+         &__image
+            width: $size
+            height: $size
+      
+   @media screen and ( min-width: 1000px ) and ( max-width: $-stop-pc-max )
+      .product
+         font-size: 0.9em
+         $size: calc(25vw - 4.3em)
+         width: $size
+         &__image
+            width: $size
+            height: $size
+            
+   @media screen and ( min-width: 550px ) and ( max-width: 1000px )
+      .product
+         $size: calc(50vw - 4.4em)
+         width: $size
+         &__image
+            width: $size
+            height: $size
+
+      .product
+         $gutter: px_to_em(36)
+         &:nth-child(even)
+            margin-right: 0
+            margin-bottom: $gutter * 2
+         &:nth-child(odd)
+            margin-right: $gutter
+         &:last-child
+            margin-right: 0
+            margin-bottom: 0
+      
+   @media screen and ( max-width: 550px )
+      .product
+         $size: calc(100vw - 4.5em)
+         width: $size
+         &__image
+            width: $size
+            height: $size
+
+      .product
+         $gutter: px_to_em(36)
+         &:nth-child(even), &:nth-child(odd)
+            margin-right: 0
+            margin-bottom: $gutter
+         &:last-child
+            margin-right: 0
+            margin-bottom: 0

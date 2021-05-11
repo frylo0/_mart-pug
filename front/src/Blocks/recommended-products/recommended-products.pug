@@ -15,7 +15,7 @@ mixin recommended-products()
               description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor' },
          ]
          
-      .recommended-products__content.row
+      .recommended-products__content.row.jcc
          each product in products
             +product(product.title, product.price, product.description, product.image)
             

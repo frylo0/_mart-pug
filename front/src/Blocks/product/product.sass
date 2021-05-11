@@ -1,16 +1,12 @@
 .product
-   $size: px_to_em(232)
-   width: $size
-
    &__image
-      width: $size
-      height: $size
       background-position: center
       background-size: cover
       background-repeat: no-repeat
       border-radius: px_to_em(5)
 
    &__title
+      padding: 0 0.5em
    &__description
       font-size: px_to_em(13)
    &__footer
@@ -22,3 +18,30 @@
          width: 100%
    &__price
       bottom: -1.25em
+      
+   
+   &_small
+      $size: px_to_em(150)
+      width: $size
+
+      .product
+         &__title
+            font-size: 1.1em
+         &__image
+            width: $size
+            height: $size
+         &__footer
+            flex-direction: column
+            a
+               width: 100%
+               &:first-child
+                  margin-bottom: 0.25em
+
+   &_normal
+      $size: px_to_em(232)
+      width: $size
+
+      .product
+         &__image
+            width: $size
+            height: $size
