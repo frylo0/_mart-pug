@@ -22,6 +22,7 @@ PREFIX = 'shpargalki'
 
 urlpatterns = [
     path(PREFIX+'/',include('Home.urls')),
+    path(PREFIX+'/about/',include('About.urls')),
     path(PREFIX+'/blog/',include('Blog.urls')),
     path(PREFIX+'/shop/',include('Shop.urls')),
     path(PREFIX+'/admin/', admin.site.urls),
