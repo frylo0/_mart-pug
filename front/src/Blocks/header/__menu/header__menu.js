@@ -58,7 +58,11 @@ $(document).ready(() => {
    const $menu = $(pref);
    const $lis = $(pref+'-li');
    
-   const currentPage = window.location.pathname.split('/').pop();
+   const locationPathname = window.location.pathname.split('/');
+   console.log(locationPathname);
+   let currentPage = locationPathname.pop();
+   if (!currentPage)
+      currentPage = locationPathname.pop();
    const $currentLi = $($lis.toArray().find(li => li.href.includes('/' + currentPage))) || $lis.first();
    $currentLi.on('click', e => e.preventDefault());
 
