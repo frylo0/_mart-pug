@@ -30,5 +30,6 @@ urlpatterns = [
     path(PREFIX+'/shop/',include('Shop.urls')),
     path(PREFIX+'/about-project',include('Project.urls')),
     path(PREFIX+'/about-project/',include('Project.urls')),
+    path(PREFIX+'/admin/', admin.site.urls),
     path(PREFIX+'/admin', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
