@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['192.168.0.242', '127.0.0.1']
 INSTALLED_APPS = [
     'django_daemon_command',
     'django_cleanup',
+    'Project.apps.ProjectConfig',
     'About.apps.AboutConfig',
     'Shop.apps.ShopConfig',
     'Blog.apps.BlogConfig',

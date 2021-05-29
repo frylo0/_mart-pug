@@ -4,7 +4,7 @@ from .models import Content
 
 # Create your views here.
 
-def about(request):
+def project(request):
     content = Content.objects.get(id = 1)
     header = Header.objects.get()
     contacts = [Сontacts.objects.get(id = i) for i in range(1, 6)]
@@ -16,6 +16,6 @@ def about(request):
     phone = '<span>'+phone_str[0:2]+' ('+phone_str[2:5]+')</span>'+' '+phone_str[5:8]+'-'+phone_str[8:10]+'-'+phone_str[10:12]
     email_str = contacts[4].contact
     email = '<span>' + '</span><span>@'.join(email_str.split('@')) + '</span>'
-    return render(request,'about/about.html',{'contact': contacts,
+    return render(request,'project/project.html',{'contact': contacts,
     'head':header, 'panel':panel,
     'Phone_contact':phone ,'Email_contact':email,'version':version.version_css,'content':content})
