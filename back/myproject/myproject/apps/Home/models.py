@@ -24,6 +24,8 @@ class Articles(models.Model):
     icon = models.FileField('иконки',upload_to = 'media/image/')
     image = models.FileField('картинка',upload_to = 'media/image/')
     location = models.BooleanField('картинка слева?',default = False)
+    keyword = models.CharField('ключевое слово', max_length = 200)
+    
     def __str__(self):
         return self.title
 
