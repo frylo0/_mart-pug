@@ -14,7 +14,7 @@
       <header class="header fix top0 left0 w100">
    <div class="devicer mA">
       <div class="header__wrapper row aic mA">
-         <div class="header__logo"><a class="cup" href="./shop"><img src="{{head.icon_header.url}}"></a></div>
+         <div class="header__logo"><a class="cup" href="{%url 'shop'%}"><img src="{{head.icon_header.url}}"></a></div>
          <div class="header__menu-wrapper col tar"><span
                   class="header__slogan header__slogan_pc ff-ars-i fwn">{{head.title}} <a
                   class="link dib shadow_link" href="#">{{head.name}}</a></span>
@@ -243,7 +243,7 @@
                           class="contacts__card-img-copy abs" src="{{contact.3.icon.url}}" data-i="4">
                   </div><span>{{Phone_contact|safe}}</span>
                </a><a class="contacts__card contacts__card_extra col aifs"
-                  href="{{contact.4.contact}}">
+                  href="mailto:{{contact.4.contact}}">
                   <div class="contacts__card-extra-imgs row jcc aic mbo25 rel"><img
                           src="{{contact.4.icon.url}}"><img class="contacts__card-img-copy abs"
                           src="{{contact.4.icon.url}}" data-i="1"><img class="contacts__card-img-copy abs"
