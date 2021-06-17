@@ -8,7 +8,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>О себе | Шпаргалка для лучшей жизни</title>
+      <title>Обо мне | Шпаргалка для лучшей жизни</title>
       <link href="{%static 'about/css.css'%}?ver={{version}}" rel="stylesheet">
       {%endblock%}
 
@@ -25,7 +25,7 @@
                      <div class="header__menu-underline abs"></div>
                      <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel"
                            href="{%url 'index'%}">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel"
-                           href="{%url 'about'%}">О себе</a><a class="link dib shadow_link header__menu-li ml1o25 rel"
+                           href="{%url 'about'%}">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel"
                            href="{%url 'project'%}">О проекте</a><a
                            class="link dib shadow_link header__menu-li ml1o25 rel" href="./consult">Консультации психолога</a><a
                               class="link dib shadow_link header__menu-li ml1o25 rel"
@@ -60,7 +60,7 @@
             <div class="section__content col jcc">
                <div class="rel">
                   <div class="section__content-text rel">
-                     <center class="title ff-ars-b">О себе</center>
+                     <center class="title ff-ars-b">Обо мне</center>
                      <div class="mtb1o5">
                         {{content.text|safe}}
                      </div>

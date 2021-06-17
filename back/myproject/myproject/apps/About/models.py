@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 class Meta:
-    verbose_name = 'О себе'
-    verbose_name_plural = 'О себе'
+    verbose_name = 'Обо мне'
+    verbose_name_plural = 'Обо мне'
     
     
 
