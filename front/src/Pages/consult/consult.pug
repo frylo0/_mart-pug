@@ -1,0 +1,37 @@
+include ../../bundle.pug
+
+include ../../Blocks/section/section.pug
+include ../../Blocks/contacts/contacts.pug
+include ../../Blocks/recommended-products/recommended-products.pug
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Консультации | Шпаргалка для лучшей жизни
+  body
+    +header()
+    +scroll-top-button()
+    +devicer()
+      +section('Обо мне', 'shadow_heart.svg', '3T5A9848-2.jpg', './about-me', {readMore: false, arrows: true, noReadMore: true}).section_main
+        p.
+          Lacus in iaculis ut ut facilisi suspendisse pharetra. 
+          Scelerisque convallis ac tellus felis mauris egestas amet, 
+          aenean urna. Scelerisque egestas sed cursus at felis urna 
+          nullam. Ut rutrum adipiscing hendrerit consectetur nulla 
+          cursus non gravida. Quam venenatis amet ultrices quam massa 
+          faucibus maecenas pellentesque. Orci neque ultrices pretium 
+          est et lectus enim vitae pellentesque.
+        p.
+          Lacus in iaculis ut ut facilisi suspendisse pharetra. 
+          Scelerisque convallis ac tellus felis mauris egestas amet, 
+          aenean urna. Scelerisque egestas sed cursus at felis urna 
+          nullam. Ut rutrum adipiscing hendrerit consectetur nulla 
+          cursus non gravida. Quam venenatis amet ultrices quam massa 
+          faucibus maecenas pellentesque. Orci neque ultrices pretium 
+          est et lectus enim vitae pellentesque.
+      +recommended-products()
+      +contacts()
+    +footer()
