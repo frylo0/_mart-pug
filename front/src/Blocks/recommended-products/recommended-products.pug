@@ -17,7 +17,7 @@ mixin recommended-products()
          
       .recommended-products__content.row.jcc
          each product in products
-            +product(product.title, product.price, product.description, product.image)
+            +product(product.title, product.price, product.description, product.image).product_normal
             
       center.more-recommended
          a(href="./shop")

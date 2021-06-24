@@ -11,7 +11,10 @@ include __presentation/section__presentation.pug
    }
 
 mixin section(title, shadowImage, sectionImage, href, options = {})
-   section.section.row.rel(class=(options.reversed ? 'section_reversed' : ''))&attributes(attributes)
+   section.section.row.rel(class=([
+         options.reversed ? 'section_reversed' : '',
+         options.isMain ? 'section_main' : '',
+      ].join(' ')))&attributes(attributes)
       if block
          +section__content(title, shadowImage, href, !options.noReadMore)
             block

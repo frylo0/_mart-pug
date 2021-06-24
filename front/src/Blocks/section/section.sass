@@ -33,3 +33,15 @@
    @media screen and ( max-width: $-stop-phone-max )
       flex-direction: column-reverse
       align-items: center
+      
+// section main
+.section
+   @media screen and ( min-width: $-stop-tablet-min )
+      &_main
+         height: $sectionMainHeight
+
+         .section__presentation
+            &-front, &-back
+               width: $sectionMainHeight
+               height: $sectionMainHeight
+//-- section main

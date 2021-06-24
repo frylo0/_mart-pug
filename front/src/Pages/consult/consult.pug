@@ -1,8 +1,8 @@
 include ../../bundle.pug
 
 include ../../Blocks/section/section.pug
-include ../../Blocks/contacts/contacts.pug
-include ../../Blocks/recommended-products/recommended-products.pug
+include ../../Blocks/product/product.pug
+include ../../Blocks/service-row/service-row.pug
 
 <!DOCTYPE html>
 html(lang="en")
@@ -15,23 +15,34 @@ html(lang="en")
     +header()
     +scroll-top-button()
     +devicer()
-      +section('Обо мне', 'shadow_heart.svg', '3T5A9848-2.jpg', './about-me', {readMore: false, arrows: true, noReadMore: true}).section_main
-        p.
-          Lacus in iaculis ut ut facilisi suspendisse pharetra. 
-          Scelerisque convallis ac tellus felis mauris egestas amet, 
-          aenean urna. Scelerisque egestas sed cursus at felis urna 
-          nullam. Ut rutrum adipiscing hendrerit consectetur nulla 
-          cursus non gravida. Quam venenatis amet ultrices quam massa 
-          faucibus maecenas pellentesque. Orci neque ultrices pretium 
-          est et lectus enim vitae pellentesque.
-        p.
-          Lacus in iaculis ut ut facilisi suspendisse pharetra. 
-          Scelerisque convallis ac tellus felis mauris egestas amet, 
-          aenean urna. Scelerisque egestas sed cursus at felis urna 
-          nullam. Ut rutrum adipiscing hendrerit consectetur nulla 
-          cursus non gravida. Quam venenatis amet ultrices quam massa 
-          faucibus maecenas pellentesque. Orci neque ultrices pretium 
-          est et lectus enim vitae pellentesque.
-      +recommended-products()
-      +contacts()
+      +title('Виды консультаций').title_consult-types.mt2o5
+      .row.jcc.wrap
+        +product('Разовые', 'от  10 000', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'consult-mentor.svg', {buttonSecond: 'Записаться'}).product_normal
+        +product('Серийные', 'от  7 000', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'consult-meeting.svg', {buttonSecond: 'Записаться'}).product_normal
+        +product('Семейные', 'от  15 000', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'consult-networking.svg', {buttonSecond: 'Записаться'}).product_normal
+      +title('Рейтинг услуг').title_services
+      .services
+        - 
+          const services = {
+            "Email консультация": "от  1 000 руб",
+            "Написать письмо": "от  1 500 руб",
+            "Платная рассылка": "от  2 250 руб",
+            "Женские клубы": "от  900 руб",
+            "Обучение нумерологии": "от  1 300 руб",
+            "Консультации нумеролога": "от  1 300 руб",
+
+            "Онлайн курсы": "от  1 000 руб",
+            "Онлайн сопровождение": "от  1 500 руб",
+            "Ассоциативная шпаргалка": "от  2 250 руб",
+            "Нумерологический рассчет женихов": "от 900 руб",
+            "Проработка обиды и боли": "от  1 300 руб",
+            "Бесплатная рассылка": "бесплатно",
+          };
+        each price, title in services
+          +service-row(title, price)
+          
+      +section('Консультации психолога', 'shadow_users.svg', '3T5A0328.jpg', './consult', {isMain: true, noReadMore: true})
+        p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Ut rutrum adipiscing hendrerit consectetur nulla cursus non gravida. Quam venenatis amet ultrices quam massa faucibus maecenas pellentesque. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+        p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque leo ac id dictumst. Rhoncus, dictum commodo tincidunt ornare sit odio pellentesque amet pretium.
+
     +footer()

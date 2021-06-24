@@ -1,0 +1,7 @@
+mixin service-row(title, price, buttonName='Записаться')
+   .service-row.row&attributes(attributes)
+      a(href='#').service-row__title= title
+      .service-row__info
+         .service-row__price= price
+         a(href='#').service-row__button
+            +button(buttonName).w100
