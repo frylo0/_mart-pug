@@ -1,0 +1,14 @@
+include __option/select__option.pug
+
+mixin select(options)
+   .select.rel&attributes(attributes)
+      .select__basis.row
+         .select__title= options[0]
+         +button().select__toggle
+            +arrow-small('down', 'black')
+      .select__dropdown.abs.dn
+         - let selected = 3, i = 1
+         each option in options
+            +select__option(option)(class=(i == selected ? 'select__option_selected' : ''))
+            - i++
+      

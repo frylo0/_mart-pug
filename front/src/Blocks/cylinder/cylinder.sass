@@ -1,0 +1,62 @@
+.cylinder
+   $sides-count: 14
+   $forwardness: 0
+   $side-opacity: 1
+   $size-factor: 2
+
+   #container
+      text-align: center
+      margin: 0 auto
+      top: 450px
+      width: 550px
+      -moz-perspective: 900px
+      -webkit-perspective: 900
+
+      &:hover *
+         animation-play-state: paused
+
+   #frame
+      width: 33px
+      transform-style: preserve-3d
+
+      /* translate must be last
+      transform: rotateX(35deg) rotateY(45deg) rotateZ(15deg) translate3d(325px, -70px, 50px)
+
+   .strip
+      transform-style: preserve-3d
+      animation: spin 25s infinite linear
+
+      $side-width: 816px * $size-factor / $sides-count
+      div
+         position: absolute
+         background: #000 url(http://baloziproductions.com/thailand-sunrise.jpg)
+    
+         /* background image is 792px 320px, try with green-hills or thailand-sunrise.jpg
+         border: solid rgb(145, 87, 0)
+         border-width: thin 0
+         height: 320px
+         width: $side-width
+         opacity: $side-opacity
+
+      $i: 0
+      $x-max: 792px * $size-factor
+      $x-step: $x-max / $sides-count
+      $deg-max: 360deg
+      $deg-step: $deg-max / $sides-count
+
+      @while $i < $sides-count
+         .cylinder-l-#{$i}
+            background-position-x: #{$x-max - ( $i * $x-step )}
+            background-position-y: 0
+
+            transform: rotateY(#{0deg + ( $i * $deg-step )}) translateZ(#{(124px + $forwardness) * $size-factor})
+         
+         $i: $i + 1
+
+
+   @keyframes spin
+      from
+         transform: rotateY(0)
+
+      to
+         transform: rotateY(-360deg)

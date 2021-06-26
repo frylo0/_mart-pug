@@ -1,0 +1,30 @@
+//- All Thanks to Holy Javascript and me
+
+//- Core code for all mixins, you must put this code in some file and include on you need
+
+mixin mixin-block(name)
+  //- this mixin set named block data to some global scope
+  - global.maxinData = global.maxinData || {}
+  - global.mixinCallId = global.mixinCallId || 0
+  - global.maxinData[global.mixinCallId] = global.maxinData[global.mixinCallId] || {}
+  if block
+    - global.maxinData[global.mixinCallId][name] = () => block()
+
+mixin mixin-block-exists(name)
+  //- Checking if named data exists and displaying block
+  - global.maxinDataExists = global.maxinDataExists || function(name) { return global.maxinData !== undefined && global.maxinData[global.mixinCallId] !== undefined && global.maxinData[global.mixinCallId][name] !== undefined; }
+  if block && global.maxinDataExists(name)
+    block
+    
+mixin mixin-block-get(name)
+  //- Displaying block if exists
+  if global.maxinData !== undefined && global.mixinCallId !== undefined
+    if global.maxinData[global.mixinCallId]
+      if global.maxinData[global.mixinCallId][name]
+        - global.maxinData[global.mixinCallId][name]()
+
+mixin mixin-next
+  //- Switching to next
+  - global.mixinCallId = (global.mixinCallId || 0) + 1;
+  
+//- End of core code

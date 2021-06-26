@@ -1,0 +1,30 @@
+$headerHeight: 123/16*1rem
+$sectionMainMT: 47/16*1rem
+$sectionMainHeight: calc(100vh - #{$headerHeight} - #{$sectionMainMT} - 2px)
+   
+@import ../../bundle
+@import ../../Blocks/product/product
+
+.title
+   &_page
+      margin-top: 14rem
+      margin-bottom: px_to_rem(38)
+      font-size: px_to_em(30)
+      
+.select
+   width: px_to_em(177)
+   margin-right: px_to_em(35)
+   &:last-child
+      margin-right: 0
+
+.selects
+   margin-bottom: px_to_rem(93)
+   
+.product-shop
+   margin-right: px_to_em(74)
+   margin-bottom: px_to_em(69)
+   &:nth-child(2n)
+      margin-right: 0
+      
+
+@import ../../Blocks/product-shop/product-shop

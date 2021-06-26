@@ -1,0 +1,22 @@
+include ../../bundle.pug
+
+include ../../Blocks/section/section.pug
+include ../../Blocks/product/product.pug
+include ../../Blocks/cylinder/cylinder.pug
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Консультации | Шпаргалка для лучшей жизни
+  body
+    +header()
+    +scroll-top-button()
+    +devicer()
+      +title('Виды консультаций').title_consult-types.mt2o5
+      +cylinder()
+        +side(1)
+          h1(style="color: yellow") Hello World
+    +footer()

@@ -1,0 +1,82 @@
+include ../../bundle.pug
+
+include ../../Blocks/product-shop/product-shop.pug
+
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Магазин шпаргалок | Шпаргалка для лучшей жизни
+  body
+    +header()
+    +scroll-top-button()
+    +devicer()
+      +title('Магазин шпаргалок').title_page
+      .row.selects.jcc
+        +select([
+          'Любая тематика',
+          'Нумерология',
+          'Очень очень очень длинное название',
+          'Личностный рост',
+          'Семейная терапия'
+        ])
+        +select([
+          'Любая стоимость',
+          '1 - 200 руб',
+          '200 - 500 руб',
+          '500 - 1000 руб',
+          '1000 - 3000 руб',
+          '3000 - 5000 руб'
+        ])
+        +select([
+          'Любой формат',
+          'Вебинары',
+          'Курсы',
+          'Книги'
+        ])
+      .products.row.wrap
+        +product-shop({
+          title: 'Длинное название',
+          type: 'Вебинар',
+          price: '1 250 руб',
+          image: 'photo_3T5A0395.jpg',
+          tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+        })
+          p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+          p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+          p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+        +product-shop({
+          title: 'Очень очень очень очень длинное название',
+          type: 'Вебинар',
+          price: '77 000 руб',
+          sales: '55 000 руб',
+          image: 'photo_IMG_9403-1.jpg',
+          tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+        })
+          p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+          p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+          p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+        +product-shop({
+          title: 'Очень очень очень очень длинное название',
+          type: 'Курсы',
+          price: '50 000 руб',
+          image: 'photo_3T5A0239.jpg',
+          tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+        })
+          p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+          p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+          p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+          p Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis.
+        +product-shop({
+          title: 'Длинное название',
+          type: 'Книга',
+          price: '50 000 руб',
+          image: 'photo_3T5A0328.jpg',
+          tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+        })
+          p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+          p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+    +footer()

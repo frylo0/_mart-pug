@@ -1,0 +1,41 @@
+//-
+   title: str
+   type: str
+   price: str
+   sales: str
+   tags: arr<str>
+   
+   description: block
+
+mixin product-shop(options)
+   .product-shop.row.rel&attributes(attributes)
+      - const isSales = 'sales' in options && options.sales
+      if isSales
+         .product-shop__sales-badge.abs.row.jcc.aic Акция
+      .col.product-shop__card
+         .product-shop__image.product__image-wrapper.rel.row.jcc.aic
+            .product__image.w100.h100.abs.ct-abs.w100.h100(style=`background-image: url('../Attach/Images/${options.image}');`)
+            .product__image-gradient.abs.top0.left0.w100.h100(style=`background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);`)
+         .product-shop__title= options.title
+         .product-shop__type= options.type
+         if isSales
+            .product-shop__price-block.row
+               .product-shop__price_sales= options.sales
+               .product-shop__price_before= options.price
+         else
+            .product-shop__price-block.product-shop__price= options.price
+         .product-shop__controls
+            a(href='#')
+               +button('Подробнее').product-shop__button-read-more 
+            a(href='#')
+               +button('Купить').product-shop__button-buy
+      .col.product-shop__content
+         .product-shop__tags
+            each tag in options.tags
+               a(href='#').product-shop__tag.dib.tdn= tag
+               |  
+         .product-shop__description
+            if block
+               block
+
+      

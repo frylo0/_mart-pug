@@ -1,0 +1,20 @@
+mixin cylinder()
+
+   - var sides = {}
+   mixin side(number)
+      - sides[number] = block
+      //- block() // Ignore block
+   block
+
+   .cylinder&attributes(attributes)
+      #container
+         h1 Image Wrapped Around A Spinning strip
+         #frame
+            .strip
+               - let max = 14
+               - let i = 0
+               while i < max
+                  div(class=`cylinder-l-${i}`)
+                     if sides[i]
+                        - sides[i]()
+                  - i++

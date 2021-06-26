@@ -1,0 +1,36 @@
+$select-row-size: px_to_em(27)
+.select
+   &__basis
+      height: $select-row-size
+
+   &__title
+      padding: px_to_em(8)
+      border: 1px solid $-c2
+      font-size: px_to_em(13)
+      border-radius: 5px 0 0 5px
+      white-space: nowrap 
+      overflow: hidden
+      text-overflow: ellipsis     
+      width: calc(100% - #{$select-row-size})
+      line-height: $select-row-size / 2
+      cursor: pointer
+
+   &__toggle
+      height: 100%
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
+      background: $-c2
+      
+   &__dropdown
+      top: calc(#{$select-row-size} + 2px)
+      left: 0
+      border: 1px solid $-c2
+      border-radius: 5px
+      width: 100%
+      background: $-c1
+      z-index: 30
+      
+      &:hover
+         z-index: 3
+   
+@import __option/select__option
