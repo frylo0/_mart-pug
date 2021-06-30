@@ -2,6 +2,12 @@
    $size: px_to_em(496)
    $gutter-middle: px_to_em(24)
    width: $size
+
+   $stop1: 1140px
+   
+   @media screen and ( max-width: $stop1 )
+      flex-direction: column
+      width: $size / 2 - $gutter-middle / 2
    
    &__sales-badge
       font-size: px_to_em(20)
@@ -21,6 +27,8 @@
    &__card
       width: $size / 2 - $gutter-middle / 2
       margin-right: $gutter-middle
+      @media screen and ( max-width: $stop1 )
+         margin-right: 0
    &__image
       height: px_to_em(224)
       border-radius: 5px
@@ -29,12 +37,19 @@
    &__title
       font-family: var(--f-ars-b)
       font-size: px_to_em(24)
+      @media screen and ( max-width: $stop1 )
+         text-align: center
    &__type
       font-family: var(--f-ars-b)
       font-size: px_to_em(13)
       margin-top: px_to_em(7, 13)
+      @media screen and ( max-width: $stop1 )
+         text-align: center
    &__price-block
       margin-top: 0.15em
+      @media screen and ( max-width: $stop1 )
+         text-align: center
+         justify-content: center
    &__price
       font-family: var(--f-rlw-r)
       letter-spacing: 0.2em
@@ -63,6 +78,8 @@
    &__tags
       width: calc(100% + #{px_to_em(5)}
       margin-bottom: px_to_em(18)
+      @media screen and ( max-width: $stop1 )
+         margin-top: px_to_em(18)
    &__tag
       color: $-c6
       &::before
