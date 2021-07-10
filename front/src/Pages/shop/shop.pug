@@ -3,6 +3,17 @@ include ../../bundle.pug
 include ../../Blocks/product-shop/product-shop.pug
 
 
+mixin page-block(title, icon, options = {})
+  .page-block.row.aic(class=([ 
+    options.isFullWidth ? 'page-block_full-width' : '', 
+  ].join(' ')))&attributes(attributes)
+    a(href='#').page-block__title= title
+    img.page-block__icon(src=`../Attach/Images/${icon}`)
+    if options.isFullWidth
+      .page-block__content
+        if block
+          block
+
 <!DOCTYPE html>
 html(lang="en")
   head
@@ -79,4 +90,27 @@ html(lang="en")
         })
           p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
           p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+      +title('Возможно вы искали?').title_pages
+      .page-blocks
+        .page-blocks_1-2
+          +page-block('БЛОГ', 'icon_blog.svg', { isFullWidth: true }).page-block_blog
+            .row
+              a(href='#')
+                | Как не позволять людям влиять на нас
+              a(href='#')
+                | Не играйте мне на нервах или как научиться противостоять третированию
+          +page-block('КОНСУЛЬТАЦИИ', 'icon_promotion.svg', { isFullWidth: true }).page-block_consult
+            .row
+              .row.page-block_consult__directions
+                - const directions = {'Разовые': "pink_mentor.svg", 'Серийные': "pink_meeting.svg", 'Семейные': "pink_networking.svg"}
+                each icon, title in directions
+                  a(href='#').col.aic
+                    img(src=`../Attach/Images/${icon}`)
+                    span= title
+              .col.page-block_consult__top.jcc
+                a(href='#') Ассоциативная шпаргалка
+                a(href='#') Нумерологический рассчет женихов
+        .page-blocks_3-4
+          +page-block('ОБО МНЕ', 'icon_drawing-tablet.svg').page-block_about-me
+          +page-block('О ПРОЕКТЕ', 'icon_startup.svg').page-block_about-project
     +footer()
