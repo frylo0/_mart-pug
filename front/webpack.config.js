@@ -125,6 +125,7 @@ const development = {
     contentBase: './dist', //localhost root folder
     open: true, //open in this browser
     host: '0.0.0.0',
+    openPage: 'home/',
   },
 };
 
