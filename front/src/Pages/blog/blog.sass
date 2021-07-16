@@ -7,6 +7,13 @@ $sectionMainHeight: calc(100vh - #{$headerHeight} - #{$sectionMainMT} - 2px)
 @import ../../Blocks/product-shop/product-shop
 
 
+
+.devicer
+   @media screen and ( max-width: $-stop-phone-max )
+      overflow: hidden
+   
+
+
 .blog-title
    margin-top: 14rem
    @media screen and ( max-width: $-stop-tablet-min )
@@ -15,7 +22,6 @@ $sectionMainHeight: calc(100vh - #{$headerHeight} - #{$sectionMainMT} - 2px)
       font-size: 0.8em
    @media screen and ( min-width: 410px )
       margin-top: 14em
-
 
    
 
@@ -26,6 +32,7 @@ $sectionMainHeight: calc(100vh - #{$headerHeight} - #{$sectionMainMT} - 2px)
       @media screen and ( max-width: $-stop-tablet-min )
          margin-bottom: 1.4em
    
+
 
 .grid
    &-pc
