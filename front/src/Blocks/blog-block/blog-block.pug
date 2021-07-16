@@ -1,0 +1,5 @@
+mixin blog-block(title, image, button='Подробнее')
+   a(href='#').blog-block.rel.db(style=`background: linear-gradient(#f6d3ce1c, #f6d3ce7c), url('../Attach/Images/${image}') center/cover no-repeat;`)&attributes(attributes)
+      .blog-block__title.abs.ct-abs.ff-ars-b= title
+      .blog-block__button.abs.ct-abs_horiz.row.jcc.aic.cup= button
+      

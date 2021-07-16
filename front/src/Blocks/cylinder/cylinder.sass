@@ -1,42 +1,69 @@
-.cylinder
-   $sides-count: 14
-   $forwardness: 0
-   $side-opacity: 1
-   $size-factor: 2
+$cylinder-sides-count: 10
+$cylinder-forwardness: 1.5vw
+$cylinder-size-factor: 3
 
-   #container
+$cylinder-start-position--rotate-x: 0deg
+$cylinder-start-position--rotate-y: 127deg
+$cylinder-start-position--rotate-z: 0deg
+
+$cylinder-start-position--translate-x: -125px
+$cylinder-start-position--translate-y: 0px
+$cylinder-start-position--translate-z: 0px
+
+$cylinder-side-height: fit-content
+$cylinder-side-width: 90vw * $cylinder-size-factor / $cylinder-sides-count
+
+.cylinder
+   $sides-count: $cylinder-sides-count
+   $forwardness: $cylinder-forwardness
+   $size-factor: $cylinder-size-factor
+   
+   $start-position--rotate-x: $cylinder-start-position--rotate-x
+   $start-position--rotate-y: $cylinder-start-position--rotate-y
+   $start-position--rotate-z: $cylinder-start-position--rotate-z
+   
+   $start-position--translate-x: $cylinder-start-position--translate-x
+   $start-position--translate-y: $cylinder-start-position--translate-y
+   $start-position--translate-z: $cylinder-start-position--translate-z
+   
+   $side-height: $cylinder-side-height
+   $side-width: $cylinder-side-width
+   
+   //border: 1px solid black
+
+   .cylinder-container
       text-align: center
       margin: 0 auto
       top: 450px
       width: 550px
-      -moz-perspective: 900px
-      -webkit-perspective: 900
+      $perspective: 900
+      -moz-perspective: $perspective * 1px
+      -webkit-perspective: $perspective
 
       &:hover *
          animation-play-state: paused
 
-   #frame
-      width: 33px
+   .cylinder-frame
+      width: 1px
+      margin: auto
+      height: $side-height
       transform-style: preserve-3d
 
       /* translate must be last
-      transform: rotateX(35deg) rotateY(45deg) rotateZ(15deg) translate3d(325px, -70px, 50px)
+      transform: rotateX(#{$start-position--rotate-x}) rotateY(#{$start-position--rotate-y}) rotateZ(#{$start-position--rotate-z}) 
+      //animation: spin 25s infinite linear
 
    .strip
       transform-style: preserve-3d
-      animation: spin 25s infinite linear
+      transform: translate3d(#{$start-position--translate-x}, #{$start-position--translate-y}, #{$start-position--translate-z})
 
-      $side-width: 816px * $size-factor / $sides-count
-      div
+      > div
          position: absolute
-         background: #000 url(http://baloziproductions.com/thailand-sunrise.jpg)
+         //background: #00000025
     
          /* background image is 792px 320px, try with green-hills or thailand-sunrise.jpg
-         border: solid rgb(145, 87, 0)
-         border-width: thin 0
-         height: 320px
+         height: $side-height
          width: $side-width
-         opacity: $side-opacity
 
       $i: 0
       $x-max: 792px * $size-factor
@@ -45,11 +72,19 @@
       $deg-step: $deg-max / $sides-count
 
       @while $i < $sides-count
-         .cylinder-l-#{$i}
-            background-position-x: #{$x-max - ( $i * $x-step )}
-            background-position-y: 0
+         .cylinder-l-#{$i} // cylinder-line-N
+            //background-position-x: #{$x-max - ( $i * $x-step )}
+            //background-position-y: 0
 
-            transform: rotateY(#{0deg + ( $i * $deg-step )}) translateZ(#{(124px + $forwardness) * $size-factor})
+            transform: rotateY(#{0deg + ( $i * $deg-step )}) translateZ(#{(13vw + $forwardness) * $size-factor})
+            transform-style: preserve-3d
+            
+            @if $i < 4
+            @else 
+               display: none
+               
+            > div
+               transform-style: preserve-3d
          
          $i: $i + 1
 
@@ -60,3 +95,4 @@
 
       to
          transform: rotateY(-360deg)
+         
