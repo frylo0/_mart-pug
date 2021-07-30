@@ -1,12 +1,8 @@
 include ../../bundle.pug
 
-include ../../Blocks/section/section.pug
-include ../../Blocks/cylinder/cylinder.pug
-include ../../Blocks/product/product.pug
-include ../../Blocks/blog-block/blog-block.pug
-include ../../Blocks/blog-title/blog-title.pug
 include ../../Blocks/product/product.pug
 include ../../Blocks/product-shop/product-shop.pug
+include ../../Blocks/blog-theme-preview/blog-theme-preview.pug
 
 <!DOCTYPE html>
 html(lang="en")
@@ -14,44 +10,17 @@ html(lang="en")
       meta(charset="UTF-8")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
       meta(http-equiv="X-UA-Compatible", content="ie=edge")
-      title Блог | Шпаргалка для лучшей жизни
+      title Отношения | Шпаргалка для лучшей жизни
    body
 
       +header()
       +scroll-top-button()
 
-      +devicer()
-
-         +blog-title()
-
-         +cylinder()#cylinder.rel.grid-pc
-            +side(4)
-               +blog-block('Личностный рост', 'photo_IMG_9403-1.jpg')
-               +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
-            +side(3)
-               +blog-block('Отношения', 'photo_3T5A0419.jpg')
-               +blog-block('Позитивное мышление', 'photo_3T5A9944.jpg')
-            +side(2)
-               +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
-               +blog-block('Личностный рост', 'photo_IMG_9403-1.jpg')
-            +side(1)
-               +blog-block('Позитивное мышление', 'photo_3T5A9944.jpg')
-               +blog-block('Отношения', 'photo_3T5A0419.jpg')
-            +side(0)
-               +blog-block('Личностный рост', 'photo_IMG_9403-1.jpg')
-               +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
-         .grid-mobile.row.wrap.jcc
-            +blog-block('Отношения', 'photo_3T5A0419.jpg')
-            +blog-block('Позитивное мышление', 'photo_3T5A9944.jpg')
-            +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
-            +blog-block('Личностный рост', 'photo_IMG_9403-1.jpg')
-            +blog-block('Позитивное мышление', 'photo_3T5A9944.jpg')
-            +blog-block('Отношения', 'photo_3T5A0419.jpg')
-            +blog-block('Личностный рост', 'photo_IMG_9403-1.jpg')
-            +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
-
-
-         +title('Популярные записи').title_articles
+      +devicer().ovh
+         +blog-theme-preview('Отношения', 'photo_3T5A0395.jpg')
+            p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. 
+            p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer <u>sed at pulvinar</u> id nunc. <em>Pulvinar</em> laoreet neque vulputate ultricies felis. .
+            p Orci neque ultrices pretium est et lectus enim vitae pellentesque.
          .articles.rel.row.wrap.jcc
             +product-shop({
                title: 'Очень очень очень очень длинное название',
@@ -90,9 +59,5 @@ html(lang="en")
             })
                p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
                p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
-               
-         +section('Блог', 'shadow_message.svg', '3T5A0219.jpg', './blog', {isMain: true, noReadMore: true})
-            p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Ut rutrum adipiscing hendrerit consectetur nulla cursus non gravida. Quam venenatis amet ultrices quam massa faucibus maecenas pellentesque. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-            p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque leo ac id dictumst. Rhoncus, dictum commodo tincidunt ornare sit odio pellentesque amet pretium.
 
       +footer()

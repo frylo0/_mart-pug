@@ -3,7 +3,7 @@ $cylinder-forwardness: 1.5vw
 $cylinder-size-factor: 3
 
 $cylinder-start-position--rotate-x: 0deg
-$cylinder-start-position--rotate-y: 127deg
+$cylinder-start-position--rotate-y: 117deg
 $cylinder-start-position--rotate-z: 0deg
 
 $cylinder-start-position--translate-x: -125px
@@ -79,7 +79,7 @@ $cylinder-side-width: 90vw * $cylinder-size-factor / $cylinder-sides-count
             transform: rotateY(#{0deg + ( $i * $deg-step )}) translateZ(#{(13vw + $forwardness) * $size-factor})
             transform-style: preserve-3d
             
-            @if $i < 4
+            @if $i < 5
             @else 
                display: none
                

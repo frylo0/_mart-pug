@@ -26,8 +26,8 @@ const cylinderManager = { // cylinderManager
       el: cylinder.querySelector('.cylinder-container'),
    },
    rotate: {
-      startDegree: 127,
-      factor: 0.03 - (window.innerWidth / 1000000),
+      startDegree: 106,
+      factor: 0.01 - (window.innerWidth / 1000000),
       basis: 0,
       calcBasis() {
          this.basis = this.startDegree - windowHalfWidth * this.factor;
