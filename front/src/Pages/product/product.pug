@@ -1,0 +1,29 @@
+include ../../bundle.pug
+
+include ../../Blocks/product-preview/product-preview.pug
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Название продукта | Шпаргалка для лучшей жизни
+  body
+    +header()
+    +scroll-top-button()
+    +devicer()
+      +product-preview().dn
+      .page__content
+        +product-preview('normal')
+        p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed risus pretium quam vulputate dignissim suspendisse in est ante. Nibh praesent tristique magna sit amet. Quisque egestas diam in arcu cursus euismod. Interdum consectetur libero id faucibus nisl tincidunt eget nullam non. Est sit amet facilisis magna etiam. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Justo laoreet sit amet cursus sit amet. Auctor urna nunc id cursus metus. Elit pellentesque habitant morbi tristique senectus et netus. Tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse sed nisi lacus sed viverra tellus in. Condimentum id venenatis a condimentum vitae sapien. Diam quam nulla porttitor massa. Sagittis vitae et leo duis ut diam quam. Purus in mollis nunc sed id semper. Aliquam faucibus purus in massa tempor.
+        p Faucibus nisl tincidunt eget nullam non nisi. Pretium aenean pharetra magna ac placerat vestibulum. Tortor id aliquet lectus proin nibh nisl condimentum id. Sit amet porttitor eget dolor morbi non. Nulla facilisi cras fermentum odio eu feugiat. Aliquam nulla facilisi cras fermentum odio eu feugiat. Nisl condimentum id venenatis a condimentum vitae. Placerat duis ultricies lacus sed turpis tincidunt id. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Suspendisse sed nisi lacus sed viverra tellus. Non nisi est sit amet facilisis magna etiam tempor. Porttitor lacus luctus accumsan tortor. Elementum eu facilisis sed odio morbi quis. Mi tempus imperdiet nulla malesuada pellentesque elit eget gravida cum. Sit amet justo donec enim diam vulputate ut. Vulputate mi sit amet mauris commodo quis imperdiet massa.
+        p Dui ut ornare lectus sit amet est placerat in egestas. Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Commodo elit at imperdiet dui accumsan sit amet nulla. Fames ac turpis egestas integer eget aliquet nibh. Curabitur vitae nunc sed velit dignissim. Vitae congue eu consequat ac felis donec et odio pellentesque. Pellentesque sit amet porttitor eget dolor morbi. Porta lorem mollis aliquam ut porttitor. Pellentesque elit eget gravida cum sociis natoque penatibus et. Aliquet nibh praesent tristique magna sit amet purus. Nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut. Nisl suscipit adipiscing bibendum est ultricies integer. Sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus. Odio morbi quis commodo odio. Sed vulputate odio ut enim blandit volutpat. Quis enim lobortis scelerisque fermentum dui faucibus in ornare. Quis auctor elit sed vulputate mi sit amet mauris commodo. Quis hendrerit dolor magna eget est. Scelerisque viverra mauris in aliquam sem. Cursus metus aliquam eleifend mi in nulla.
+        p
+          figure
+            img(src='../Attach/Images/photo_3T5A0419.jpg')
+            figcaption Заголовок изображения
+        p Sit amet nulla facilisi morbi tempus iaculis. In nisl nisi scelerisque eu ultrices vitae. Nec dui nunc mattis enim ut. Id nibh tortor id aliquet. Sed pulvinar proin gravida hendrerit lectus a. Ultrices eros in cursus turpis massa tincidunt dui ut. Elementum tempus egestas sed sed. Mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent. Sapien nec sagittis aliquam malesuada bibendum arcu. Augue eget arcu dictum varius duis at consectetur. Viverra accumsan in nisl nisi scelerisque eu ultrices vitae.
+        p Ut pharetra sit amet aliquam id diam maecenas ultricies mi. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Quam quisque id diam vel quam elementum pulvinar. Et egestas quis ipsum suspendisse ultrices gravida. Sagittis vitae et leo duis ut diam. Sed egestas egestas fringilla phasellus faucibus scelerisque. Placerat duis ultricies lacus sed. Semper risus in hendrerit gravida rutrum quisque non. Ultricies lacus sed turpis tincidunt. Massa placerat duis ultricies lacus sed turpis tincidunt. Venenatis tellus in metus vulputate eu scelerisque felis. Enim eu turpis egestas pretium aenean. Adipiscing elit pellentesque habitant morbi tristique. Aenean pharetra magna ac placerat vestibulum. Vel turpis nunc eget lorem. Praesent semper feugiat nibh sed pulvinar proin gravida. Dapibus ultrices in iaculis nunc sed augue. Venenatis urna cursus eget nunc scelerisque viverra mauris. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam.         
+        +product-preview('button')
+    +footer()

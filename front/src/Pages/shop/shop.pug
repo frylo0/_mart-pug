@@ -3,11 +3,11 @@ include ../../bundle.pug
 include ../../Blocks/product-shop/product-shop.pug
 
 
-mixin page-block(title, icon, options = {})
+mixin page-block(title, icon, link, options = {})
    .page-block.row.aic(class=([ 
       options.isFullWidth ? 'page-block_full-width' : '', 
    ].join(' ')))&attributes(attributes)
-      a(href='#').page-block__title= title
+      a(href=link).page-block__title= title
       img.page-block__icon(src=`../Attach/Images/${icon}`)
       if options.isFullWidth
          .page-block__content
@@ -93,13 +93,13 @@ html(lang="en")
          +title('Возможно вы искали?').title_pages
          .page-blocks
             .page-blocks_1-2
-               +page-block('БЛОГ', 'icon_blog.svg', { isFullWidth: true }).page-block_blog
+               +page-block('БЛОГ', 'icon_blog.svg', '../blog', { isFullWidth: true }).page-block_blog
                   .row
                      a(href='#')
                         | Как не позволять людям влиять на нас
                      a(href='#')
                         | Не играйте мне на нервах или как научиться противостоять третированию
-               +page-block('КОНСУЛЬТАЦИИ', 'icon_promotion.svg', { isFullWidth: true }).page-block_consult
+               +page-block('КОНСУЛЬТАЦИИ', 'icon_promotion.svg', '../consult', { isFullWidth: true }).page-block_consult
                   .row
                      .row.page-block_consult__directions
                         - const directions = {'Разовые': "pink_mentor.svg", 'Серийные': "pink_meeting.svg", 'Семейные': "pink_networking.svg"}
@@ -108,9 +108,9 @@ html(lang="en")
                               img(src=`../Attach/Images/${icon}`)
                               span= title
                      .col.page-block_consult__top.jcc
-                        a(href='#') Ассоциативная шпаргалка
-                        a(href='#') Нумерологический рассчет женихов
+                        a(href='../product') Ассоциативная шпаргалка
+                        a(href='../product') Нумерологический рассчет женихов
             .page-blocks_3-4
-               +page-block('ОБО МНЕ', 'icon_drawing-tablet.svg').page-block_about-me
-               +page-block('О ПРОЕКТЕ', 'icon_startup.svg').page-block_about-project
+               +page-block('ОБО МНЕ', 'icon_drawing-tablet.svg', '../about-me').page-block_about-me
+               +page-block('О ПРОЕКТЕ', 'icon_startup.svg', '../about-project').page-block_about-project
       +footer()

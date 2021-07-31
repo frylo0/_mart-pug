@@ -9,7 +9,7 @@
    
    description: block
 
-mixin product-shop(options)
+mixin product-shop(options = {})
    .product-shop.row.rel&attributes(attributes)
       - const isSales = 'sales' in options && options.sales
       if isSales
@@ -31,10 +31,10 @@ mixin product-shop(options)
             .product-shop__price-block.product-shop__price= options.price
          .product-shop__controls
             if options.useReadButton
-               a(href='#')
+               a(href='../product')
                   +button('Читать').product-shop__button-read-only 
             else
-               a(href='#')
+               a(href='../product')
                   +button('Подробнее').product-shop__button-read-more 
                a(href='#')
                   +button('Купить').product-shop__button-buy

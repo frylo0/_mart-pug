@@ -6,7 +6,7 @@ mixin product(title, price, description, image, options={})
             .product__title.ct-abs_horiz.bottomo5.w100.tac.ff-ars-b.fz1o25= title
       .product__description.taj.mtb1= description
       .product__footer.row.jcsb.w100
-         a(href='#')
+         a(href=( options.moreLink || '#' ))
             +button('Подробнее')
          a(href='#')
             +button('buttonSecond' in options ? options.buttonSecond : 'Купить').rel

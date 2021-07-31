@@ -1,0 +1,26 @@
+include ../product-shop/product-shop.pug
+
+mixin product-preview(mode = 'normal')
+   //- mode = normal || button
+   .product-preview.col(class=( mode == 'button' ? 'product-preview_button' : '' ))&attributes(attributes)
+      if mode == 'normal'
+         .product-preview__image(style=`background-image: url('../Attach/Images/photo_3T5A0395.jpg')`)
+      else if mode == 'button'
+         a(href='#').product-preview__image.col.jcc.ff-ars-b(style=`background-image: linear-gradient(to right, var(--c2), transparent), url('../Attach/Images/photo_3T5A0395.jpg')`)
+            if mode == 'button'
+               | КУПИТЬ
+               div 50 000 руб
+      a(href='#')
+         +button('Купить').product-preview__button.w100
+      .product-preview__title Название продукта
+      .product-preview__tags
+         - const tags = ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства']
+         each tag in tags
+            a(href='#').product-preview__tag.product-shop__tag.dib.tdn= tag
+            |  
+      .product-preview__type
+         | Тип продукта (вебинар, курс, книга)
+      div
+         .product-preview__price.product-preview__price-after 50 000 руб
+         .product-preview__price.product-preview__price-before 50 000 руб
+      

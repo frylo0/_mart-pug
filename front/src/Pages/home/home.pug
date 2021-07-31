@@ -14,7 +14,7 @@ html(lang="en")
     +header()
     +scroll-top-button()
     +devicer()
-      +section(false, 'shadow_heart.svg', '3T5A9848-2.jpg', './about-me', {isMain: true, reversed: false, sales: true, arrows: true})
+      +section(false, 'shadow_heart.svg', '3T5A9848-2.jpg', '../about-me', {isMain: true, reversed: false, sales: true, arrows: true})
         - let supertext = `<div data-json="{&amp;#!time&amp;#!:1616143704623,&amp;#!blocks&amp;#!:[{&amp;#!type&amp;#!:&amp;#!paragraph&amp;#!,&amp;#!data&amp;#!:{&amp;#!text&amp;#!:&amp;#!Это простой текст, а это <b>жирный</b>, теперь <i>курсив</i>, <mark class=\&amp;#!cdx-marker\&amp;#!>маркер</mark>, <a href=\&amp;#!http://google.com\&amp;#!>ссылка</a>, подчеркивание&amp;#!,&amp;#!alignment&amp;#!:&amp;#!left&amp;#!}},{&amp;#!type&amp;#!:&amp;#!paragraph&amp;#!,&amp;#!data&amp;#!:{&amp;#!text&amp;#!:&amp;#!Текст по центру&amp;#!,&amp;#!alignment&amp;#!:&amp;#!center&amp;#!}},{&amp;#!type&amp;#!:&amp;#!paragraph&amp;#!,&amp;#!data&amp;#!:{&amp;#!text&amp;#!:&amp;#!Текст по правому краю&amp;#!,&amp;#!alignment&amp;#!:&amp;#!right&amp;#!}},{&amp;#!type&amp;#!:&amp;#!list&amp;#!,&amp;#!data&amp;#!:{&amp;#!style&amp;#!:&amp;#!ordered&amp;#!,&amp;#!items&amp;#!:[&amp;#!Простой нумерованный список&amp;#!,&amp;#!Ещё раз&amp;#!]}},{&amp;#!type&amp;#!:&amp;#!header&amp;#!,&amp;#!data&amp;#!:{&amp;#!text&amp;#!:&amp;#!Разрыв заголовком&amp;#!,&amp;#!level&amp;#!:2}},{&amp;#!type&amp;#!:&amp;#!list&amp;#!,&amp;#!data&amp;#!:{&amp;#!style&amp;#!:&amp;#!unordered&amp;#!,&amp;#!items&amp;#!:[&amp;#!Ненумерованный список&amp;#!,&amp;#!Ещё раз&amp;#!]}}],&amp;#!version&amp;#!:&amp;#!2.19.3&amp;#!}"><p align="left">Это простой текст, а это <b>жирный</b>, теперь <i>курсив</i>, <mark class="cdx-marker">маркер</mark>, <a href="http://google.com">ссылка</a>, подчеркивание</p><p align="center">Текст по центру</p><p align="right">Текст по правому краю</p><ol><li>Простой нумерованный список</li><li>Ещё раз</li></ol><h2>Разрыв заголовком</h2><ul><li>Ненумерованный список</li><li>Ещё раз</li></ul></div>`
         | !{supertext}
         p.
@@ -25,11 +25,11 @@ html(lang="en")
           cursus non gravida. Quam venenatis amet ultrices quam massa 
           faucibus maecenas pellentesque. Orci neque ultrices pretium 
           est et lectus enim vitae pellentesque.
-      +section('О проекте', 'shadow_light-bulb.svg', '3T5A0480-1.jpg', './about-project', {reversed: true})
-      +section('Консультации психолога', 'shadow_users.svg', '3T5A0328.jpg', './consult')
-      +section('Мероприятия', 'shadow_clock.svg', '3T5A0149.jpg', './events', {reversed: true})
-      +section('Нумерология', 'shadow_earth-globe.svg', '3T5A0395.jpg', './numerology')
-      +section('Магазин шпаргалок', 'shadow_shopping-bag.svg', '3T5A0160-1.jpg', './shop', {reversed: true})
-      +section('Блог', 'shadow_message.svg', '3T5A0219.jpg', './blog')
+      +section('О проекте', 'shadow_light-bulb.svg', '3T5A0480-1.jpg', '../about-project', {reversed: true})
+      +section('Консультации психолога', 'shadow_users.svg', '3T5A0328.jpg', '../consult')
+      +section('Мероприятия', 'shadow_clock.svg', '3T5A0149.jpg', '../events', {reversed: true})
+      +section('Нумерология', 'shadow_earth-globe.svg', '3T5A0395.jpg', '../numerology')
+      +section('Магазин шпаргалок', 'shadow_shopping-bag.svg', '3T5A0160-1.jpg', '../shop', {reversed: true})
+      +section('Блог', 'shadow_message.svg', '3T5A0219.jpg', '../blog')
       +contacts()#contacts
     +footer()
