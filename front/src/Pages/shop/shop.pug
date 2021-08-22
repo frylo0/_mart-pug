@@ -95,16 +95,16 @@ html(lang="en")
             .page-blocks_1-2
                +page-block('БЛОГ', 'icon_blog.svg', '../blog', { isFullWidth: true }).page-block_blog
                   .row
-                     a(href='#')
+                     a(href='../product')
                         | Как не позволять людям влиять на нас
-                     a(href='#')
+                     a(href='../product')
                         | Не играйте мне на нервах или как научиться противостоять третированию
                +page-block('КОНСУЛЬТАЦИИ', 'icon_promotion.svg', '../consult', { isFullWidth: true }).page-block_consult
                   .row
                      .row.page-block_consult__directions
                         - const directions = {'Разовые': "pink_mentor.svg", 'Серийные': "pink_meeting.svg", 'Семейные': "pink_networking.svg"}
                         each icon, title in directions
-                           a(href='#').col.aic
+                           a(href='../product').col.aic
                               img(src=`../Attach/Images/${icon}`)
                               span= title
                      .col.page-block_consult__top.jcc

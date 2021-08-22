@@ -6,11 +6,11 @@ mixin product-preview(mode = 'normal')
       if mode == 'normal'
          .product-preview__image(style=`background-image: url('../Attach/Images/photo_3T5A0395.jpg')`)
       else if mode == 'button'
-         a(href='#').product-preview__image.col.jcc.ff-ars-b(style=`background-image: linear-gradient(to right, var(--c2), transparent), url('../Attach/Images/photo_3T5A0395.jpg')`)
+         a(href='../buy').product-preview__image.col.jcc.ff-ars-b(style=`background-image: linear-gradient(to right, var(--c2), transparent), url('../Attach/Images/photo_3T5A0395.jpg')`)
             if mode == 'button'
                | КУПИТЬ
                div 50 000 руб
-      a(href='#')
+      a(href='../buy')
          +button('Купить').product-preview__button.w100
       .product-preview__title Название продукта
       .product-preview__tags

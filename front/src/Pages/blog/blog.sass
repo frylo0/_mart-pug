@@ -31,6 +31,10 @@ $sectionMainHeight: calc(100vh - #{$headerHeight} - #{$sectionMainMT} - 2px)
       margin-bottom: 2em
       @media screen and ( max-width: $-stop-tablet-min )
          margin-bottom: 1.4em
+      &-recent
+         margin-top: 1em
+      &-popular
+         margin-top: 0.5em
    
 
 
@@ -123,6 +127,10 @@ $blog-articles-margin: px_to_em(50)
       margin-top: calc( (100vw - #{$product-shop-size / 2}) / 2 - #{$blog-articles-margin} )
    @media screen and ( max-width: 450px )
       margin-top: 3em
+      
+
+.footer
+   margin-top: 3em
 
    
 @import ../../Blocks/section/section

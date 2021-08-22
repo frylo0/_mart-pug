@@ -1,0 +1,35 @@
+include ../../bundle.pug
+
+include ../../Blocks/product-shop/product-shop.pug
+
+<!DOCTYPE html>
+html(lang="en")
+   head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      meta(http-equiv="X-UA-Compatible", content="ie=edge")
+      title Покупка, Название товара | Шпаргалка для лучшей жизни
+   body
+      +header()
+      +scroll-top-button()
+      +devicer()
+         +title('Покупка: Название товара').title_page
+         .products.mA.wfc
+            +product-shop({
+               title: 'Очень очень очень очень длинное название',
+               type: 'Вебинар',
+               price: '77 000 руб',
+               sales: '55 000 руб',
+               image: 'photo_IMG_9403-1.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            a(href='#')
+               +button().button_pay
+                  span Оплатить
+                  br
+                  strong 55 000 руб
+            
+      +footer()

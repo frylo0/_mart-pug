@@ -51,7 +51,7 @@ html(lang="en")
             +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
 
 
-         +title('Популярные записи').title_articles
+         +title('Популярные записи').title_articles.title_articles-popular
          .articles.rel.row.wrap.jcc
             +product-shop({
                title: 'Очень очень очень очень длинное название',
@@ -72,6 +72,8 @@ html(lang="en")
             })
                p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
                p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+         +title('Свежие записи').title_articles.title_articles-recent
+         .articles.rel.row.wrap.jcc
             +product-shop({
                title: 'Длинное название',
                image: 'photo_3T5A0328.jpg',
@@ -91,8 +93,8 @@ html(lang="en")
                p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
                p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
                
-         +section('Блог', 'shadow_message.svg', '3T5A0219.jpg', './blog', {isMain: true, noReadMore: true})
-            p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Ut rutrum adipiscing hendrerit consectetur nulla cursus non gravida. Quam venenatis amet ultrices quam massa faucibus maecenas pellentesque. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-            p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque leo ac id dictumst. Rhoncus, dictum commodo tincidunt ornare sit odio pellentesque amet pretium.
+         //-+section('Блог', 'shadow_message.svg', '3T5A0219.jpg', './blog', {isMain: true, noReadMore: true})
+         //-   p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Ut rutrum adipiscing hendrerit consectetur nulla cursus non gravida. Quam venenatis amet ultrices quam massa faucibus maecenas pellentesque. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+         //-   p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque leo ac id dictumst. Rhoncus, dictum commodo tincidunt ornare sit odio pellentesque amet pretium.
 
       +footer()
