@@ -1,0 +1,22 @@
+include ../../bundle.pug
+
+include ../../Blocks/contacts/contacts.pug
+include ../../Blocks/event-block/event-block.pug
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Мероприятия | Шпаргалка для лучшей жизни
+  body
+    +header()
+    +scroll-top-button()
+    +devicer()
+      +title('Ближайшие мероприятия').title_events
+      .event-blocks
+        +event-block('Вебинар. Личностный рост', '00 января, 00:00', 'photo_3T5A0443.jpg')
+        +event-block('Консультация. Семейное счастье', '31 февраля, 23:59', 'photo_3T5A0266.jpg')
+      +contacts()#contacts
+    +footer()

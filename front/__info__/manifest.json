@@ -1,0 +1,20 @@
+{
+"title": "<span style=\"font: italic 1.1em normal\"><b>Шпаргалка</b>&nbsp;для лучшей&nbsp;жизни</span><div style=\"position: absolute; bottom: -2.75rem; color: black; left: 50%; transform: translateX(-50%); font: 0.6em monospace; white-space: pre;\">Сайт-платформа психолога</div>",
+    "creation_date": "02.02.2021",
+    "adaptive": ["pc", "mobile"],
+
+    "priority": 12,
+
+    "is_supported": true,
+    "is_hidden": false,
+
+    "style": {
+    	"preview": {
+            "background": "url($path/icon.png) no-repeat center/cover" 
+    	},
+    	"content": {
+            "background": "#ffc0cbee"  
+    	},
+        "meta": "dark"
+    }
+}
