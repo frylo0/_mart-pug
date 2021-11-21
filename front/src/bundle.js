@@ -15,3 +15,4 @@ import './Blocks/scroll-top-button/scroll-top-button';
 import './Basic/arrow/arrow';
 import './Basic/select/select';
 import './Basic/arrow-small/arrow-small';
+import './Basic/diashad/diashad';

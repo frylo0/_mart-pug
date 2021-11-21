@@ -1,0 +1,56 @@
+include ../../bundle.pug
+
+include ../../Blocks/numenu-item/numenu-item.pug
+include ../../Blocks/numero-section/numero-section.pug
+
+mixin numero-content-title(section, part, link)
+  +title(`${section} <span style="color: #FE9081">${part}</span>`)(id=link).numero-content-title&attributes(attributes)
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Нумерология | Шпаргалка для лучшей жизни
+  body
+    +header()
+    +scroll-top-button()
+    +devicer().rel
+      .numero-menu
+        +title('Нумерология').title_numerology
+        +diashad(30, 9)
+        +diashad(40, 12, true)
+        .numero-menu__content
+          .numero-submenu.col.aic
+            .numero-subtitle.numenu-item__trigger.cup(data-target='consult-conversation') Консультации
+            +numenu-item('Общение', 'human', 'consult-conversation')
+            +numenu-item('Описательные', 'pencil', 'consult-written')
+          .numero-submenu.col.aic
+            .numero-subtitle.numenu-item__trigger.cup(data-target='study') Обучение
+            +numenu-item('Живое', 'chair', 'study-live')
+            +numenu-item('Онлайн', 'globe', 'study-online')
+      +diashad(50, -9)
+      +diashad(30, -4, true)
+      +numero-content-title('Консультации', 'Общение', 'consult-conversation')
+      +numero-section('photo_3T5A0419')
+      +diashad(30, -1, true)
+      +diashad(40, 8)
+      +numero-content-title('Консультации', 'Описательные', 'consult-written')
+      +numero-section('photo_3T5A0239')
+      +diashad(40, 3, true)
+      +numero-content-title('Обучение', '', 'study')
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed risus pretium quam vulputate dignissim suspendisse in est ante. Nibh praesent tristique magna sit amet. Quisque egestas diam in arcu cursus euismod. Interdum consectetur libero id faucibus nisl tincidunt eget nullam non. Est sit amet facilisis magna etiam. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Justo laoreet sit amet cursus sit amet. Auctor urna nunc id cursus metus. Elit pellentesque habitant morbi tristique senectus et netus. Tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse sed nisi lacus sed viverra tellus in. Condimentum id venenatis a condimentum vitae sapien. Diam quam nulla porttitor massa. Sagittis vitae et leo duis ut diam quam. Purus in mollis nunc sed id semper. Aliquam faucibus purus in massa tempor.
+      video(
+        width='100%'
+        controls='controls'
+        src="https://media.istockphoto.com/videos/abstract-text-design-video-id483314987")
+      +diashad(50, 16)
+      +diashad(30, 24, true)
+      +numero-content-title('Обучение', 'Живое', 'study-live')
+      +numero-section('photo_3T5A0395')
+      +numero-content-title('Обучение', 'Онлайн', 'study-online')
+      +numero-section('photo_3T5A0056')
+      +diashad(30, -10)
+      +diashad(40, -3, true)
+    +footer()
