@@ -19,8 +19,8 @@ html(lang="en")
     +devicer().rel
       .numero-menu
         +title('Нумерология').title_numerology
-        +diashad(30, 9)
-        +diashad(40, 12, true)
+        +diashad(30, 9).diashad_only-mobile
+        +diashad(40, 12, true).diashad_only-mobile
         .numero-menu__content
           .numero-submenu.col.aic
             .numero-subtitle.numenu-item__trigger.cup(data-target='consult-conversation') Консультации
