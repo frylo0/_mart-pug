@@ -9,6 +9,10 @@
    background: $-c2-50
    transition: background-color 0.25s
    outline: none
+   
+   &:disabled
+      opacity: 0.75
+      cursor: not-allowed
 
    &__inflation
       display: none
@@ -45,3 +49,14 @@
          width: calc(100% + #{$inflationSize * 2})
          height: calc(100% + #{$inflationSize * 2})
          border-color: transparent
+         
+   
+   // Modes
+   
+   &_outlined
+      background: transparent
+      border: 2px solid $-c2
+   &_full-width
+      width: 100%
+   &_input-controls-eye
+      background: $-c2-25

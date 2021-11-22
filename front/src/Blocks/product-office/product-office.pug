@@ -1,0 +1,51 @@
+//-
+   title: str
+   type: str
+   price: str
+   sales: str
+   tags: arr<str>
+   creationDate: str
+   useReadButton: bool, // if false use office buttons
+   
+   description: block
+
+mixin product-office(options = {})
+   .product-office.row.rel&attributes(attributes)
+      - const isSales = 'sales' in options && options.sales
+      if isSales
+         .product-office-badge.abs.row.jcc.aic Акция
+      .col.product-office__card
+         .product-office__image.product__image-wrapper.rel.row.jcc.aic
+            .product__image.w100.h100.abs.ct-abs.w100.h100(style=`background-image: url('../Attach/Images/${options.image}');`)
+            .product__image-gradient.abs.top0.left0.w100.h100(style=`background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);`)
+            if 'creationDate' in options
+               .product-office__creation-date.abs= options.creationDate
+         .product-office__title= options.title
+         if 'type' in options
+            .product-office__type= options.type
+         if isSales
+            .product-office__price-block.row
+               .product-office__price_sales= options.sales
+               .product-office__price_before= options.price
+         else
+            .product-office__price-block.product-office__price= options.price
+         .product-office__controls
+            if options.useReadButton
+               a(href='../product')
+                  +button('Читать').product-office__button-read-only 
+            else
+               a(href='../product')
+                  +button('Подробнее').product-office__button-read-more 
+               a(href='../buy')
+                  +button('Купить').product-office__button-buy
+      .col.product-office__content
+         .product-office__title.product-office__title_mobile= options.title
+         .product-office__tags
+            each tag in options.tags
+               a(href='#').product-office__tag.dib.tdn= tag
+               |  
+         .product-office__description
+            if block
+               block
+
+      

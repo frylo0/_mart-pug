@@ -16,3 +16,4 @@ import './Basic/arrow/arrow';
 import './Basic/select/select';
 import './Basic/arrow-small/arrow-small';
 import './Basic/diashad/diashad';
+import './Basic/input-controls/input-controls';

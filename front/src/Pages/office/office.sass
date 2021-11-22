@@ -1,0 +1,88 @@
+$headerHeight: 123/16*1rem
+$sectionMainMT: 47/16*1rem
+$sectionMainHeight: calc(100vh - #{$headerHeight} - #{$sectionMainMT} - 2px)
+   
+@import ../../bundle
+@import ../../Blocks/product-office/product-office
+
+
+
+.devicer
+   @media screen and ( max-width: $-stop-phone-max )
+      overflow: hidden
+      
+
+
+.office
+   &_subtitle
+      font-family: var(--f-rlw)
+      font-size: px_to_em(24)
+      margin-top: px_to_em(65, 24)
+      margin-bottom: px_to_em(45, 24)
+      justify-content: space-between
+      @media screen and ( max-width: 400px )
+         text-align: center
+         > .row
+            justify-content: center
+   &_input-title
+      font-family: var(--f-rlw)
+      font-size: px_to_em(16)
+      margin-bottom: px_to_em(5, 16)
+      &:not(:first-of-type)
+         margin-top: px_to_em(29, 16)
+   &_all-materials
+      &-link
+         font-size: 18px
+         color: $-c3
+         text-decoration: none
+         &:hover
+            text-decoration: underline 2px $-c2-50
+         @media screen and ( max-width: 400px )
+            display: none
+      &-button
+         margin-top: px_to_em(41)
+   &_repeat-password
+      margin-top: px_to_em(6)
+.title
+   &:first-of-type
+      font-size: px_to_em(30)
+      margin-top: px_to_em(215, 30)
+
+
+
+$blog-articles-margin: px_to_em(50)
+.articles
+   z-index: 20
+   margin-left: -$blog-articles-margin
+   margin-right: -$blog-articles-margin
+   @media screen and ( max-width: 630px )
+      flex-direction: column
+      align-items: center
+   
+$office-products-margin: px_to_em(74) / 2
+.product-shop
+   &__image
+      margin-bottom: px_to_em(20)
+   
+   @media screen and ( max-width: 940px )
+      $margin: $office-products-margin
+      margin-right: $margin / 2
+      margin-left: $margin / 2
+      margin-bottom: $margin * 1.25
+
+   @media screen and ( max-width: 630px )
+      margin-left: 0
+      margin-right: 0
+      
+@media screen and ( max-width: 1140px )
+   .product-office:first-child
+      margin-bottom: $office-products-margin
+      
+      
+
+.footer
+   margin-top: 3em
+
+   
+@import ../../Blocks/product/product
+@import ../../Blocks/recommended-products/recommended-products

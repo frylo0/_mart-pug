@@ -80,7 +80,14 @@ const config = {
             }
           },
           'postcss-loader', //added to use autoprefixer
-          'sass-loader', //complie SASS to CSS
+          {
+            loader: 'sass-loader', //complie SASS to CSS
+            options: {
+              sassOptions: {
+                quietDeps: true,
+              },
+            },
+          },
         ]
       },
       {

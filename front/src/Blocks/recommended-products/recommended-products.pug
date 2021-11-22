@@ -1,7 +1,8 @@
 include ../product/product.pug
-mixin recommended-products()
+mixin recommended-products(isShowTitle = true, moreButtonModifiers = [])
    .recommended-products&attributes(attributes)
-      center.title.ff-ars-b.mb2 Рекомендуемые товары
+      if isShowTitle
+         center.title.ff-ars-b.mb2 Рекомендуемые товары
       
       - 
          let products = [
@@ -21,4 +22,4 @@ mixin recommended-products()
             
       center.more-recommended
          a(href="./shop")
-            +button('Больше рекомендуемых')
+            +button('Больше рекомендуемых')(class=( moreButtonModifiers.map(mod => `button_${mod}`).join(' ') ))
