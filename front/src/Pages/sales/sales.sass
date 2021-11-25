@@ -1,0 +1,214 @@
+$headerHeight: 123/16*1rem
+$sectionMainMT: 47/16*1rem
+$sectionMainHeight: calc(100vh - #{$headerHeight} - #{$sectionMainMT} - 2px)
+   
+@import ../../bundle
+@import ../../Blocks/product/product
+
+.title
+   &_page
+      margin-top: 14rem
+      margin-bottom: px_to_rem(38)
+      font-size: px_to_em(30)
+      line-height: 0.85em
+      @media screen and ( max-width: 630px )
+         margin-top: 10rem
+         margin-bottom: 1.75rem
+   &_pages
+      font-size: px_to_em(30)
+      margin-bottom: px_to_em(40, 30)
+      margin-top: calc(#{px_to_em(90, 30)} - #{px_to_rem(69)})
+      @media screen and ( max-width: 565px )
+         font-size: px_to_em(25)
+      @media screen and ( max-width: 405px )
+         font-size: px_to_em(20)
+      
+.select
+   width: px_to_em(177)
+   margin-right: px_to_em(35)
+   &:last-child
+      margin-right: 0
+   @media screen and ( max-width: 630px )
+      margin-right: 0
+      margin-bottom: px_to_em(10)
+      &:last-child
+         margin-bottom: 0
+
+.selects
+   margin-bottom: px_to_rem(93)
+   @media screen and ( max-width: 630px )
+      flex-direction: column
+      align-items: center
+      margin-bottom: 5em
+   
+.products
+   @media screen and ( max-width: 630px )
+      flex-direction: column
+      align-items: center
+   
+.product-shop
+   $margin-right: px_to_em(74)
+   margin-right: $margin-right
+   margin-bottom: px_to_em(69)
+   
+   &:last-child
+      margin-right: 0
+
+   @media screen and ( min-width: 1140px )
+      &:nth-child(2n)
+         margin-right: 0
+      
+   @media screen and ( min-width: 940px ) and ( max-width: 1140px )
+      &:nth-child(3n)
+         margin-right: 0
+
+   @media screen and ( min-width: 630px ) and ( max-width: 940px )
+      &:nth-child(2n)
+         margin-right: 0
+
+   @media screen and ( max-width: 630px )
+      margin-right: 0
+      
+
+.page-blocks
+   margin-bottom: px_to_em(77)
+   &_1-2
+      @media screen and ( max-width: $-stop-pc-max )
+         display: flex
+         flex-direction: row
+      @media screen and ( min-width: 0px ) and ( max-width: 820px )
+         flex-direction: column
+   &_3-4
+      display: flex
+      flex-direction: row
+      @media screen and ( min-width: 0px ) and ( max-width: 820px )
+         flex-direction: column
+      
+
+.page-block
+   height: px_to_em(93)
+   border-radius: px_to_em(5)
+   padding: 0 px_to_em(37)
+   @media screen and ( max-width: 500px )
+      height: px_to_em(70)
+      padding: 0 px_to_em(20)
+   @media screen and ( max-width: 405px )
+      height: px_to_em(50)
+      padding: 0 px_to_em(14)
+   
+   &_full-width
+      width: 100%
+      @media screen and ( max-width: $-stop-pc-max )
+         justify-content: space-between
+      .page-block
+         &__icon
+            margin-right: auto
+            @media screen and ( max-width: $-stop-pc-max )
+               margin-right: 0
+
+   &__title
+      font-size: px_to_em(30)
+      letter-spacing: 0.3em
+      font-family: var(--f-ars-b)
+      margin-right: px_to_em(33, 30)
+      text-decoration: none
+      color: $-c6
+      @media screen and ( min-width: 983px ) and ( max-width: $-stop-pc-max )
+         font-size: px_to_em(25)
+      @media screen and ( min-width: 820px )and ( max-width: 983px )
+         font-size: px_to_em(20)
+      @media screen and ( min-width: 0px ) and ( max-width: 820px )
+         font-size: px_to_em(30)
+      @media screen and ( max-width: 565px )
+         font-size: px_to_em(25)
+      @media screen and ( max-width: 500px )
+         font-size: px_to_em(20)
+      @media screen and ( max-width: 405px )
+         font-size: px_to_em(15)
+   &__icon
+      height: px_to_em(38)
+      @media screen and ( max-width: 983px )
+         height: px_to_em(30)
+      @media screen and ( max-width: 405px )
+         height: px_to_em(20)
+   &__content
+      width: 50%
+      padding-left: px_to_em(37)
+      @media screen and ( max-width: $-stop-pc-max )
+         display: none
+   
+   &_blog
+      background: url('../Attach/Images/bg_blog.png') center/cover no-repeat
+      margin-bottom: px_to_em(25)
+      .page-block__content
+         padding-top: px_to_em(11)
+         padding-bottom: px_to_em(11)
+         height: 100%
+         > .row
+            height: 100%
+         a
+            font-size: px_to_em(12)
+            height: 100%
+            width: px_to_rem(230)
+            padding: px_to_rem(10)
+            font-family: var(--f-rlw-r)
+            font-style: italic
+            background: $-c1
+            color: black
+            text-decoration: none
+            border-radius: px_to_rem(5)
+            &:first-child
+               margin-right: px_to_rem(35)
+   &_consult
+      border: px_to_em(3) solid $-c2
+      margin-bottom: px_to_em(25)
+      
+      .page-block__content > .row > *
+         width: 50%
+
+      &__directions
+         > .col
+            width: px_to_em(69)
+            text-decoration: none
+            margin-right: px_to_em(0)
+            img
+               height: px_to_em(38)
+               margin-top: 10px
+            span
+               color: $-c3
+               font-size: px_to_em(12)
+               display: block
+               margin-top: px_to_rem(3)
+      &__top
+         padding-left: px_to_em(22)
+         > a
+            color: $-c6
+            text-decoration: none
+            &:first-child
+               margin-bottom: px_to_em(10)
+
+   &_about-me
+      background: $-c2
+      justify-content: space-between
+      width: calc(50% - 18px)
+      margin-right: px_to_em(25)
+      @media screen and ( max-width: 820px )
+         margin-bottom: px_to_em(25)
+   &_about-project
+      background: $-c3
+      justify-content: space-between
+      width: calc(50% + 18px - #{px_to_em(25)})
+         
+   &_blog, &_consult, &_about-me, &_about-project
+      @media screen and ( max-width: $-stop-pc-max )
+         width: calc(50% - #{px_to_em(25) / 2})
+      @media screen and ( max-width: 820px )
+         width: 100%
+      @media screen and ( max-width: 405px )
+         margin-bottom: px_to_em(14)
+   &_blog, &_about-me
+      margin-right: px_to_em(25)
+         
+      
+
+@import ../../Blocks/product-shop/product-shop

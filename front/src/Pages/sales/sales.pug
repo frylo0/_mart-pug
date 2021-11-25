@@ -1,0 +1,120 @@
+include ../../bundle.pug
+
+include ../../Blocks/product-shop/product-shop.pug
+
+
+mixin page-block(title, icon, link, options = {})
+   .page-block.row.aic(class=([ 
+      options.isFullWidth ? 'page-block_full-width' : '', 
+   ].join(' ')))&attributes(attributes)
+      a(href=link).page-block__title= title
+      img.page-block__icon(src=`../Attach/Images/${icon}`)
+      if options.isFullWidth
+         .page-block__content
+            if block
+               block
+
+<!DOCTYPE html>
+html(lang="en")
+   head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      meta(http-equiv="X-UA-Compatible", content="ie=edge")
+      title Акции | Шпаргалка для лучшей жизни
+      +favicon()
+   body
+      +header()
+      +scroll-top-button()
+      +devicer()
+         +title('Акции').title_page
+         .row.selects.jcc
+            +select([
+               'Любая тематика',
+               'Нумерология',
+               'Очень очень очень длинное название',
+               'Личностный рост',
+               'Семейная терапия'
+            ])
+            +select([
+               'Любая стоимость',
+               '1 - 200 руб',
+               '200 - 500 руб',
+               '500 - 1000 руб',
+               '1000 - 3000 руб',
+               '3000 - 5000 руб'
+            ])
+            +select([
+               'Любой формат',
+               'Вебинары',
+               'Курсы',
+               'Книги'
+            ])
+         .products.row.wrap.jcc
+            +product-shop({
+               title: 'Длинное название',
+               type: 'Вебинар',
+               price: '1 250 руб',
+               sales: '1 000 руб',
+               image: 'photo_3T5A0395.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            +product-shop({
+               title: 'Очень очень очень очень длинное название',
+               type: 'Вебинар',
+               price: '77 000 руб',
+               sales: '1 000 руб',
+               image: 'photo_IMG_9403-1.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            +product-shop({
+               title: 'Очень очень очень очень длинное название',
+               type: 'Курсы',
+               price: '50 000 руб',
+               sales: '1 000 руб',
+               image: 'photo_3T5A0239.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+               p Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis.
+            +product-shop({
+               title: 'Длинное название',
+               type: 'Книга',
+               price: '50 000 руб',
+               sales: '1 000 руб',
+               image: 'photo_3T5A0328.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+         +title('Возможно вы искали?').title_pages
+         .page-blocks
+            .page-blocks_1-2
+               +page-block('БЛОГ', 'icon_blog.svg', '../blog', { isFullWidth: true }).page-block_blog
+                  .row
+                     a(href='../product')
+                        | Как не позволять людям влиять на нас
+                     a(href='../product')
+                        | Не играйте мне на нервах или как научиться противостоять третированию
+               +page-block('КОНСУЛЬТАЦИИ', 'icon_promotion.svg', '../consult', { isFullWidth: true }).page-block_consult
+                  .row
+                     .row.page-block_consult__directions
+                        - const directions = {'Разовые': "pink_mentor.svg", 'Серийные': "pink_meeting.svg", 'Семейные': "pink_networking.svg"}
+                        each icon, title in directions
+                           a(href='../product').col.aic
+                              img(src=`../Attach/Images/${icon}`)
+                              span= title
+                     .col.page-block_consult__top.jcc
+                        a(href='../product') Ассоциативная шпаргалка
+                        a(href='../product') Нумерологический рассчет женихов
+            .page-blocks_3-4
+               +page-block('ОБО МНЕ', 'icon_drawing-tablet.svg', '../about-me').page-block_about-me
+               +page-block('О ПРОЕКТЕ', 'icon_startup.svg', '../about-project').page-block_about-project
+      +footer()

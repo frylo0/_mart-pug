@@ -1,0 +1,57 @@
+include ../../bundle.pug
+
+include ../../Blocks/product/product.pug
+include ../../Blocks/product-office/product-office.pug
+include ../../Blocks/recommended-products/recommended-products.pug
+
+<!DOCTYPE html>
+html(lang="en")
+   head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      meta(http-equiv="X-UA-Compatible", content="ie=edge")
+      title Вход/Регистрация | Шпаргалка для лучшей жизни
+      +favicon()
+   body
+
+      +header()
+      +scroll-top-button()
+
+      +devicer()
+
+         .login_wrapper
+
+            +title('Вход')
+            
+            .office_input-title Email
+            +input-controls('Ваш email...', 'email', 'email')
+            .office_input-title Пароль
+            +input-controls('Пароль...', 'password', 'pass0')
+               +button().button_input-controls-eye
+                  .row.jcc.aic.ovh
+                     img(src='../Attach/Images/icon-eye.png')
+            +button('Войти').button_full-width
+
+            +title('Регистрация')
+            
+            .office_input-title Имя
+            +input-controls('Ваше имя...', 'text', 'name')
+            .office_input-title Email
+            +input-controls('Ваш email...', 'email', 'email')
+            .office_input-title Пароль
+            +input-controls('Пароль...', 'password', 'pass0').login_register-input
+               +button().button_input-controls-eye
+                  .row.jcc.aic.ovh
+                     img(src='../Attach/Images/icon-eye.png')
+            +input-controls('Повторите...', 'password', 'pass1').office_repeat-password.login_register-input
+               +button().button_input-controls-eye
+                  .row.jcc.aic.ovh
+                     img(src='../Attach/Images/icon-eye.png')
+            .office_password-message
+               small.rel.w100.db
+                  span(role='error', style='color: red').dn.abs.left0.right0 Пароли не совпадают
+                  span(role='free', style='color: blue').dn.abs.left0.right0 Пароль не должен быть пустым
+                  span(role='correct', style='color: green').dn.abs.left0.right0 Пароли совпадают
+            +button('Зарегистрироваться').button_full-width.login_register-button(disabled='disabled')
+
+      +footer()

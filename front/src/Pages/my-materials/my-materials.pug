@@ -1,0 +1,87 @@
+include ../../bundle.pug
+
+include ../../Blocks/product/product.pug
+include ../../Blocks/product-office/product-office.pug
+include ../../Blocks/recommended-products/recommended-products.pug
+
+<!DOCTYPE html>
+html(lang="en")
+   head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      meta(http-equiv="X-UA-Compatible", content="ie=edge")
+      title Мои материалы | Шпаргалка для лучшей жизни
+      +favicon()
+   body
+
+      +header()
+      +scroll-top-button()
+
+      +devicer()
+
+         +title('Мои материалы')
+         
+         .office_subtitle 
+         .office_articles.row.wrap.jcsb
+            +product-office({
+               title: 'Очень очень очень очень длинное название',
+               image: 'photo_IMG_9403-1.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+               useReadButton: true,
+               creationDate: '01.01.2021',
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            +product-office({
+               title: 'Запись из блога',
+               image: 'photo_3T5A0395.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины'],
+               useReadButton: true,
+               creationDate: '10.12.2019',
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            +product-office({
+               title: 'Очень очень очень очень длинное название',
+               image: 'photo_IMG_9403-1.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+               useReadButton: true,
+               creationDate: '01.01.2021',
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            +product-office({
+               title: 'Запись из блога',
+               image: 'photo_3T5A0395.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины'],
+               useReadButton: true,
+               creationDate: '10.12.2019',
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            +product-office({
+               title: 'Очень очень очень очень длинное название',
+               image: 'photo_IMG_9403-1.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
+               useReadButton: true,
+               creationDate: '01.01.2021',
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            +product-office({
+               title: 'Запись из блога',
+               image: 'photo_3T5A0395.jpg',
+               tags: ['нумерология', 'семейные', 'чувство-вины'],
+               useReadButton: true,
+               creationDate: '10.12.2019',
+            })
+               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+
+         .office_subtitle Рекомендации
+         +recommended-products(false, ['full-width', 'outlined'])
+
+      +footer()
