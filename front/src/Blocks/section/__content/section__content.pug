@@ -2,39 +2,18 @@ mixin section__content(title, shadowImage, href, isReadMore)
    .section__content.col.jcc&attributes(attributes)
       .rel
          .section__content-text.rel
-            if title !== false
-               +title(title)
-               .mtb1o5
-                  if block
-                     block
-                  else
-                     p.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna 
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit 
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                        occaecat cupidatat non proident, sunt in culpa qui officia 
-                        deserunt mollit anim id est laborum.
-            else
-               .mb1o5
-                  if block
-                     block
-                  else
-                     p.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna 
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit 
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                        occaecat cupidatat non proident, sunt in culpa qui officia 
-                        deserunt mollit anim id est laborum.
+            <?php if ($is_title) : ?>
+               +title("<?= $section->at_path('title')->value ?>")
+            <?php endif; ?>
+               .mtb1o5(data-json)
+                  - tmp = "<?= $section->at_path('text')->value->html ?>"
+                  | !{tmp}
                
-            if isReadMore
+            <?php if ($is_read_more) : ?>
                center
                   a(href=href)
                      +button('Читать далее')
+            <?php endif; ?>
          .section__content-shadow.abs.top0
-            img(src=`../__attach/Images/${shadowImage}`)
+            - tmp = "<?= $section->at_path('icon')->value->src ?>"
+            img(src!=tmp)

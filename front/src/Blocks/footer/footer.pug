@@ -1,7 +1,8 @@
 mixin footer()
    .footer.ptbo5.w100.rel&attributes(attributes)
       +devicer()
-         span.footer__copywrite Ирена Беркута &copy; 2021
+         - tmp = "<?= fi(665) ?> &copy; <?= fi(666); ?>"
+         span.footer__copywrite !{tmp}
          .row.footer__production
             span.mr2 prod: 
                +link('Frity', 'http://frity.ru/')

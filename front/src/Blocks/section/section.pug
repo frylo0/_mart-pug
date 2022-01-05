@@ -10,19 +10,14 @@ include __presentation/section__presentation.pug
       sales: bool,
    }
 
-mixin section(title, shadowImage, sectionImage, href, options = {})
-   section.section.row.rel(class=([
-         options.reversed ? 'section_reversed' : '',
-         options.isMain ? 'section_main' : '',
-      ].join(' ')))&attributes(attributes)
-      if block
-         +section__content(title, shadowImage, href, !options.noReadMore)
-            block
-      else
-         +section__content(title, shadowImage, href, !options.noReadMore)
-      +section__presentation(sectionImage, options.sales, href)
-      if options.arrows
+mixin section()
+   - tmp = "<?= ($section->at_path('is_main')->value ? 'section_main' : '') .' '. ($section->at_path('is_image_right')->value ? '' : 'section_reversed') ?>"
+   section.section.row.rel(class!=tmp)&attributes(attributes)
+      +section__content()
+      +section__presentation()
+      <?php if ($is_arrows && $section->at_path('is_main')->value) : ?>
          .section__arrows.abs.bottom2o5.left0.w100
             +arrow('down', 'inherit', 50).mA
             +arrow('down', 'inherit', 50).mA
             +arrow('down', 'inherit', 50).mA
+      <?php endif; ?>

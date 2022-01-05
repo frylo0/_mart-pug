@@ -5,11 +5,13 @@ mixin header()
          .header__wrapper.row.aic.mA
             .header__logo
                a(href="./shop").cup
-                  img(src="../__attach/Images/logo-pc.png")
+                  - tmp = '<?= iv(124)->src; ?>'
+                  img(src!=tmp)
             .header__menu-wrapper.col.tar
+               - tmp = '<?= iv(109); ?> '
                span.header__slogan.header__slogan_pc.ff-ars-i.fwn
-                  | Сайт психолога 
-                  +link('Ирены Беркуты', '#')
+                  | !{tmp}
+                  +link('<?= iv(110); ?>', '#')
                +header__menu({
                   'Главная': '../home',
                   'Обо мне': '../about-me',
@@ -24,6 +26,7 @@ mixin header()
                })
          .header__slogan_mobile.row.jcsb.aic
             .header__mobile-line
+            - tmp = '<?= iv(109); ?> '
             span.header__slogan.ff-ars-i.fwn
-               | Сайт психолога 
-               +link('Ирены Беркуты', '#')
+               | !{tmp}
+               +link('<?= iv(110); ?>', '#')

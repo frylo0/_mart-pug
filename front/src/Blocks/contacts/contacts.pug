@@ -1,12 +1,12 @@
 mixin contacts__card(text, link, icon)
-   a(href=link target='_blank').contacts__card.col.aic&attributes(attributes)
+   a(href!=link, target='_blank').contacts__card.col.aic&attributes(attributes)
       img(src=`../__attach/Images/${icon}`).mbo25
-      span= text
+      span!= text
 
 mixin contacts__card_extra(text, link, icon, iconPos)
    a.contacts__card.contacts__card_extra.col(
       class=(iconPos == 'right' ? 'aife' : 'aifs')
-      href=link
+      href!=link
    )&attributes(attributes)
       div.contacts__card-extra-imgs.row.jcc.aic.mbo25.rel
          img(src=`../__attach/Images/${icon}`)
@@ -20,9 +20,17 @@ mixin contacts()
    .contacts&attributes(attributes)
       +title('Контакты').mb2
       .row.jcc.mb1
-         +contacts__card('Facebook', 'https://facebook.com', 'contacts_facebook.png')
-         +contacts__card('@inst.account', 'https://instagram.com', 'contacts_instagram.png')#contact_instagram
-         +contacts__card('skypelogin', 'https://skype.com', 'contacts_skype.png')
+         +contacts__card('<?= fi(308) ?>', '<?= fi(307) ?>', 'contacts_facebook.png')
+         +contacts__card('<?= fi(311) ?>', '<?= fi(310) ?>', 'contacts_instagram.png')#contact_instagram
+         +contacts__card('<?= fi(314) ?>', '<?= fi(313) ?>', 'contacts_skype.png')
       .row.jcc
-         +contacts__card_extra('<span>+7 (978)</span> 000-00-00', 'tel:+79780000000', 'contacts_phone-call.svg', "right")#contact_phone
-         +contacts__card_extra('<span>email.email</span>@email.email', 'mailto:email.email@email.email', 'contacts_email.svg', "left")
+         :php
+            $tel = fi(315)->value;
+            $tel_link = 'tel:+'.$tel;
+            $tel_html = '<span>+'.substr($tel,0,1).' ('.substr($tel,1,3).')</span> '.substr($tel,4,3).'-'.substr($tel,7,2).'-'.substr($tel,9,2);
+            $email = fi(316)->value;
+            $et = strpos($email, '@');
+            $email_html = '<span>'.substr($email,0,$et).'</span>'.substr($email,$et);
+            $email_link = 'mailto:'.$email;
+         +contacts__card_extra('<?= $tel_html ?>', '<?= $tel_link ?>', 'contacts_phone-call.svg', "right")#contact_phone
+         +contacts__card_extra('<?= $email_html ?>', '<?= $email_link ?>', 'contacts_email.svg', "left")

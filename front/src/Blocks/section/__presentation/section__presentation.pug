@@ -1,8 +1,11 @@
 include ../__sales-block/section__sales-block.pug
 mixin section__presentation(sectionImage, isSales, href)
    .section__presentation.rel.row.jcc&attributes(attributes)
-      if isSales
+      <?php if ($section->at_path('is_main')->value && iv(660)) : ?>
          +section__sales-block()
-      a(href=href).cup
-         .section__presentation-back.w100.h100(style=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url(../__attach/Images/photo_${sectionImage});`)
-            .section__presentation-front.w100.h100(style=`background-image: url(../__attach/Images/photo_${sectionImage});`)
+      <?php endif; ?>
+      - tmp = "<?= '../' . $section->key ?>"
+      a(href!=tmp).cup
+         - tmp = "<?= $section->at_path('image')->value->src ?>"
+         .section__presentation-back.w100.h100(style!=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('${tmp}');`)
+            .section__presentation-front.w100.h100(style!=`background-image: url('${tmp}');`)
