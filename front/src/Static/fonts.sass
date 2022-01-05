@@ -11,7 +11,7 @@ $fonts: $f1, $f2, $f3, $f4
 @each $alias, $font, $fallback in $fonts
   @font-face
     font-family: $font
-    src: url('../Attach/Fonts/#{$font}.ttf') format('truetype')
+    src: url('./../../Attach/Fonts/#{$font}.ttf') format('truetype')
   \:root
     --f-#{$alias}: '#{$font}', #{$fallback}
   .ff-#{$alias}

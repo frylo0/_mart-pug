@@ -1,34 +1,51 @@
 const path = require('path'),
   webpack = require('webpack'),
-  factory = require('./webpack.factory'),
+  factory = require('./env/webpack.factory'),
   { CleanWebpackPlugin } = require('clean-webpack-plugin'),
   CopyWebpackPlugin = require('copy-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const { mode, HtmlWebpackPlugins, entries } = factory({
+const { mode, entries, HtmlWebpackPlugins } = factory({
   pagesSrc: './src/Pages/',
 });
 
-console.log(`MODE: ${mode}`);
+console.log(`MODE: ${mode}\n`);
 
 const config = {
   entry: entries, //entry points of project
   output: {
-    filename: './[name]/index.js', //mode == 'development' ? '[name].bundle.js' : '[name].[hash].js', //main -> main.bundle.js
+
+    filename: (pathData, assetInfo) => {
+      //console.log('path data:', pathData);
+      
+      //console.log('asset info:', assetInfo);
+      if (mode == 'development') {
+        return '[name]/[name].bundle.js';
+      } else {
+        return '[name]/[name].[fullhash].js';
+      }
+    },
     path: path.resolve(__dirname, 'dist'), //target folder
   },
   plugins: [
-    new CleanWebpackPlugin(), //dist folder clean up
+    //new CleanWebpackPlugin({
+    //  cleanOnceBeforeBuildPatterns: ['!./dist/**/index.php', './dist/**/*'], //dist folder clean up
+    //}),
     ...HtmlWebpackPlugins,
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/Root', to: '' },
+        //{ from: 'src/Assets', to: '__assets' }, // because assets are loaded into __assets and such copy just rewrite changes by old files
+        { from: 'php', to: '__php' },
+        { from: 'src/Root', to: './' },
       ],
     }),
     new MiniCssExtractPlugin({ //scss compilation //./dist/index.css
-      moduleFilename: ({ name }) => {
-        return `./${name}/css.css`;
-        // return mode == 'development' ? `${name}.bundle.css` : '[name].[hash].css';
+      filename: ({ name }) => {
+        if (mode == 'development') {
+          return '[name]/[name].bundle.css';
+        } else {
+          return '[name]/[name].[fullhash].css';
+        }
       },
     }),
     new webpack.ProvidePlugin({ //connecting jquery
@@ -45,20 +62,21 @@ const config = {
           {
             loader: MiniCssExtractPlugin.loader, // store css to files in ./dist
             options: {
-              // only enable hot reloading in development
-              hmr: mode === 'development',
-              // if hmr does not work, this is a forceful method.
-              reloadAll: true,
+              //  // only enable hot reloading in development
+              //  hmr: mode === 'development',
+              //  // if hmr does not work, this is a forceful method.
+              //  reloadAll: true,
+              esModule: false, // fix warnings
             },
           },
           {
             loader: 'css-loader', //CSS to CommonJS, make possible require and import css files in js files
             options: {
-              url: false, //don't resolve url links in css files
+              //url: false, //don't resolve url links in css files
             }
           },
           'postcss-loader', //added to use autoprefixer
-        ]
+        ],
       },
       {
         test: /\.s[ac]ss$/, //prosessing of sass
@@ -67,60 +85,51 @@ const config = {
           {
             loader: MiniCssExtractPlugin.loader, // store css to files in ./dist
             options: {
-              // only enable hot reloading in development
-              hmr: mode === 'development',
-              // if hmr does not work, this is a forceful method.
-              reloadAll: true,
+              //  // only enable hot reloading in development
+              //  hmr: mode === 'development',
+              //  // if hmr does not work, this is a forceful method.
+              //  reloadAll: true,
+              esModule: false, // fix warnings
             },
           },
           {
             loader: 'css-loader', //CSS to CommonJS, make possible require and import css files in js files
             options: {
-              url: false, //don't resolve url links in css files
+              //url: false, //don't resolve url links in css files
             }
           },
           'postcss-loader', //added to use autoprefixer
-          {
-            loader: 'sass-loader', //complie SASS to CSS
-            options: {
-              sassOptions: {
-                quietDeps: true,
-              },
-            },
-          },
+          'sass-loader', //complie SASS to CSS
         ]
       },
       {
-        test: /\.(png|svg|jpe?g|gif)$/, //proccessing of images
-        loader: 'file-loader', //move files to ./dist folder
-        options: {
-          name: './Attach/Images/[name].[ext]' //way to files in destination and there names
-        }
-      },
-      {
-        test: /\.(ttf|woff|woff2|eot|otf)$/, //processing fonts
-        loader: 'file-loader', //move files to ./dist folder
-        options: {
-          name: './Attach/Fonts/[name].[ext]' //way to files in destination and there names
-        }
-      },
-      {
         test: /\.pug$/, //processing pug
-        use: ['pug-loader'] //HtmlWebpackPlugin use this rule to process .pug files
+        use: {
+          loader: 'pug-loader',
+          options: {
+            filters: {
+              php(text, options) {
+                return `<?php\n${text}?>`;
+              }
+            }
+          }
+        } //HtmlWebpackPlugin use this rule to process .pug files
       },
       {
-        test: /\.mp3$/,
-        loader: 'file-loader', //move files to ./dist folder
-        options: {
-          name: './Attach/Music/[name].[ext]' //way to files in destination and there names
-        }
-      },
-      {
-        test: /\.mp4$/,
-        loader: 'file-loader', //move files to ./dist folder
-        options: {
-          name: './Attach/Video/[name].[ext]' //way to files in destination and there names
-        }
+        test: /\.(png|jpe?g|gif|ttf|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+              context: path.resolve(__dirname, 'src/Attach'),
+              outputPath: '__attach',
+              //publicPath: (mode == 'development' ? './../../../Attach/' : '../Attach/'),
+              publicPath: '../__attach/',
+              useRelativePaths: true,
+            },
+          },
+        ],
       },
     ]
   }
@@ -132,22 +141,27 @@ const development = {
     contentBase: './dist', //localhost root folder
     open: true, //open in this browser
     host: '0.0.0.0',
-    openPage: 'home/',
   },
+  watch: true,
 };
 
 const production = {
-
 };
 
-if (mode == 'development')
+if (mode == 'development') {
   factory.objectMerge(config, development);
-else {
+  config.module.rules.find(r => (r.test + '') == (/\.pug$/ + '')).use.options.pretty = true;
+}
+else { // production
   factory.objectMerge(config, production);
   config.module.rules.push({
     test: /\.m?js$/,
     loader: 'babel-loader',
   });
+  config.module.rules.find(r => (r.test + '') == (/\.pug$/ + '')).use.options.pretty = false;
+  //config.plugins.push(new CleanWebpackPlugin({
+  //  cleanOnceBeforeBuildPatterns: ['./**/*'], //dist folder clean up
+  //}));
 }
 
 factory.exclude(config, ['node_modules', 'dist']);

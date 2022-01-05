@@ -3,7 +3,7 @@ class DjangoEditor {
       const self = this;
       this.$ = window.django.jQuery;
       const $ = this.$;
-
+      
       this.indexOnPage = indexOnPage;
       this.$basisTextField = $(basisLargeTextField);
 
@@ -49,6 +49,18 @@ class DjangoEditor {
                class: Underline,
                shortcut: 'CMD+SHIFT+U',
             },
+            image: {
+               class: window.ImageTool,
+               config: {
+                  endpoints: {
+                     // byFile - sends FILE data
+                     // byUrl - sends POST data
+                     byFile: 'https://webhook.site/facb15b6-94e0-4728-a748-4a594ac0e476',
+                     //byFile: 'https://frity.ru/django-forward/',
+                     byUrl: 'https://127.0.0.1:1123/shpargalki/admin-image-fetchUrl',
+                  },
+               },
+            },
          }
       });
 
@@ -84,6 +96,16 @@ class DjangoEditor {
                      let type = block.data.style == 'unordered' ? 'u' : 'o';
                      res += `<${type}l>${block.data.items.map(li => `<li>${li}</li>`).join('')}</${type}l>`;
                      break;
+                  case 'image':
+                     let url = block.data.file.url;
+                     let caption = block.data.caption;
+                     res += `
+                        <div class="image">
+                           <div class="image__block" style="background-image: url(${url});"></div>
+                           <div class="image__caption">${caption}</div>
+                        </div>
+                     `;
+                     break;
                   default: console.warn(`blocksToHtml: Unhandled block type "${block.type}"`); console.warn(block);
                }
             }
@@ -92,6 +114,7 @@ class DjangoEditor {
       });
    }
 }
+
 
 DjangoEditor.quote = '"';
 DjangoEditor.quoteReplacer = '&#!'; // Warning: if changed need to renew text data in admin panel!!
