@@ -4,5 +4,5 @@ mixin section__presentation(sectionImage, isSales, href)
       if isSales
          +section__sales-block()
       a(href=href).cup
-         .section__presentation-back.w100.h100(style=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url(../Attach/Images/photo_${sectionImage});`)
-            .section__presentation-front.w100.h100(style=`background-image: url(../Attach/Images/photo_${sectionImage});`)
+         .section__presentation-back.w100.h100(style=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url(../__attach/Images/photo_${sectionImage});`)
+            .section__presentation-front.w100.h100(style=`background-image: url(../__attach/Images/photo_${sectionImage});`)

@@ -1,6 +1,6 @@
 mixin contacts__card(text, link, icon)
    a(href=link target='_blank').contacts__card.col.aic&attributes(attributes)
-      img(src=`../Attach/Images/${icon}`).mbo25
+      img(src=`../__attach/Images/${icon}`).mbo25
       span= text
 
 mixin contacts__card_extra(text, link, icon, iconPos)
@@ -9,11 +9,11 @@ mixin contacts__card_extra(text, link, icon, iconPos)
       href=link
    )&attributes(attributes)
       div.contacts__card-extra-imgs.row.jcc.aic.mbo25.rel
-         img(src=`../Attach/Images/${icon}`)
-         img(src=`../Attach/Images/${icon}`, data-i="1").contacts__card-img-copy.abs
-         img(src=`../Attach/Images/${icon}`, data-i="2").contacts__card-img-copy.abs
-         img(src=`../Attach/Images/${icon}`, data-i="3").contacts__card-img-copy.abs
-         img(src=`../Attach/Images/${icon}`, data-i="4").contacts__card-img-copy.abs
+         img(src=`../__attach/Images/${icon}`)
+         img(src=`../__attach/Images/${icon}`, data-i="1").contacts__card-img-copy.abs
+         img(src=`../__attach/Images/${icon}`, data-i="2").contacts__card-img-copy.abs
+         img(src=`../__attach/Images/${icon}`, data-i="3").contacts__card-img-copy.abs
+         img(src=`../__attach/Images/${icon}`, data-i="4").contacts__card-img-copy.abs
       span!= text
 
 mixin contacts()

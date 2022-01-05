@@ -4,9 +4,9 @@ mixin product-preview(mode = 'normal')
    //- mode = normal || button
    .product-preview.col(class=( mode == 'button' ? 'product-preview_button' : '' ))&attributes(attributes)
       if mode == 'normal'
-         .product-preview__image(style=`background-image: url('../Attach/Images/photo_3T5A0395.jpg')`)
+         .product-preview__image(style=`background-image: url('../__attach/Images/photo_3T5A0395.jpg')`)
       else if mode == 'button'
-         a.product-preview__image.col.jcc.ff-ars-b(href='../buy', style=`background-image: linear-gradient(to right, var(--c2), transparent), url('../Attach/Images/photo_3T5A0395.jpg')`)
+         a.product-preview__image.col.jcc.ff-ars-b(href='../buy', style=`background-image: linear-gradient(to right, var(--c2), transparent), url('../__attach/Images/photo_3T5A0395.jpg')`)
             if mode == 'button'
                | КУПИТЬ
                div 50 000 руб

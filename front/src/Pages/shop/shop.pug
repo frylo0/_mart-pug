@@ -8,7 +8,7 @@ mixin page-block(title, icon, link, options = {})
       options.isFullWidth ? 'page-block_full-width' : '', 
    ].join(' ')))&attributes(attributes)
       a(href=link).page-block__title= title
-      img.page-block__icon(src=`../Attach/Images/${icon}`)
+      img.page-block__icon(src=`../__attach/Images/${icon}`)
       if options.isFullWidth
          .page-block__content
             if block
@@ -106,7 +106,7 @@ html(lang="en")
                         - const directions = {'Разовые': "pink_mentor.svg", 'Серийные': "pink_meeting.svg", 'Семейные': "pink_networking.svg"}
                         each icon, title in directions
                            a(href='../product').col.aic
-                              img(src=`../Attach/Images/${icon}`)
+                              img(src=`../__attach/Images/${icon}`)
                               span= title
                      .col.page-block_consult__top.jcc
                         a(href='../product') Ассоциативная шпаргалка
