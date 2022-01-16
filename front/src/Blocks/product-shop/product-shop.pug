@@ -10,41 +10,57 @@
    description: block
 
 mixin product-shop(options = {})
+   :php
+      $price = $product->props->price;
+      $annotation = $product->props->annotation;
+      $tags = $product->props->tags->get_children();
+
+      $is_sales = $price->props->sale->value;
+      $use_read_button = !$product->props->is_enroll->value && !$product->props->is_buy->value;
+
    .product-shop.row.rel&attributes(attributes)
-      - const isSales = 'sales' in options && options.sales
-      if isSales
+      <?php if ($is_sales) : ?>
          .product-shop__sales-badge.abs.row.jcc.aic Акция
+      <?php endif; ?>
       .col.product-shop__card
          .product-shop__image.product__image-wrapper.rel.row.jcc.aic
-            .product__image.w100.h100.abs.ct-abs.w100.h100(style=`background-image: url('../__attach/Images/${options.image}');`)
-            .product__image-gradient.abs.top0.left0.w100.h100(style=`background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);`)
-            if 'creationDate' in options
+            .product__image.w100.h100.abs.ct-abs.w100.h100(style!=`background-image: url('<?= $annotation->props->image ?>');`)
+            .product__image-gradient.abs.top0.left0.w100.h100(style!=`background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);`)
+            <?php if ($product->has_path('creation_date')) : ?>
                .product-shop__creation-date.abs= options.creationDate
-         .product-shop__title= options.title
-         if 'type' in options
-            .product-shop__type= options.type
-         if isSales
+            <?php endif; ?>
+         - tmp = '<?= $product->props->title ?>'
+         .product-shop__title !{tmp}
+         - tmp = '<?= $product->props->type ?>'
+         .product-shop__type !{tmp}
+         <?php if ($is_sales) : ?>
             .product-shop__price-block.row
-               .product-shop__price_sales= options.sales
-               .product-shop__price_before= options.price
-         else
-            .product-shop__price-block.product-shop__price= options.price
+               - tmp = '<?= $price->props->sale ?>'
+               .product-shop__price_sales !{tmp}
+               - tmp = '<?= $price->props->normal ?>'
+               .product-shop__price_before !{tmp}
+         <?php elseif ($price->props->normal->value) : ?>
+            - tmp = '<?= $price->props->normal ?>'
+            .product-shop__price-block.product-shop__price !{tmp}
+         <?php endif; ?>
          .product-shop__controls
-            if options.useReadButton
-               a(href='../product')
+            <?php if ($use_read_button) : ?>
+               a(href!='../product/?id=<?= $product->id ?>')
                   +button('Читать').product-shop__button-read-only 
-            else
-               a(href='../product')
+            <?php else : ?>
+               a(href!='../product/?id=<?= $product->id ?>')
                   +button('Подробнее').product-shop__button-read-more 
-               a(href='../buy')
+               a(href!='../buy/?id=<?= $product->id ?>')
                   +button('Купить').product-shop__button-buy
+            <?php endif; ?>
       .col.product-shop__content
          .product-shop__tags
-            each tag in options.tags
-               a(href='#').product-shop__tag.dib.tdn= tag
+            <?php foreach ($tags as $tag) : ?>
+               - tmp = '<?= $tag ?>'
+               a(href!=`../shop/?theme=<?= $tag ?>`).product-shop__tag.dib.tdn !{tmp}
                |  
+            <?php endforeach; ?>
+         - tmp = '<?= $annotation->props->text ?>'
          .product-shop__description
-            if block
-               block
-
+            | !{tmp}
       

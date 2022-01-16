@@ -18,29 +18,21 @@ html(lang="en")
     +devicer()
       +title('Виды консультаций').title_consult-types.mt2o5
       .row.jcc.wrap
-        +product('Разовые', 'от  10 000', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'consult-mentor.svg', {buttonSecond: 'Записаться', moreLink: '../product'}).product_normal
-        +product('Серийные', 'от  7 000', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'consult-meeting.svg', {buttonSecond: 'Записаться', moreLink: '../product'}).product_normal
-        +product('Семейные', 'от  15 000', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'consult-networking.svg', {buttonSecond: 'Записаться', moreLink: '../product'}).product_normal
-      +title('Рейтинг услуг').title_services
+        <?php $types = fi(252)->get_children(); ?>
+        <?php foreach ($types as $product) : ?>
+          +product({buttonSecond: 'Записаться'}).product_normal
+        <?php endforeach; ?>
+      +title('<?= fi(879) ?>').title_services
       .services
-        - 
-          const services = {
-            "Email консультация": "от  1 000 руб",
-            "Написать письмо": "от  1 500 руб",
-            "Платная рассылка": "от  2 250 руб",
-            "Женские клубы": "от  900 руб",
-            "Обучение нумерологии": "от  1 300 руб",
-            "Консультации нумеролога": "от  1 300 руб",
-
-            "Онлайн курсы": "от  1 000 руб",
-            "Онлайн сопровождение": "от  1 500 руб",
-            "Ассоциативная шпаргалка": "от  2 250 руб",
-            "Нумерологический рассчет женихов": "от 900 руб",
-            "Проработка обиды и боли": "от  1 300 руб",
-            "Бесплатная рассылка": "бесплатно",
-          };
-        each price, title in services
-          +service-row(title, price)
+        <?php $rating = fi(251)->get_children(); ?>
+        <?php foreach ($rating as $product) : ?>
+          :php
+            $price = $product->props->price;
+            $target_price = $price->props->normal;
+            if ($price->props->sale->value)
+              $target_price = $price->props->sale;
+          +service-row('<?= $product->props->title ?>', '<?= $target_price ?>', '<?= $product->id ?>')
+        <?php endforeach; ?>
           
       //-+section('Консультации психолога', 'shadow_users.svg', '3T5A0328.jpg', './consult', {isMain: true, noReadMore: true})
       //-  p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Ut rutrum adipiscing hendrerit consectetur nulla cursus non gravida. Quam venenatis amet ultrices quam massa faucibus maecenas pellentesque. Orci neque ultrices pretium est et lectus enim vitae pellentesque.

@@ -5,6 +5,26 @@ const imported = importer([
   require.context('./Attach/', true, /\./),
 ]);
 
+
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/dist/backdrop.css';
+import 'tippy.js/dist/border.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/animations/shift-away-subtle.css';
+
+$('figure').on('click', e => {
+  $(e.currentTarget).toggleClass('figure_opened');
+});
+const figureTippy = tippy('figure', {
+  content: 'Нажмите чтобы развернуть/свернуть',
+  theme: 'light',
+  popperOptions: {
+    strategy: 'fixed',
+  }
+});
+
+
 import './Basic/link/link';
 import './Basic/devicer/devicer';
 import './Basic/title/title';

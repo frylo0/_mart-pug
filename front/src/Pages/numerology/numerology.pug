@@ -17,7 +17,8 @@ html(lang="en")
   body
     +header()
     +scroll-top-button()
-    +devicer().rel
+    +devicer().rel.page__content
+
       .numero-menu
         +title('Нумерология').title_numerology
         +diashad(30, 9).diashad_only-mobile
@@ -33,25 +34,37 @@ html(lang="en")
             +numenu-item('Онлайн', 'globe', 'study-online')
       +diashad(50, -9)
       +diashad(30, -4, true)
+
+      <?php $_numero = fp('pages/numerology')->walker; ?>
+
       +numero-content-title('Консультации', 'Общение', 'consult-conversation')
-      +numero-section('photo_3T5A0419')
+      <?php $product = $_numero->consult_talk('item'); ?>
+      +numero-section()
       +diashad(30, -1, true)
       +diashad(40, 8)
+      
       +numero-content-title('Консультации', 'Описательные', 'consult-written')
-      +numero-section('photo_3T5A0239')
+      <?php $product = $_numero->consult_write('item'); ?>
+      +numero-section()
       +diashad(40, 3, true)
+      
       +numero-content-title('Обучение', '', 'study')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed risus pretium quam vulputate dignissim suspendisse in est ante. Nibh praesent tristique magna sit amet. Quisque egestas diam in arcu cursus euismod. Interdum consectetur libero id faucibus nisl tincidunt eget nullam non. Est sit amet facilisis magna etiam. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Justo laoreet sit amet cursus sit amet. Auctor urna nunc id cursus metus. Elit pellentesque habitant morbi tristique senectus et netus. Tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse sed nisi lacus sed viverra tellus in. Condimentum id venenatis a condimentum vitae sapien. Diam quam nulla porttitor massa. Sagittis vitae et leo duis ut diam quam. Purus in mollis nunc sed id semper. Aliquam faucibus purus in massa tempor.
+      <?php $_numero->teach ?>
       video(
         width='100%'
         controls='controls'
-        src="https://media.istockphoto.com/videos/abstract-text-design-video-id483314987")
+        src!="<?= $_numero->teach_video ?>")
+        
       +diashad(50, 16)
       +diashad(30, 24, true)
       +numero-content-title('Обучение', 'Живое', 'study-live')
-      +numero-section('photo_3T5A0395')
+      <?php $product = $_numero->teach_real('item'); ?>
+      +numero-section()
+
       +numero-content-title('Обучение', 'Онлайн', 'study-online')
-      +numero-section('photo_3T5A0056')
+      <?php $product = $_numero->teach_online('item'); ?>
+      +numero-section()
       +diashad(30, -10)
       +diashad(40, -3, true)
+
     +footer()

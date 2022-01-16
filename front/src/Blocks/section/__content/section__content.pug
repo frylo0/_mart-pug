@@ -2,7 +2,11 @@ mixin section__content(title, shadowImage, href, isReadMore)
    .section__content.col.jcc&attributes(attributes)
       .rel
          .section__content-text.rel
-            <?php if ($is_title) : ?>
+            <?php if ($is_main_hide_title) : ?>
+               <?php if (!$section->at_path('is_main')->value) : ?>
+                  +title("<?= $section->at_path('title')->value ?>")
+               <?php endif; ?>
+            <?php else : ?>
                +title("<?= $section->at_path('title')->value ?>")
             <?php endif; ?>
                .mtb1o5(data-json)
@@ -11,7 +15,8 @@ mixin section__content(title, shadowImage, href, isReadMore)
                
             <?php if ($is_read_more) : ?>
                center
-                  a(href=href)
+                  - tmp = "<?= '../' . $section->key ?>"
+                  a(href!=tmp)
                      +button('Читать далее')
             <?php endif; ?>
          .section__content-shadow.abs.top0

@@ -1,13 +1,22 @@
-mixin product(title, price, description, image, options={})
+mixin product(options={})
+   if (typeof options != 'object')
+      - options = {};
    .product&attributes(attributes).col
       .product__image-wrapper.rel.row.jcc.aic
-         .product__image.w100.h100.abs.ct-abs.w100.h100(style=`background-image: url('../__attach/Images/${image}');`)
+         .product__image.w100.h100.abs.ct-abs.w100.h100(style!=`background-image: url('../__attach/Images/<?= $product->walker->annotation->image ?>'); width: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>); height: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>)`)
          .product__image-gradient.abs.top0.left0.w100.h100(style=`background-image: linear-gradient(#ffffff00 8.85%, #F6D3CE90);`)
-            .product__title.ct-abs_horiz.bottomo5.w100.tac.ff-ars-b.fz1o25= title
-      .product__description.taj.mtb1= description
+            - tmp = "<?= $product->props->title ?>"
+            .product__title.ct-abs_horiz.bottomo5.w100.tac.ff-ars-b.fz1o25 !{tmp}
+      - tmp = "<?= $product->walker->annotation->text ?>"
+      .product__description.taj.mtb1 !{tmp}
       .product__footer.row.jcsb.w100
-         a(href=( options.moreLink || '#' ))
+         <?php $more_link = '../product/?id='.$product->id; ?>
+         - tmp = "<?= $more_link ?>"
+         a(href!=tmp)
             +button('Подробнее')
-         a(href='#')
+         <?php $buy_link = '../buy/?id='.$product->id; ?>
+         - tmp = "<?= $buy_link ?>"
+         a(href!=tmp)
             +button('buttonSecond' in options ? options.buttonSecond : 'Купить').rel
-               .product__price.ct-abs_horiz.w100= `${price} руб`
+               - tmp = "<?= $product->walker->price->normal ?>"
+               .product__price.ct-abs_horiz.w100 !{tmp}

@@ -5,13 +5,13 @@ mixin header()
          .header__wrapper.row.aic.mA
             .header__logo
                a(href="./shop").cup
-                  - tmp = '<?= iv(124)->src; ?>'
+                  - tmp = '<?= fi(47) ?>'
                   img(src!=tmp)
             .header__menu-wrapper.col.tar
-               - tmp = '<?= iv(109); ?> '
+               - tmp = '<?= fi(49) ?> '
                span.header__slogan.header__slogan_pc.ff-ars-i.fwn
                   | !{tmp}
-                  +link('<?= iv(110); ?>', '#')
+                  +link('<?= fi(50) ?>', '#')
                +header__menu({
                   'Главная': '../home',
                   'Обо мне': '../about-me',
@@ -26,7 +26,7 @@ mixin header()
                })
          .header__slogan_mobile.row.jcsb.aic
             .header__mobile-line
-            - tmp = '<?= iv(109); ?> '
+            - tmp = '<?= fi(49) ?> '
             span.header__slogan.ff-ars-i.fwn
                | !{tmp}
-               +link('<?= iv(110); ?>', '#')
+               +link('<?= fi(50) ?>', '#')

@@ -17,7 +17,11 @@ html(lang="en")
     +devicer()
       +title('Ближайшие мероприятия').title_events
       .event-blocks
-        +event-block('Вебинар. Личностный рост', '00 января, 00:00', 'photo_3T5A0443.jpg')
-        +event-block('Консультация. Семейное счастье', '31 февраля, 23:59', 'photo_3T5A0266.jpg')
+        <?php $events = fi(651)->get_children(); ?>
+        <?php foreach ($events as $event) : ?>
+          <?php if ($event->props->is_visible->value) : ?>
+            +event-block('<?= $event->props->type . \'. \' . $event->props->title ?>', '<?= $event->props->datetime ?>', "<?= $event->at_path('annotation/image') ?>", '<?= $event->id ?>')
+          <?php endif; ?>
+        <?php endforeach; ?>
       +contacts()#contacts
     +footer()

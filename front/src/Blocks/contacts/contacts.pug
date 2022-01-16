@@ -20,15 +20,15 @@ mixin contacts()
    .contacts&attributes(attributes)
       +title('Контакты').mb2
       .row.jcc.mb1
-         +contacts__card('<?= fi(308) ?>', '<?= fi(307) ?>', 'contacts_facebook.png')
-         +contacts__card('<?= fi(311) ?>', '<?= fi(310) ?>', 'contacts_instagram.png')#contact_instagram
-         +contacts__card('<?= fi(314) ?>', '<?= fi(313) ?>', 'contacts_skype.png')
+         +contacts__card('<?= fi(69) ?>', '<?= fi(68) ?>', 'contacts_facebook.png')
+         +contacts__card('<?= fi(72) ?>', '<?= fi(71) ?>', 'contacts_instagram.png')#contact_instagram
+         +contacts__card('<?= fi(75) ?>', '<?= fi(74) ?>', 'contacts_skype.png')
       .row.jcc
          :php
-            $tel = fi(315)->value;
+            $tel = fi(160)->value;
             $tel_link = 'tel:+'.$tel;
             $tel_html = '<span>+'.substr($tel,0,1).' ('.substr($tel,1,3).')</span> '.substr($tel,4,3).'-'.substr($tel,7,2).'-'.substr($tel,9,2);
-            $email = fi(316)->value;
+            $email = fi(161)->value;
             $et = strpos($email, '@');
             $email_html = '<span>'.substr($email,0,$et).'</span>'.substr($email,$et);
             $email_link = 'mailto:'.$email;

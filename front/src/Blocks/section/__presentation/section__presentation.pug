@@ -1,11 +1,12 @@
 include ../__sales-block/section__sales-block.pug
 mixin section__presentation(sectionImage, isSales, href)
    .section__presentation.rel.row.jcc&attributes(attributes)
-      <?php if ($section->at_path('is_main')->value && iv(660)) : ?>
+      <?php if ($section->at_path('is_main')->value && iv(65) && $is_sales) : ?>
          +section__sales-block()
       <?php endif; ?>
       - tmp = "<?= '../' . $section->key ?>"
       a(href!=tmp).cup
          - tmp = "<?= $section->at_path('image')->value->src ?>"
-         .section__presentation-back.w100.h100(style!=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('${tmp}');`)
-            .section__presentation-front.w100.h100(style!=`background-image: url('${tmp}');`)
+         - tmp1 = "<?= ( $section->has_path('image_pos') ? $section->at_path('image_pos/x').'% '.$section->at_path('image_pos/y').'%' : '' ) ?>"
+         .section__presentation-back.w100.h100(style!=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('${tmp}'); background-position: ${tmp1};`)
+            .section__presentation-front.w100.h100(style!=`background-image: url('${tmp}'); background-position: ${tmp1};`)

@@ -10,14 +10,14 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title Обо мне | Шпаргалка для лучшей жизни
+    title О проекте | Шпаргалка для лучшей жизни
     +favicon()
   body
     +header()
     +scroll-top-button()
     +devicer()
       :php
-        $section = $db->at_id(177);
+        $section = $db->at_id(184);
         $is_main_hide_title = false;
         $is_read_more = false;
         $is_arrows = true;

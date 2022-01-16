@@ -21,5 +21,5 @@ mixin recommended-products(isShowTitle = true, moreButtonModifiers = [])
             +product(product.title, product.price, product.description, product.image, { moreLink: '../product' }).product_normal
             
       center.more-recommended
-         a(href="./shop")
+         a(href="../shop")
             +button('Больше рекомендуемых')(class=( moreButtonModifiers.map(mod => `button_${mod}`).join(' ') ))

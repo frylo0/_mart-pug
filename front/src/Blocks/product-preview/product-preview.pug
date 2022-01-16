@@ -1,26 +1,65 @@
 include ../product-shop/product-shop.pug
 
 mixin product-preview(mode = 'normal')
+   <?php $price = $product->props->price; ?>
+   <?php $page = $product->props->page; ?>
+   
+   :php
+      $action = false;
+      if ($product->props->is_enroll->value)
+         $action = 'Записаться';
+      else if ($product->props->is_buy->value)
+         $action = 'Купить';
+      else
+         $action = '';
+
    //- mode = normal || button
    .product-preview.col(class=( mode == 'button' ? 'product-preview_button' : '' ))&attributes(attributes)
+      - tmp = "<?= $product->at_path('page/image') ?>"
+      - tmp3 = "background-position: <?= $page->props->image_pos_x ?>% <?= $page->props->image_pos_y ?>%"
       if mode == 'normal'
-         .product-preview__image(style=`background-image: url('../__attach/Images/photo_3T5A0395.jpg')`)
+         .product-preview__image(style!=`background-image: url('${tmp}'); ${tmp3}`)
       else if mode == 'button'
-         a.product-preview__image.col.jcc.ff-ars-b(href='../buy', style=`background-image: linear-gradient(to right, var(--c2), transparent), url('../__attach/Images/photo_3T5A0395.jpg')`)
+         - tmp2 = "<?= $product->id ?>"
+         a.product-preview__image.col.jcc.ff-ars-b(href!=`../buy/?id=${tmp2}`, style!=`background-image: linear-gradient(to right, var(--c2), transparent), url('${tmp}'); ${tmp3}`)
             if mode == 'button'
-               | КУПИТЬ
-               div 50 000 руб
-      a(href='../buy')
-         +button('Купить').product-preview__button.w100
-      .product-preview__title Название продукта
+               - tmp = "<?= mb_strtoupper($action) ?>"
+               | !{tmp}
+               <?php $target_price = $price->props->normal; ?>
+               <?php if ($price->props->sale->value) $target_price = $price->props->sale; ?>
+               - tmp = "<?= $action ? $target_price : '' ?>"
+               div !{tmp}
+      <?php if ($action) : ?>
+         - tmp = "<?= $product->id ?>"
+         a(href!=`../buy/?id=${tmp}`)
+            +button('<?= $action ?>').product-preview__button.w100
+      <?php endif; ?>
+      :php
+         $title = $product->props->title;
+         if ($product->has_path('datetime'))
+            $title = "$title ({$product->props->datetime})";
+      - tmp = "<?= $title ?>"
+      .product-preview__title !{tmp}
       .product-preview__tags
-         - const tags = ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства']
-         each tag in tags
-            a(href='#').product-preview__tag.product-shop__tag.dib.tdn= tag
+         <?php $tags = $product->props->tags->get_children(); ?>
+         <?php foreach ($tags as $tag) : ?>
+            <?php if ($tag->type->name == 'space') continue; ?>
+            - tmp = "<?= '../shop/?theme=' . $tag ?>"
+            - tmp1 = "<?= $tag ?>"
+            a(href!=tmp).product-preview__tag.product-shop__tag.dib.tdn.cup !{tmp1} 
             |  
+         <?php endforeach; ?>
+      - tmp = "<?= $product->props->type ?>"
       .product-preview__type
-         | Тип продукта (вебинар, курс, книга)
+         | !{tmp}
       div
-         .product-preview__price.product-preview__price-after 50 000 руб
-         .product-preview__price.product-preview__price-before 50 000 руб
+         <?php if ($price->props->sale->value) : ?>
+            - tmp = "<?= $product->at_path('price/normal') ?>"
+            .product-preview__price.product-preview__price-after !{tmp}
+            - tmp = "<?= $product->at_path('price/sale') ?>"
+            .product-preview__price.product-preview__price-before !{tmp}
+         <?php else : ?>
+            - tmp = "<?= $product->at_path('price/normal') ?>"
+            .product-preview__price.product-preview__price-normal !{tmp}
+         <?php endif; ?>
       

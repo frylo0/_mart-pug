@@ -1,13 +1,13 @@
-mixin event-block(title, datetime, background)
+mixin event-block(title, datetime, background, id)
    .event-block.row.aic.jcsb.rel&attributes(attributes)
-      .event-block__background.abs.left0.top0.w100.h100(style=`background-image: url('../__attach/Images/${background}');`)
-      .event-block__gradient.abs.left0.top0.w100.h100(style=``)
-      a.event-block__titles.col(href='../product')
-         .event-block__datetime= datetime
-         .event-block__title= title
+      .event-block__background.abs.left0.top0.w100.h100(style!=`background-image: url('../__attach/Images/${background}');`)
+      .event-block__gradient.abs.left0.top0.w100.h100(style!=``)
+      a.event-block__titles.col(href!=`../product/?id=${id}`)
+         .event-block__datetime!= datetime
+         .event-block__title!= title
       .event-block__buttons.col
-         a(href='#')
+         a(href!=`../buy/?id=${id}`)
             +button('Записаться')
-         a(href='../product')
+         a(href!=`../product/?id=${id}`)
             +button('Подробнее')
       

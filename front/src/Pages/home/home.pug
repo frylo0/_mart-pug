@@ -16,11 +16,12 @@ html(lang="en")
     +scroll-top-button()
     +devicer()
       :php
-        $sections = $db->at_id(127)->get_children();
+        $sections = $db->at_id(54)->get_children();
       <?php foreach ($sections as $section) : ?>
+        <?php $is_main_hide_title = true; ?>
         <?php $is_read_more = true; ?>
-        <?php $is_title = true; ?>
         <?php $is_arrows = true; ?>
+        <?php $is_sales = true; ?>
         +section()
       <?php endforeach; ?>
       +contacts()#contacts
