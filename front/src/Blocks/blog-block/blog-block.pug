@@ -1,5 +1,5 @@
-mixin blog-block(title, image, button='Подробнее')
-   a(href='../blog-theme').blog-block.rel.db(style=`background: linear-gradient(#f6d3ce1c, #f6d3ce7c), url('../__attach/Images/${image}') center/cover no-repeat;`)&attributes(attributes)
-      .blog-block__title.abs.ct-abs.ff-ars-b= title
-      .blog-block__button.abs.ct-abs_horiz.row.jcc.aic.cup= button
+mixin blog-block(title, image, id, button='Подробнее')
+   a(href!=`../blog-theme/?id=${id}`).blog-block.rel.db(style!=`background: linear-gradient(#f6d3ce1c, #f6d3ce7c), url('${image}') center/cover no-repeat;`)&attributes(attributes)
+      .blog-block__title.abs.ct-abs.ff-ars-b!= title
+      .blog-block__button.abs.ct-abs_horiz.row.jcc.aic.cup!= button
       

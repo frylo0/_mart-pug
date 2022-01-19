@@ -15,7 +15,7 @@ let windowHalfWidth = window.innerWidth / 2;
 const cylinderManager = { // cylinderManager
    frame: {
       el: cylinder.querySelector('.cylinder-frame'),
-      heightFactor: 1,
+      heightFactor: window.CYLINDER_HEIGHT_FACTOR,
       fitHeight() {
          let blockHeight = getComputedStyle(this.el.querySelector('.strip > div')).height;
          blockHeight = parseFloat(blockHeight);
@@ -26,8 +26,8 @@ const cylinderManager = { // cylinderManager
       el: cylinder.querySelector('.cylinder-container'),
    },
    rotate: {
-      startDegree: 106,
-      factor: 0.01 - (window.innerWidth / 1000000),
+      startDegree: window.CYLINDER_START_DEGREE,
+      factor: window.CYLINDER_ROTATE_FACTOR - (window.innerWidth / 1000000),
       basis: 0,
       calcBasis() {
          this.basis = this.startDegree - windowHalfWidth * this.factor;
@@ -48,7 +48,7 @@ const cylinderManager = { // cylinderManager
          const cylinderRotate = cylinderManager.rotate;
          
          const rotateY = this.actualX * cylinderRotate.factor + cylinderRotate.basis;
-         const posYFrame = this.actualY,
+         const posYFrame = this.actualY + window.CYLINDER_SCROLL_Y_SHIFT,
                posYContainer = -1 * posYFrame * this.positionContFrameRatio;
 
          clearTimeout(this.frameTimeout);
@@ -71,6 +71,7 @@ const cylinderManager = { // cylinderManager
 
 cylinderManager.prepare();
 setInterval(() => cylinderManager.render.stuff(), cylinderManager.render.RATE);
+window.cylinderManager = cylinderManager;
 
 when('mousemove: window', e => {
    cylinderManager.render.actualX = e.clientX;

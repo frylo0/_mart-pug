@@ -1,9 +1,9 @@
 mixin blog-theme-preview(title, image)
    .blog-theme-preview.row&attributes(attributes)
-      .btp__image(style=`background-image: url(../__attach/Images/${image})`)
+      .btp__image(style!=`background-image: url('${image}')`)
       .btp__content
          .btp__decor-title.ff-ars-b.usn БЛОГ
-         .btp__title.ff-ars-b= title
+         .btp__title.ff-ars-b!= title
          .btp__text
             if block
                block

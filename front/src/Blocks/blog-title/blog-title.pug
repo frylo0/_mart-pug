@@ -4,5 +4,10 @@ mixin blog-title()
          .blog-title__main.ff-ars-b БЛОГ
          .blog-title__sub.ff-rlw-r Ирены Беркуты
       .blog-title__quote.col.jcc
-         .blog-title-quote__text.taj Мы выбираем не случайно друг друга… Мы встречаем только тех, кто уже существует в нашем подсознании.
-         .blog-title-quote__author.tar Зигмунд Фрейд
+         - tmp = "<?= $db->at_path('pages/blog/header/text') ?>"
+         .blog-title-quote__text.taj !{tmp}
+         <?php $author = $db->at_path('pages/blog/header/author'); ?>
+         <?php if ($author->value) : ?>
+            - tmp = "<?= $author ?>"
+            .blog-title-quote__author.tar !{tmp}
+         <?php endif; ?>

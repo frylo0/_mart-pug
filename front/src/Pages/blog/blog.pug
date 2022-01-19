@@ -25,22 +25,40 @@ html(lang="en")
 
          +blog-title()
 
+         :php
+            $cylinder_sides = [[],[],[],[],[]];
+            $themes = $db->at_path('pages/blog/themes')->get_children();
+            for ($i = 0; $i < count($themes); $i++) {
+               $col = $i - ((int)($i / 5)) * 5; // $col is 0-4
+               array_push($cylinder_sides[$col], $themes[$i]);
+            }
+            
+            function tag_to_title($tag) {
+               $tag = str_replace('-', ' ', $tag);
+               $tag = mb_strtoupper(mb_substr($tag, 0, 1)) . mb_substr($tag, 1);
+               return $tag;
+            }
          +cylinder()#cylinder.rel.grid-pc
             +side(4)
-               +blog-block('Личностный рост', 'photo_IMG_9403-1.jpg')
-               +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
+               <?php foreach ($cylinder_sides[4] as $theme) : ?>
+                  +blog-block('<?= tag_to_title($theme->props->tag) ?>', '<?= $theme->props->image ?>', '<?= $theme->id ?>')
+               <?php endforeach; ?>
             +side(3)
-               +blog-block('Отношения', 'photo_3T5A0419.jpg')
-               +blog-block('Позитивное мышление', 'photo_3T5A9944.jpg')
+               <?php foreach ($cylinder_sides[2] as $theme) : ?>
+                  +blog-block('<?= tag_to_title($theme->props->tag) ?>', '<?= $theme->props->image ?>', '<?= $theme->id ?>')
+               <?php endforeach; ?>
             +side(2)
-               +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
-               +blog-block('Личностный рост', 'photo_IMG_9403-1.jpg')
+               <?php foreach ($cylinder_sides[0] as $theme) : ?>
+                  +blog-block('<?= tag_to_title($theme->props->tag) ?>', '<?= $theme->props->image ?>', '<?= $theme->id ?>')
+               <?php endforeach; ?>
             +side(1)
-               +blog-block('Позитивное мышление', 'photo_3T5A9944.jpg')
-               +blog-block('Отношения', 'photo_3T5A0419.jpg')
+               <?php foreach ($cylinder_sides[1] as $theme) : ?>
+                  +blog-block('<?= tag_to_title($theme->props->tag) ?>', '<?= $theme->props->image ?>', '<?= $theme->id ?>')
+               <?php endforeach; ?>
             +side(0)
-               +blog-block('Личностный рост', 'photo_IMG_9403-1.jpg')
-               +blog-block('Эмоции и чувства', 'photo_3T5A0395.jpg')
+               <?php foreach ($cylinder_sides[3] as $theme) : ?>
+                  +blog-block('<?= tag_to_title($theme->props->tag) ?>', '<?= $theme->props->image ?>', '<?= $theme->id ?>')
+               <?php endforeach; ?>
          .grid-mobile.row.wrap.jcc
             +blog-block('Отношения', 'photo_3T5A0419.jpg')
             +blog-block('Позитивное мышление', 'photo_3T5A9944.jpg')
@@ -53,49 +71,64 @@ html(lang="en")
 
 
          +title('Популярные записи').title_articles.title_articles-popular
+         :php
+            $posts = $db->at_path('pages/blog/posts')->get_children();
+            $posts_data = [];
+            
+            foreach ($posts as $post) {
+               $data = new stdClass();
+               
+               $data->views = $post->props->viewed_count->value;
+               $creation_date = implode('', array_reverse(explode('.', $post->props->creation_date->value)));
+               $data->creation_date = $creation_date;
+               $data->item = $post;
+
+               array_push($posts_data, $data);
+            }
+            
+            usort($posts_data, function ($a, $b) {
+               return ($a->views <=> $b->views) * -1;
+            });
+            $posts_popular = array_map(function ($data) { return $data->item; }, $posts_data);
+            usort($posts_data, function ($a, $b) {
+               return ($a->creation_date <=> $b->creation_date) * -1;
+            });
+            $posts_recent = array_map(function ($data) { return $data->item; }, $posts_data);
          .articles.rel.row.wrap.jcc
-            +product-shop({
-               title: 'Очень очень очень очень длинное название',
-               image: 'photo_IMG_9403-1.jpg',
-               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
-               useReadButton: true,
-               creationDate: '01.01.2021',
-            })
-               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
-               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
-            +product-shop({
-               title: 'Запись из блога',
-               image: 'photo_3T5A0395.jpg',
-               tags: ['нумерология', 'семейные', 'чувство-вины'],
-               useReadButton: true,
-               creationDate: '10.12.2019',
-            })
-               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            <?php $product = $posts_popular[0]; ?>
+            +product-shop()
+            <?php $product = $posts_popular[1]; ?>
+            +product-shop()
          +title('Свежие записи').title_articles.title_articles-recent
          .articles.rel.row.wrap.jcc
-            +product-shop({
-               title: 'Длинное название',
-               image: 'photo_3T5A0328.jpg',
-               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
-               useReadButton: true,
-               creationDate: '30.09.2020',
-            })
-               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
-            +product-shop({
-               title: 'Интересное название',
-               image: 'photo_3T5A0266.jpg',
-               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
-               useReadButton: true,
-               creationDate: '30.09.2020',
-            })
-               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            <?php $product = $posts_recent[0]; ?>
+            +product-shop()
+            <?php $product = $posts_recent[1]; ?>
+            +product-shop()
                
          //-+section('Блог', 'shadow_message.svg', '3T5A0219.jpg', './blog', {isMain: true, noReadMore: true})
          //-   p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Ut rutrum adipiscing hendrerit consectetur nulla cursus non gravida. Quam venenatis amet ultrices quam massa faucibus maecenas pellentesque. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
          //-   p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque leo ac id dictumst. Rhoncus, dictum commodo tincidunt ornare sit odio pellentesque amet pretium.
+         
+         <?php switch (count($themes)) : ?>
+            <?php case 4: ?>
+               <script> window.CYLINDER_START_DEGREE = 124; </script>
+               <script> window.CYLINDER_ROTATE_FACTOR = 0.035; </script>
+               <script> window.CYLINDER_HEIGHT_FACTOR = 1; </script>
+               <script> window.CYLINDER_SCROLL_Y_SHIFT = -200; </script>
+            <?php break; ?>
+            <?php case 5: ?>
+               <script> window.CYLINDER_START_DEGREE = 106; </script>
+               <script> window.CYLINDER_ROTATE_FACTOR = 0.02; </script>
+               <script> window.CYLINDER_HEIGHT_FACTOR = 1; </script>
+               <script> window.CYLINDER_SCROLL_Y_SHIFT = -200; </script>
+            <?php break; ?>
+            <?php default: ?>
+               <script> window.CYLINDER_START_DEGREE = 106; </script>
+               <script> window.CYLINDER_ROTATE_FACTOR = 0.01; </script>
+               <script> window.CYLINDER_HEIGHT_FACTOR = 1; </script>
+               <script> window.CYLINDER_SCROLL_Y_SHIFT = 0; </script>
+            <?php break; ?>
+         <?php endswitch; ?>
 
       +footer()

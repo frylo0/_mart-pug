@@ -27,21 +27,29 @@ mixin product-shop(options = {})
             .product__image.w100.h100.abs.ct-abs.w100.h100(style!=`background-image: url('<?= $annotation->props->image ?>');`)
             .product__image-gradient.abs.top0.left0.w100.h100(style!=`background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);`)
             <?php if ($product->has_path('creation_date')) : ?>
-               .product-shop__creation-date.abs= options.creationDate
+               - tmp = '<?= $product->props->creation_date ?>'
+               .product-shop__creation-date.abs !{tmp}
             <?php endif; ?>
          - tmp = '<?= $product->props->title ?>'
          .product-shop__title !{tmp}
-         - tmp = '<?= $product->props->type ?>'
-         .product-shop__type !{tmp}
-         <?php if ($is_sales) : ?>
-            .product-shop__price-block.row
-               - tmp = '<?= $price->props->sale ?>'
-               .product-shop__price_sales !{tmp}
+         <?php if (!$use_read_button) : ?>
+            - tmp = '<?= $product->props->type ?>'
+            .product-shop__type !{tmp}
+         <?php endif; ?>
+
+         <?php if (!$use_read_button) : ?>
+            <?php if ($is_sales) : ?>
+               .product-shop__price-block.row
+                  - tmp = '<?= $price->props->sale ?>'
+                  .product-shop__price_sales !{tmp}
+                  - tmp = '<?= $price->props->normal ?>'
+                  .product-shop__price_before !{tmp}
+            <?php elseif ($price->props->normal->value) : ?>
                - tmp = '<?= $price->props->normal ?>'
-               .product-shop__price_before !{tmp}
-         <?php elseif ($price->props->normal->value) : ?>
-            - tmp = '<?= $price->props->normal ?>'
-            .product-shop__price-block.product-shop__price !{tmp}
+               .product-shop__price-block.product-shop__price !{tmp}
+            <?php endif; ?>
+         <?php else : ?>
+            .product-shop__price-block.product-shop__price
          <?php endif; ?>
          .product-shop__controls
             <?php if ($use_read_button) : ?>

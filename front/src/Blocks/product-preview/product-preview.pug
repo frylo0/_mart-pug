@@ -20,8 +20,9 @@ mixin product-preview(mode = 'normal')
       if mode == 'normal'
          .product-preview__image(style!=`background-image: url('${tmp}'); ${tmp3}`)
       else if mode == 'button'
-         - tmp2 = "<?= $product->id ?>"
-         a.product-preview__image.col.jcc.ff-ars-b(href!=`../buy/?id=${tmp2}`, style!=`background-image: linear-gradient(to right, var(--c2), transparent), url('${tmp}'); ${tmp3}`)
+         <?php $link = ($action ? "../buy/?id={$product->id}" : '#'); ?>
+         - tmp2 = "<?= $link ?>"
+         a.product-preview__image.col.jcc.ff-ars-b(href!=tmp2, style!=`background-image: linear-gradient(to right, var(--c2), transparent), url('${tmp}'); ${tmp3}`)
             if mode == 'button'
                - tmp = "<?= mb_strtoupper($action) ?>"
                | !{tmp}

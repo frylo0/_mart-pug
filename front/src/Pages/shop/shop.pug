@@ -188,21 +188,31 @@ html(lang="en")
             .page-blocks_1-2
                +page-block('БЛОГ', 'icon_blog.svg', '../blog', { isFullWidth: true }).page-block_blog
                   .row
-                     a(href='../product')
+                     a(href!=`../product/?id=${id}`)
                         | Как не позволять людям влиять на нас
                      a(href='../product')
                         | Не играйте мне на нервах или как научиться противостоять третированию
                +page-block('КОНСУЛЬТАЦИИ', 'icon_promotion.svg', '../consult', { isFullWidth: true }).page-block_consult
                   .row
                      .row.page-block_consult__directions
-                        - const directions = {'Разовые': "pink_mentor.svg", 'Серийные': "pink_meeting.svg", 'Семейные': "pink_networking.svg"}
-                        each icon, title in directions
-                           a(href='../product').col.aic
+                        - 
+                           const directions = [
+                              ['Разовые', "pink_mentor.svg", "<?= $db->at_path('pages/consult/types/once')->id ?>"], 
+                              ['Серийные', "pink_meeting.svg", "<?= $db->at_path('pages/consult/types/serial')->id ?>"], 
+                              ['Семейные', "pink_networking.svg", "<?= $db->at_path('pages/consult/types/family')->id ?>"]]
+                        each set in directions
+                           - let [title, icon, linkId] = set
+                           a(href!=`../product/?id=${linkId}`).col.aic
                               img(src=`../__attach/Images/${icon}`)
                               span= title
                      .col.page-block_consult__top.jcc
-                        a(href='../product') Ассоциативная шпаргалка
-                        a(href='../product') Нумерологический рассчет женихов
+                        <?php $consult_rating = $db->at_path('pages/consult/rating')->get_children(); ?>
+                        - tmp = "<?= $consult_rating[0]->id ?>"
+                        - tmp1 = "<?= $consult_rating[0]->props->title ?>"
+                        a(href!=`../product/?id=${tmp}`) !{tmp1}
+                        - tmp = "<?= $consult_rating[1]->id ?>"
+                        - tmp1 = "<?= $consult_rating[1]->props->title ?>"
+                        a(href!=`../product/?id=${tmp}`) !{tmp1}
             .page-blocks_3-4
                +page-block('ОБО МНЕ', 'icon_drawing-tablet.svg', '../about-me').page-block_about-me
                +page-block('О ПРОЕКТЕ', 'icon_startup.svg', '../about-project').page-block_about-project

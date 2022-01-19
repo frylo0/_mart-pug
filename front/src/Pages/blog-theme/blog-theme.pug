@@ -4,13 +4,26 @@ include ../../Blocks/product/product.pug
 include ../../Blocks/product-shop/product-shop.pug
 include ../../Blocks/blog-theme-preview/blog-theme-preview.pug
 
+:php
+   $theme = $db->at_id($_GET['id']);
+
+   $theme_tag = $theme->props->tag->value;
+   $theme_title = tag_to_title($theme_tag);
+   
+   function tag_to_title($tag) {
+      $tag = str_replace('-', ' ', $tag);
+      $tag = mb_strtoupper(mb_substr($tag, 0, 1)) . mb_substr($tag, 1);
+      return $tag;
+   }
+
 <!DOCTYPE html>
 html(lang="en")
    head
       meta(charset="UTF-8")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
       meta(http-equiv="X-UA-Compatible", content="ie=edge")
-      title Отношения | Шпаргалка для лучшей жизни
+      - tmp = "<?= $theme_title ?>"
+      title Блог "!{tmp}" | Шпаргалка для лучшей жизни
       +favicon()
    body
 
@@ -18,47 +31,52 @@ html(lang="en")
       +scroll-top-button()
 
       +devicer().ovh
-         +blog-theme-preview('Отношения', 'photo_3T5A0395.jpg')
-            p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. 
-            p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer <u>sed at pulvinar</u> id nunc. <em>Pulvinar</em> laoreet neque vulputate ultricies felis. .
-            p Orci neque ultrices pretium est et lectus enim vitae pellentesque.
+         +blog-theme-preview('<?= $theme_title ?>', '<?= $theme->props->image ?>')
+            <?= $theme->props->annotation ?>
          .articles.rel.row.wrap.jcc
-            +product-shop({
-               title: 'Очень очень очень очень длинное название',
-               image: 'photo_IMG_9403-1.jpg',
-               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
-               useReadButton: true,
-               creationDate: '01.01.2021',
-            })
-               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-               p Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. 
-               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
-            +product-shop({
-               title: 'Запись из блога',
-               image: 'photo_3T5A0395.jpg',
-               tags: ['нумерология', 'семейные', 'чувство-вины'],
-               useReadButton: true,
-               creationDate: '10.12.2019',
-            })
-               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
-            +product-shop({
-               title: 'Длинное название',
-               image: 'photo_3T5A0328.jpg',
-               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
-               useReadButton: true,
-               creationDate: '30.09.2020',
-            })
-               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
-            +product-shop({
-               title: 'Интересное название',
-               image: 'photo_3T5A0266.jpg',
-               tags: ['нумерология', 'семейные', 'чувство-вины', 'эмоции-и-чувства'],
-               useReadButton: true,
-               creationDate: '30.09.2020',
-            })
-               p Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.
-               p Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.
+            :php
+               $posts = $db->at_path('pages/blog/posts')->get_children();
+               $posts_data = [];
+               
+               foreach ($posts as $post) {
+                  $has_theme = false;
+
+                  $post_tags = $post->props->tags->get_children();
+                  foreach ($post_tags as $tag) {
+                     if ($tag == $theme_tag) {
+                        $has_theme = true; 
+                        break;
+                     }
+                  }
+
+                  if ($has_theme) {
+                     $data = new stdClass();
+                     
+                     $data->views = $post->props->viewed_count->value;
+                     $creation_date = implode('', array_reverse(explode('.', $post->props->creation_date->value)));
+                     $data->creation_date = $creation_date;
+                     $data->item = $post;
+
+                     array_push($posts_data, $data);
+                  }
+               }
+               
+               usort($posts_data, function ($a, $b) {
+                  return ($a->views <=> $b->views) * -1;
+               });
+               $posts_popular = array_map(function ($data) { return $data->item; }, $posts_data);
+               usort($posts_data, function ($a, $b) {
+                  return ($a->creation_date <=> $b->creation_date) * -1;
+               });
+               $posts_recent = array_map(function ($data) { return $data->item; }, $posts_data);
+               
+            <?php foreach ($posts_recent as $product) : ?>
+               +product-shop()
+            <?php endforeach; ?>
+            
+            <?php if (count($posts_recent) == 0) : ?>
+               +title('В теме пока нет публикаций')(style='color: var(--c3); margin-bottom: 6rem; letter-spacing: 0.25em;')
+               
+            <?php endif; ?>
 
       +footer()
