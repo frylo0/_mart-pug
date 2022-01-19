@@ -1,5 +1,6 @@
 front/node_modules/
 manage.log
+node_modules/
 
 
 ### __pycache__ remove
@@ -58,3 +59,4 @@ docs/_build/
 
 # PyBuilder
 target/
+node_modules

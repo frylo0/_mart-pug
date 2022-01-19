@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-
-python3 ./back/myproject/manage.py runserver 1123
