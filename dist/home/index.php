@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../just-field/dist/__php/jf.php';
-$reg->path_to_jf_php_folder = '../../../../just-field/dist/__php/';
+require_once __DIR__ . '/../path-to-jf-folder.php';
 ?><?php
 function url_query_decode() {
    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
