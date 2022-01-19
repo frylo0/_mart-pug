@@ -1,9 +1,0 @@
-include ../__sales-block/section__sales-block.pug
-mixin section__presentation()
-   .section__presentation.rel.row.jcc&attributes(attributes)
-      <?php if ($isMain) : ?>
-         +section__sales-block()
-      <?php endif; ?>
-      a(href!=`<?= $link ?>`).cup
-         .section__presentation-back.w100.h100(style!=`background-image: linear-gradient(to right, #fff 0%, #ffffff88 50%, #fff 100%), url('<?= $image ?>');`)
-            .section__presentation-front.w100.h100(style!=`background-image: url('<?= $image ?>');`)
