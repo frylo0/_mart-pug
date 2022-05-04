@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../path-to-jf-folder.php';
+require_once __DIR__ . '/../__php/account-manager.php';
 ?><?php
 function url_query_decode() {
    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -71,7 +72,7 @@ function url_query_update($prop, $value) {
             <div class="header__menu rel">
               <div class="header__menu-underline header__menu-underline_main abs"></div>
               <div class="header__menu-underline abs"></div>
-              <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-me">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-project">О проекте</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../consult">Консультации психолога</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../event">Мероприятия</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../numerology">Нумерология</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../shop">Магазин шпаргалок</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../blog">Блог</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home#contacts">Контакты</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../office">Личный кабинет</a>
+              <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-me">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-project">О проекте</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../consult">Консультации психолога</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../event">Мероприятия</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../numerology">Нумерология</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../shop">Магазин шпаргалок</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../blog">Блог</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home#contacts">Контакты</a><?php if ($account_manager->is_logged_in()) : ?><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../office">Личный кабинет</a><?php else : ?><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../login">Вход/Регистрация</a><?php endif; ?>
               </div>
             </div>
           </div>
@@ -97,17 +98,34 @@ function url_query_update($prop, $value) {
     <div class="devicer mA">
       <center class="title ff-ars-b">Мои материалы</center>
       <div class="office_subtitle"> </div>
-      <div class="office_articles row wrap jcsb">
-        <div class="product-office row rel">
+      <div class="office_articles row wrap jcsb"><?php
+$price = $product->props->price;
+$annotation = $product->props->annotation;
+$tags = $product->props->tags->get_children();
+
+$is_sales = $price->props->sale->value;
+$use_read_button = true;
+?>
+        <div class="product-office row rel"><?php if ($is_sales) : ?>
+          <div class="product-office__sales-badge abs row jcc aic">Акция</div><?php endif; ?>
           <div class="col product-office__card">
             <div class="product-office__image product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/photo_IMG_9403-1.jpg');"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div>
-              <div class="product-office__creation-date abs">01.01.2021</div>
+              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('<?= $annotation->props->image ?>');"></div>
+              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div><?php if ($product->has_path('creation_date')) : ?>
+              <div class="product-office__creation-date abs"><?= $product->props->creation_date ?></div><?php endif; ?>
             </div>
-            <div class="product-office__title">Очень очень очень очень длинное название</div>
-            <div class="product-office__price-block product-office__price"></div>
-            <div class="product-office__controls"><a href="../product">
+            <div class="product-office__title"><?= $product->props->title ?></div><?php if (!$use_read_button) : ?>
+            <div class="product-office__type"><?= $product->props->type ?></div><?php endif; ?>
+<?php if (!$use_read_button) : ?>
+<?php if ($is_sales) : ?>
+            <div class="product-office__price-block row">
+              <div class="product-office__price_sales"><?= $price->props->sale ?></div>
+              <div class="product-office__price_before"><?= $price->props->normal ?></div>
+            </div><?php elseif ($price->props->normal->value) : ?>
+            <div class="product-office__price-block product-office__price"><?= $price->props->normal ?></div><?php endif; ?>
+<?php else : ?>
+            <div class="product-office__price-block product-office__price"></div><?php endif; ?>
+            <div class="product-office__controls"><?php if ($use_read_button) : ?><a href="../product/?id=<?= $product->id ?>">
                 <button class="button rel cup product-office__button-read-only">Читать
                   <div class="button__inflation button__inflation_1 abs"></div>
                   <div class="button__inflation button__inflation_2 abs"></div>
@@ -115,30 +133,57 @@ function url_query_update($prop, $value) {
                   <div class="button__inflation button__inflation_4 abs"></div>
                   <div class="button__inflation button__inflation_5 abs"></div>
                   <div class="button__inflation button__inflation_6 abs"></div> 
-                </button></a>
-            </div>
+                </button></a><?php else : ?><a href="../product/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-read-more">Подробнее
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div> 
+                </button></a><a href="../buy/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-buy">Купить
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div>
+                </button></a><?php endif; ?></div>
           </div>
           <div class="col product-office__content">
-            <div class="product-office__title product-office__title_mobile">Очень очень очень очень длинное название</div>
-            <div class="product-office__tags"><a class="product-office__tag dib tdn" href="#">нумерология</a> <a class="product-office__tag dib tdn" href="#">семейные</a> <a class="product-office__tag dib tdn" href="#">чувство-вины</a> <a class="product-office__tag dib tdn" href="#">эмоции-и-чувства</a> 
+            <div class="product-office__tags"><?php foreach ($tags as $tag) : ?><a class="product-office__tag dib tdn" href="../shop/?theme=<?= $tag ?>"><?= $tag ?></a> <?php endforeach; ?>
             </div>
-            <div class="product-office__description">
-              <p>Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.</p>
-              <p>Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. </p>
-              <p>Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.</p>
-            </div>
+            <div class="product-office__description"><?= $annotation->props->text ?></div>
           </div>
-        </div>
-        <div class="product-office row rel">
+        </div><?php
+$price = $product->props->price;
+$annotation = $product->props->annotation;
+$tags = $product->props->tags->get_children();
+
+$is_sales = $price->props->sale->value;
+$use_read_button = true;
+?>
+        <div class="product-office row rel"><?php if ($is_sales) : ?>
+          <div class="product-office__sales-badge abs row jcc aic">Акция</div><?php endif; ?>
           <div class="col product-office__card">
             <div class="product-office__image product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/photo_3T5A0395.jpg');"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div>
-              <div class="product-office__creation-date abs">10.12.2019</div>
+              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('<?= $annotation->props->image ?>');"></div>
+              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div><?php if ($product->has_path('creation_date')) : ?>
+              <div class="product-office__creation-date abs"><?= $product->props->creation_date ?></div><?php endif; ?>
             </div>
-            <div class="product-office__title">Запись из блога</div>
-            <div class="product-office__price-block product-office__price"></div>
-            <div class="product-office__controls"><a href="../product">
+            <div class="product-office__title"><?= $product->props->title ?></div><?php if (!$use_read_button) : ?>
+            <div class="product-office__type"><?= $product->props->type ?></div><?php endif; ?>
+<?php if (!$use_read_button) : ?>
+<?php if ($is_sales) : ?>
+            <div class="product-office__price-block row">
+              <div class="product-office__price_sales"><?= $price->props->sale ?></div>
+              <div class="product-office__price_before"><?= $price->props->normal ?></div>
+            </div><?php elseif ($price->props->normal->value) : ?>
+            <div class="product-office__price-block product-office__price"><?= $price->props->normal ?></div><?php endif; ?>
+<?php else : ?>
+            <div class="product-office__price-block product-office__price"></div><?php endif; ?>
+            <div class="product-office__controls"><?php if ($use_read_button) : ?><a href="../product/?id=<?= $product->id ?>">
                 <button class="button rel cup product-office__button-read-only">Читать
                   <div class="button__inflation button__inflation_1 abs"></div>
                   <div class="button__inflation button__inflation_2 abs"></div>
@@ -146,29 +191,57 @@ function url_query_update($prop, $value) {
                   <div class="button__inflation button__inflation_4 abs"></div>
                   <div class="button__inflation button__inflation_5 abs"></div>
                   <div class="button__inflation button__inflation_6 abs"></div> 
-                </button></a>
-            </div>
+                </button></a><?php else : ?><a href="../product/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-read-more">Подробнее
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div> 
+                </button></a><a href="../buy/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-buy">Купить
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div>
+                </button></a><?php endif; ?></div>
           </div>
           <div class="col product-office__content">
-            <div class="product-office__title product-office__title_mobile">Запись из блога</div>
-            <div class="product-office__tags"><a class="product-office__tag dib tdn" href="#">нумерология</a> <a class="product-office__tag dib tdn" href="#">семейные</a> <a class="product-office__tag dib tdn" href="#">чувство-вины</a> 
+            <div class="product-office__tags"><?php foreach ($tags as $tag) : ?><a class="product-office__tag dib tdn" href="../shop/?theme=<?= $tag ?>"><?= $tag ?></a> <?php endforeach; ?>
             </div>
-            <div class="product-office__description">
-              <p>Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.</p>
-              <p>Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.</p>
-            </div>
+            <div class="product-office__description"><?= $annotation->props->text ?></div>
           </div>
-        </div>
-        <div class="product-office row rel">
+        </div><?php
+$price = $product->props->price;
+$annotation = $product->props->annotation;
+$tags = $product->props->tags->get_children();
+
+$is_sales = $price->props->sale->value;
+$use_read_button = true;
+?>
+        <div class="product-office row rel"><?php if ($is_sales) : ?>
+          <div class="product-office__sales-badge abs row jcc aic">Акция</div><?php endif; ?>
           <div class="col product-office__card">
             <div class="product-office__image product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/photo_IMG_9403-1.jpg');"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div>
-              <div class="product-office__creation-date abs">01.01.2021</div>
+              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('<?= $annotation->props->image ?>');"></div>
+              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div><?php if ($product->has_path('creation_date')) : ?>
+              <div class="product-office__creation-date abs"><?= $product->props->creation_date ?></div><?php endif; ?>
             </div>
-            <div class="product-office__title">Очень очень очень очень длинное название</div>
-            <div class="product-office__price-block product-office__price"></div>
-            <div class="product-office__controls"><a href="../product">
+            <div class="product-office__title"><?= $product->props->title ?></div><?php if (!$use_read_button) : ?>
+            <div class="product-office__type"><?= $product->props->type ?></div><?php endif; ?>
+<?php if (!$use_read_button) : ?>
+<?php if ($is_sales) : ?>
+            <div class="product-office__price-block row">
+              <div class="product-office__price_sales"><?= $price->props->sale ?></div>
+              <div class="product-office__price_before"><?= $price->props->normal ?></div>
+            </div><?php elseif ($price->props->normal->value) : ?>
+            <div class="product-office__price-block product-office__price"><?= $price->props->normal ?></div><?php endif; ?>
+<?php else : ?>
+            <div class="product-office__price-block product-office__price"></div><?php endif; ?>
+            <div class="product-office__controls"><?php if ($use_read_button) : ?><a href="../product/?id=<?= $product->id ?>">
                 <button class="button rel cup product-office__button-read-only">Читать
                   <div class="button__inflation button__inflation_1 abs"></div>
                   <div class="button__inflation button__inflation_2 abs"></div>
@@ -176,30 +249,57 @@ function url_query_update($prop, $value) {
                   <div class="button__inflation button__inflation_4 abs"></div>
                   <div class="button__inflation button__inflation_5 abs"></div>
                   <div class="button__inflation button__inflation_6 abs"></div> 
-                </button></a>
-            </div>
+                </button></a><?php else : ?><a href="../product/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-read-more">Подробнее
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div> 
+                </button></a><a href="../buy/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-buy">Купить
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div>
+                </button></a><?php endif; ?></div>
           </div>
           <div class="col product-office__content">
-            <div class="product-office__title product-office__title_mobile">Очень очень очень очень длинное название</div>
-            <div class="product-office__tags"><a class="product-office__tag dib tdn" href="#">нумерология</a> <a class="product-office__tag dib tdn" href="#">семейные</a> <a class="product-office__tag dib tdn" href="#">чувство-вины</a> <a class="product-office__tag dib tdn" href="#">эмоции-и-чувства</a> 
+            <div class="product-office__tags"><?php foreach ($tags as $tag) : ?><a class="product-office__tag dib tdn" href="../shop/?theme=<?= $tag ?>"><?= $tag ?></a> <?php endforeach; ?>
             </div>
-            <div class="product-office__description">
-              <p>Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.</p>
-              <p>Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. </p>
-              <p>Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.</p>
-            </div>
+            <div class="product-office__description"><?= $annotation->props->text ?></div>
           </div>
-        </div>
-        <div class="product-office row rel">
+        </div><?php
+$price = $product->props->price;
+$annotation = $product->props->annotation;
+$tags = $product->props->tags->get_children();
+
+$is_sales = $price->props->sale->value;
+$use_read_button = true;
+?>
+        <div class="product-office row rel"><?php if ($is_sales) : ?>
+          <div class="product-office__sales-badge abs row jcc aic">Акция</div><?php endif; ?>
           <div class="col product-office__card">
             <div class="product-office__image product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/photo_3T5A0395.jpg');"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div>
-              <div class="product-office__creation-date abs">10.12.2019</div>
+              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('<?= $annotation->props->image ?>');"></div>
+              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div><?php if ($product->has_path('creation_date')) : ?>
+              <div class="product-office__creation-date abs"><?= $product->props->creation_date ?></div><?php endif; ?>
             </div>
-            <div class="product-office__title">Запись из блога</div>
-            <div class="product-office__price-block product-office__price"></div>
-            <div class="product-office__controls"><a href="../product">
+            <div class="product-office__title"><?= $product->props->title ?></div><?php if (!$use_read_button) : ?>
+            <div class="product-office__type"><?= $product->props->type ?></div><?php endif; ?>
+<?php if (!$use_read_button) : ?>
+<?php if ($is_sales) : ?>
+            <div class="product-office__price-block row">
+              <div class="product-office__price_sales"><?= $price->props->sale ?></div>
+              <div class="product-office__price_before"><?= $price->props->normal ?></div>
+            </div><?php elseif ($price->props->normal->value) : ?>
+            <div class="product-office__price-block product-office__price"><?= $price->props->normal ?></div><?php endif; ?>
+<?php else : ?>
+            <div class="product-office__price-block product-office__price"></div><?php endif; ?>
+            <div class="product-office__controls"><?php if ($use_read_button) : ?><a href="../product/?id=<?= $product->id ?>">
                 <button class="button rel cup product-office__button-read-only">Читать
                   <div class="button__inflation button__inflation_1 abs"></div>
                   <div class="button__inflation button__inflation_2 abs"></div>
@@ -207,29 +307,57 @@ function url_query_update($prop, $value) {
                   <div class="button__inflation button__inflation_4 abs"></div>
                   <div class="button__inflation button__inflation_5 abs"></div>
                   <div class="button__inflation button__inflation_6 abs"></div> 
-                </button></a>
-            </div>
+                </button></a><?php else : ?><a href="../product/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-read-more">Подробнее
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div> 
+                </button></a><a href="../buy/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-buy">Купить
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div>
+                </button></a><?php endif; ?></div>
           </div>
           <div class="col product-office__content">
-            <div class="product-office__title product-office__title_mobile">Запись из блога</div>
-            <div class="product-office__tags"><a class="product-office__tag dib tdn" href="#">нумерология</a> <a class="product-office__tag dib tdn" href="#">семейные</a> <a class="product-office__tag dib tdn" href="#">чувство-вины</a> 
+            <div class="product-office__tags"><?php foreach ($tags as $tag) : ?><a class="product-office__tag dib tdn" href="../shop/?theme=<?= $tag ?>"><?= $tag ?></a> <?php endforeach; ?>
             </div>
-            <div class="product-office__description">
-              <p>Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.</p>
-              <p>Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.</p>
-            </div>
+            <div class="product-office__description"><?= $annotation->props->text ?></div>
           </div>
-        </div>
-        <div class="product-office row rel">
+        </div><?php
+$price = $product->props->price;
+$annotation = $product->props->annotation;
+$tags = $product->props->tags->get_children();
+
+$is_sales = $price->props->sale->value;
+$use_read_button = true;
+?>
+        <div class="product-office row rel"><?php if ($is_sales) : ?>
+          <div class="product-office__sales-badge abs row jcc aic">Акция</div><?php endif; ?>
           <div class="col product-office__card">
             <div class="product-office__image product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/photo_IMG_9403-1.jpg');"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div>
-              <div class="product-office__creation-date abs">01.01.2021</div>
+              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('<?= $annotation->props->image ?>');"></div>
+              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div><?php if ($product->has_path('creation_date')) : ?>
+              <div class="product-office__creation-date abs"><?= $product->props->creation_date ?></div><?php endif; ?>
             </div>
-            <div class="product-office__title">Очень очень очень очень длинное название</div>
-            <div class="product-office__price-block product-office__price"></div>
-            <div class="product-office__controls"><a href="../product">
+            <div class="product-office__title"><?= $product->props->title ?></div><?php if (!$use_read_button) : ?>
+            <div class="product-office__type"><?= $product->props->type ?></div><?php endif; ?>
+<?php if (!$use_read_button) : ?>
+<?php if ($is_sales) : ?>
+            <div class="product-office__price-block row">
+              <div class="product-office__price_sales"><?= $price->props->sale ?></div>
+              <div class="product-office__price_before"><?= $price->props->normal ?></div>
+            </div><?php elseif ($price->props->normal->value) : ?>
+            <div class="product-office__price-block product-office__price"><?= $price->props->normal ?></div><?php endif; ?>
+<?php else : ?>
+            <div class="product-office__price-block product-office__price"></div><?php endif; ?>
+            <div class="product-office__controls"><?php if ($use_read_button) : ?><a href="../product/?id=<?= $product->id ?>">
                 <button class="button rel cup product-office__button-read-only">Читать
                   <div class="button__inflation button__inflation_1 abs"></div>
                   <div class="button__inflation button__inflation_2 abs"></div>
@@ -237,30 +365,57 @@ function url_query_update($prop, $value) {
                   <div class="button__inflation button__inflation_4 abs"></div>
                   <div class="button__inflation button__inflation_5 abs"></div>
                   <div class="button__inflation button__inflation_6 abs"></div> 
-                </button></a>
-            </div>
+                </button></a><?php else : ?><a href="../product/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-read-more">Подробнее
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div> 
+                </button></a><a href="../buy/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-buy">Купить
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div>
+                </button></a><?php endif; ?></div>
           </div>
           <div class="col product-office__content">
-            <div class="product-office__title product-office__title_mobile">Очень очень очень очень длинное название</div>
-            <div class="product-office__tags"><a class="product-office__tag dib tdn" href="#">нумерология</a> <a class="product-office__tag dib tdn" href="#">семейные</a> <a class="product-office__tag dib tdn" href="#">чувство-вины</a> <a class="product-office__tag dib tdn" href="#">эмоции-и-чувства</a> 
+            <div class="product-office__tags"><?php foreach ($tags as $tag) : ?><a class="product-office__tag dib tdn" href="../shop/?theme=<?= $tag ?>"><?= $tag ?></a> <?php endforeach; ?>
             </div>
-            <div class="product-office__description">
-              <p>Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.</p>
-              <p>Augue cursus massa gravida et non risus tellus hac risus. Consectetur varius integer sed at pulvinar id nunc. Pulvinar laoreet neque vulputate ultricies felis. </p>
-              <p>Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.</p>
-            </div>
+            <div class="product-office__description"><?= $annotation->props->text ?></div>
           </div>
-        </div>
-        <div class="product-office row rel">
+        </div><?php
+$price = $product->props->price;
+$annotation = $product->props->annotation;
+$tags = $product->props->tags->get_children();
+
+$is_sales = $price->props->sale->value;
+$use_read_button = true;
+?>
+        <div class="product-office row rel"><?php if ($is_sales) : ?>
+          <div class="product-office__sales-badge abs row jcc aic">Акция</div><?php endif; ?>
           <div class="col product-office__card">
             <div class="product-office__image product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/photo_3T5A0395.jpg');"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div>
-              <div class="product-office__creation-date abs">10.12.2019</div>
+              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('<?= $annotation->props->image ?>');"></div>
+              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 8.85%, #F6D3CE 100%);"></div><?php if ($product->has_path('creation_date')) : ?>
+              <div class="product-office__creation-date abs"><?= $product->props->creation_date ?></div><?php endif; ?>
             </div>
-            <div class="product-office__title">Запись из блога</div>
-            <div class="product-office__price-block product-office__price"></div>
-            <div class="product-office__controls"><a href="../product">
+            <div class="product-office__title"><?= $product->props->title ?></div><?php if (!$use_read_button) : ?>
+            <div class="product-office__type"><?= $product->props->type ?></div><?php endif; ?>
+<?php if (!$use_read_button) : ?>
+<?php if ($is_sales) : ?>
+            <div class="product-office__price-block row">
+              <div class="product-office__price_sales"><?= $price->props->sale ?></div>
+              <div class="product-office__price_before"><?= $price->props->normal ?></div>
+            </div><?php elseif ($price->props->normal->value) : ?>
+            <div class="product-office__price-block product-office__price"><?= $price->props->normal ?></div><?php endif; ?>
+<?php else : ?>
+            <div class="product-office__price-block product-office__price"></div><?php endif; ?>
+            <div class="product-office__controls"><?php if ($use_read_button) : ?><a href="../product/?id=<?= $product->id ?>">
                 <button class="button rel cup product-office__button-read-only">Читать
                   <div class="button__inflation button__inflation_1 abs"></div>
                   <div class="button__inflation button__inflation_2 abs"></div>
@@ -268,26 +423,38 @@ function url_query_update($prop, $value) {
                   <div class="button__inflation button__inflation_4 abs"></div>
                   <div class="button__inflation button__inflation_5 abs"></div>
                   <div class="button__inflation button__inflation_6 abs"></div> 
-                </button></a>
-            </div>
+                </button></a><?php else : ?><a href="../product/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-read-more">Подробнее
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div> 
+                </button></a><a href="../buy/?id=<?= $product->id ?>">
+                <button class="button rel cup product-office__button-buy">Купить
+                  <div class="button__inflation button__inflation_1 abs"></div>
+                  <div class="button__inflation button__inflation_2 abs"></div>
+                  <div class="button__inflation button__inflation_3 abs"></div>
+                  <div class="button__inflation button__inflation_4 abs"></div>
+                  <div class="button__inflation button__inflation_5 abs"></div>
+                  <div class="button__inflation button__inflation_6 abs"></div>
+                </button></a><?php endif; ?></div>
           </div>
           <div class="col product-office__content">
-            <div class="product-office__title product-office__title_mobile">Запись из блога</div>
-            <div class="product-office__tags"><a class="product-office__tag dib tdn" href="#">нумерология</a> <a class="product-office__tag dib tdn" href="#">семейные</a> <a class="product-office__tag dib tdn" href="#">чувство-вины</a> 
+            <div class="product-office__tags"><?php foreach ($tags as $tag) : ?><a class="product-office__tag dib tdn" href="../shop/?theme=<?= $tag ?>"><?= $tag ?></a> <?php endforeach; ?>
             </div>
-            <div class="product-office__description">
-              <p>Lacus in iaculis ut ut facilisi suspendisse pharetra. Scelerisque convallis ac tellus felis mauris egestas amet, aenean urna. Scelerisque egestas sed cursus at felis urna nullam. Orci neque ultrices pretium est et lectus enim vitae pellentesque.</p>
-              <p>Pellentesque pellentesque mattis morbi odio turpis nam. Tellus interdum scelerisque.</p>
-            </div>
+            <div class="product-office__description"><?= $annotation->props->text ?></div>
           </div>
         </div>
       </div>
       <div class="office_subtitle">Рекомендации</div>
       <div class="recommended-products">
-        <div class="recommended-products__content row jcc">
+        <div class="recommended-products__content row jcc"><?php for ($i = 0; $i < 4; $i++) : ?>
+<?php $product = $db->at_path('pages/shop/product1'); ?>
           <div class="product col product_normal">
             <div class="product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/<?= $product->walker->annotation->image ?>'); width: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>); height: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>)"></div>
+              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('<?= $product->walker->annotation->image ?>'); width: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>); height: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>)"></div>
               <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(#ffffff00 8.85%, #F6D3CE90);">
                 <div class="product__title ct-abs_horiz bottomo5 w100 tac ff-ars-b fz1o25"><?= $product->props->title ?></div>
               </div>
@@ -311,88 +478,7 @@ function url_query_update($prop, $value) {
                   <div class="button__inflation button__inflation_6 abs"></div>
                   <div class="product__price ct-abs_horiz w100"><?= $product->walker->price->normal ?></div>
                 </button></a></div>
-          </div>
-          <div class="product col product_normal">
-            <div class="product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/<?= $product->walker->annotation->image ?>'); width: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>); height: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>)"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(#ffffff00 8.85%, #F6D3CE90);">
-                <div class="product__title ct-abs_horiz bottomo5 w100 tac ff-ars-b fz1o25"><?= $product->props->title ?></div>
-              </div>
-            </div>
-            <div class="product__description taj mtb1"><?= $product->walker->annotation->text ?></div>
-            <div class="product__footer row jcsb w100"><?php $more_link = '../product/?id='.$product->id; ?><a href="<?= $more_link ?>">
-                <button class="button rel cup">Подробнее
-                  <div class="button__inflation button__inflation_1 abs"></div>
-                  <div class="button__inflation button__inflation_2 abs"></div>
-                  <div class="button__inflation button__inflation_3 abs"></div>
-                  <div class="button__inflation button__inflation_4 abs"></div>
-                  <div class="button__inflation button__inflation_5 abs"></div>
-                  <div class="button__inflation button__inflation_6 abs"></div>
-                </button></a><?php $buy_link = '../buy/?id='.$product->id; ?><a href="<?= $buy_link ?>">
-                <button class="button rel cup rel">Купить
-                  <div class="button__inflation button__inflation_1 abs"></div>
-                  <div class="button__inflation button__inflation_2 abs"></div>
-                  <div class="button__inflation button__inflation_3 abs"></div>
-                  <div class="button__inflation button__inflation_4 abs"></div>
-                  <div class="button__inflation button__inflation_5 abs"></div>
-                  <div class="button__inflation button__inflation_6 abs"></div>
-                  <div class="product__price ct-abs_horiz w100"><?= $product->walker->price->normal ?></div>
-                </button></a></div>
-          </div>
-          <div class="product col product_normal">
-            <div class="product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/<?= $product->walker->annotation->image ?>'); width: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>); height: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>)"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(#ffffff00 8.85%, #F6D3CE90);">
-                <div class="product__title ct-abs_horiz bottomo5 w100 tac ff-ars-b fz1o25"><?= $product->props->title ?></div>
-              </div>
-            </div>
-            <div class="product__description taj mtb1"><?= $product->walker->annotation->text ?></div>
-            <div class="product__footer row jcsb w100"><?php $more_link = '../product/?id='.$product->id; ?><a href="<?= $more_link ?>">
-                <button class="button rel cup">Подробнее
-                  <div class="button__inflation button__inflation_1 abs"></div>
-                  <div class="button__inflation button__inflation_2 abs"></div>
-                  <div class="button__inflation button__inflation_3 abs"></div>
-                  <div class="button__inflation button__inflation_4 abs"></div>
-                  <div class="button__inflation button__inflation_5 abs"></div>
-                  <div class="button__inflation button__inflation_6 abs"></div>
-                </button></a><?php $buy_link = '../buy/?id='.$product->id; ?><a href="<?= $buy_link ?>">
-                <button class="button rel cup rel">Купить
-                  <div class="button__inflation button__inflation_1 abs"></div>
-                  <div class="button__inflation button__inflation_2 abs"></div>
-                  <div class="button__inflation button__inflation_3 abs"></div>
-                  <div class="button__inflation button__inflation_4 abs"></div>
-                  <div class="button__inflation button__inflation_5 abs"></div>
-                  <div class="button__inflation button__inflation_6 abs"></div>
-                  <div class="product__price ct-abs_horiz w100"><?= $product->walker->price->normal ?></div>
-                </button></a></div>
-          </div>
-          <div class="product col product_normal">
-            <div class="product__image-wrapper rel row jcc aic">
-              <div class="product__image w100 h100 abs ct-abs w100 h100" style="background-image: url('../__attach/Images/<?= $product->walker->annotation->image ?>'); width: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>); height: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>)"></div>
-              <div class="product__image-gradient abs top0 left0 w100 h100" style="background-image: linear-gradient(#ffffff00 8.85%, #F6D3CE90);">
-                <div class="product__title ct-abs_horiz bottomo5 w100 tac ff-ars-b fz1o25"><?= $product->props->title ?></div>
-              </div>
-            </div>
-            <div class="product__description taj mtb1"><?= $product->walker->annotation->text ?></div>
-            <div class="product__footer row jcsb w100"><?php $more_link = '../product/?id='.$product->id; ?><a href="<?= $more_link ?>">
-                <button class="button rel cup">Подробнее
-                  <div class="button__inflation button__inflation_1 abs"></div>
-                  <div class="button__inflation button__inflation_2 abs"></div>
-                  <div class="button__inflation button__inflation_3 abs"></div>
-                  <div class="button__inflation button__inflation_4 abs"></div>
-                  <div class="button__inflation button__inflation_5 abs"></div>
-                  <div class="button__inflation button__inflation_6 abs"></div>
-                </button></a><?php $buy_link = '../buy/?id='.$product->id; ?><a href="<?= $buy_link ?>">
-                <button class="button rel cup rel">Купить
-                  <div class="button__inflation button__inflation_1 abs"></div>
-                  <div class="button__inflation button__inflation_2 abs"></div>
-                  <div class="button__inflation button__inflation_3 abs"></div>
-                  <div class="button__inflation button__inflation_4 abs"></div>
-                  <div class="button__inflation button__inflation_5 abs"></div>
-                  <div class="button__inflation button__inflation_6 abs"></div>
-                  <div class="product__price ct-abs_horiz w100"><?= $product->walker->price->normal ?></div>
-                </button></a></div>
-          </div>
+          </div><?php endfor; ?>
         </div>
         <center class="more-recommended"><a href="../shop">
             <button class="button rel cup button_full-width button_outlined">Больше рекомендуемых

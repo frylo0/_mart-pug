@@ -55,9 +55,9 @@ mixin product-preview(mode = 'normal')
          | !{tmp}
       div
          <?php if ($price->props->sale->value) : ?>
-            - tmp = "<?= $product->at_path('price/normal') ?>"
-            .product-preview__price.product-preview__price-after !{tmp}
             - tmp = "<?= $product->at_path('price/sale') ?>"
+            .product-preview__price.product-preview__price-sale !{tmp}
+            - tmp = "<?= $product->at_path('price/normal') ?>"
             .product-preview__price.product-preview__price-before !{tmp}
          <?php else : ?>
             - tmp = "<?= $product->at_path('price/normal') ?>"

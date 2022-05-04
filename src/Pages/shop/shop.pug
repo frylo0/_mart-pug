@@ -1,70 +1,13 @@
 include ../../bundle.pug
 
 include ../../Blocks/product-shop/product-shop.pug
+include ../../Blocks/shop-filters/shop-filters.pug
+include ../../Blocks/shop-products/shop-products.pug
+include ../../Blocks/maybe-other-page/maybe-other-page.pug
 
 <?php $_root = $db->get_root()->walker; ?>
 <?php $products = $_root->pages->shop('children'); ?>
 
-:php
-   function prepare_select(&$select_props, $select_placeholder, &$select_selected, $get_param, &$select_url_prop, $criteria_path, $criteria_modifier) {
-      global $products;
-
-      $select_props = ['*' => $select_placeholder];
-      $select_selected = 0;
-      $target = array_key_exists($get_param, $_GET) ? $_GET[$get_param] : null;
-      
-      $select_url_prop = $get_param;
-
-      $i = 1;
-      foreach ($products as $product) {
-         $criteria = $product->at_path($criteria_path);
-
-         if ($criteria_modifier == 'children') {
-            $criterias = $criteria->get_children();
-            foreach ($criterias as $item) {
-               $value = $item->value;
-               
-               if (!array_key_exists($value, $select_props)) {
-                  $value_pretty = str_replace('-', ' ', $value);
-                  $value_pretty = mb_strtoupper(mb_substr($value_pretty, 0, 1)) . mb_substr($value_pretty, 1);
-                  $select_props[$value] = $value_pretty;
-
-                  if ($value == $target)
-                     $select_selected = $i;
-
-                  $i++;
-               }
-            }
-         }
-         else if ($criteria_modifier == 'item') {
-            $value = $criteria->value;
-            
-            if (!array_key_exists($value, $select_props)) {
-               $value_pretty = str_replace('-', ' ', $value);
-               $value_pretty = mb_strtoupper(mb_substr($value_pretty, 0, 1)) . mb_substr($value_pretty, 1);
-               $select_props[$value] = $value_pretty;
-
-               if ($value == $target)
-                  $select_selected = $i;
-
-               $i++;
-            }
-         }
-      }
-
-   }
-
-
-mixin page-block(title, icon, link, options = {})
-   .page-block.row.aic(class=([ 
-      options.isFullWidth ? 'page-block_full-width' : '', 
-   ].join(' ')))&attributes(attributes)
-      a(href=link).page-block__title= title
-      img.page-block__icon(src=`../__attach/Images/${icon}`)
-      if options.isFullWidth
-         .page-block__content
-            if block
-               block
 
 <!DOCTYPE html>
 html(lang="en")
@@ -80,140 +23,8 @@ html(lang="en")
       +devicer()
 
          +title('Магазин шпаргалок').title_page
-         .row.selects.jcc
-            <?php prepare_select($select_props, 'Любая тематика', $select_selected, 'theme', $select_url_prop, 'tags', 'children'); ?>
-            +select()
-            <?php prepare_select($select_props, 'Любая цена', $select_selected, 'price', $select_url_prop, 'price/normal', 'item'); ?>
-            :php
-               $select_selected = 0;
-               $select_url_prop = 'price';
-               $select_props = [
-                  '*' => 'Любая цена',
-                  '0-0' => 'Бесплатно',
-                  '1-200' => '1 - 200 руб',
-                  '200-500' => '200 - 500 руб',
-                  '500-1000' => '500 - 1 000 руб',
-                  '1000-2000' => '1 000 - 2 000 руб',
-                  '2000-5000' => '2 000 - 5 000 руб',
-                  '5000-10000' => '5 000 - 10 000 руб',
-                  '10000-20000' => '10 000 - 20 000 руб',
-                  '20000-50000' => '20 000 - 50 000 руб',
-               ];
-               $target_range = array_key_exists($select_url_prop, $_GET) ? $_GET[$select_url_prop] : null;
-               $i = 0;
-               foreach (array_keys($select_props) as $range) {
-                  if ($range == $target_range) {
-                     $select_selected = $i;
-                     break;
-                  }
-                  $i++;
-               }
-            +select()
-            <?php prepare_select($select_props, 'Любой формат', $select_selected, 'type', $select_url_prop, 'type', 'item'); ?>
-            +select()
+         +shop-filters()
+         +shop-products()
 
-         .products.row.wrap.jcc
-            :php
-               $query = url_query_decode(); // from select__option mixin, at start of page
-               
-               $target_theme = false;
-               $target_price = false;
-               $target_type = false;
-
-               if (array_key_exists('theme', $query) && $query['theme'] != '*')
-                  $target_theme = $query['theme'];
-               if (array_key_exists('price', $query) && $query['price'] != '*')
-                  $target_price = $query['price'];
-               if (array_key_exists('type', $query) && $query['type'] != '*')
-                  $target_type = $query['type'];
-
-               $target_products = [];
-               foreach ($products as $product) {
-                  $is_target_theme = true;
-                  $is_target_price = true;
-                  $is_target_type = true;
-
-                  if ($target_theme) {
-                     $tags = $product->props->tags->get_children();
-
-                     $is_target_theme = false;
-                     foreach ($tags as $tag) {
-                        if ($tag->value == $target_theme) {
-                           $is_target_theme = true;
-                           break;
-                        }
-                     }
-                  }
-                  
-                  if ($target_price) {
-                     $target_price_split = explode('-', $target_price);
-                     $target_price_min = intval($target_price_split[0]);
-                     $target_price_max = intval($target_price_split[1]);
-
-                     $_product = $product->walker;
-
-                     $price = $_product->price->normal();
-                     $price_sale = $_product->price->sale();
-
-                     if ($price_sale)
-                        $price = $price_sale;
-                        
-                     if (!$price)
-                        $price = 0;
-                     else {
-                        $price = preg_replace('/[^\d.]/', '', $price);
-                        $price = intval($price);
-                     }
-
-                     $is_target_price = $target_price_min <= $price && $price <= $target_price_max;
-                  }
-
-                  if ($target_type) {
-                     $is_target_type = $product->props->type->value == $target_type;
-                  }
-
-                  if ($is_target_theme && $is_target_price && $is_target_type)
-                     array_push($target_products, $product);
-               }
-
-            <?php if (count($target_products) != 0) : ?>
-               <?php foreach ($target_products as $product) : ?>
-                  +product-shop()
-               <?php endforeach; ?>
-            <?php else : ?>
-               +title('Нет найденных товаров')(style='color: var(--c3); margin-bottom: 6rem; letter-spacing: 0.25em;')
-            <?php endif; ?>
-         +title('Возможно вы искали?').title_pages
-         .page-blocks
-            .page-blocks_1-2
-               +page-block('БЛОГ', 'icon_blog.svg', '../blog', { isFullWidth: true }).page-block_blog
-                  .row
-                     a(href!=`../product/?id=${id}`)
-                        | Как не позволять людям влиять на нас
-                     a(href='../product')
-                        | Не играйте мне на нервах или как научиться противостоять третированию
-               +page-block('КОНСУЛЬТАЦИИ', 'icon_promotion.svg', '../consult', { isFullWidth: true }).page-block_consult
-                  .row
-                     .row.page-block_consult__directions
-                        - 
-                           const directions = [
-                              ['Разовые', "pink_mentor.svg", "<?= $db->at_path('pages/consult/types/once')->id ?>"], 
-                              ['Серийные', "pink_meeting.svg", "<?= $db->at_path('pages/consult/types/serial')->id ?>"], 
-                              ['Семейные', "pink_networking.svg", "<?= $db->at_path('pages/consult/types/family')->id ?>"]]
-                        each set in directions
-                           - let [title, icon, linkId] = set
-                           a(href!=`../product/?id=${linkId}`).col.aic
-                              img(src=`../__attach/Images/${icon}`)
-                              span= title
-                     .col.page-block_consult__top.jcc
-                        <?php $consult_rating = $db->at_path('pages/consult/rating')->get_children(); ?>
-                        - tmp = "<?= $consult_rating[0]->id ?>"
-                        - tmp1 = "<?= $consult_rating[0]->props->title ?>"
-                        a(href!=`../product/?id=${tmp}`) !{tmp1}
-                        - tmp = "<?= $consult_rating[1]->id ?>"
-                        - tmp1 = "<?= $consult_rating[1]->props->title ?>"
-                        a(href!=`../product/?id=${tmp}`) !{tmp1}
-            .page-blocks_3-4
-               +page-block('ОБО МНЕ', 'icon_drawing-tablet.svg', '../about-me').page-block_about-me
-               +page-block('О ПРОЕКТЕ', 'icon_startup.svg', '../about-project').page-block_about-project
+         +maybe-other-page()
       +footer()

@@ -1,6 +1,6 @@
-mixin input-controls(placeholder, type='text', name='')
+mixin input-controls(placeholder, type='text', name='', value='')
    .input-controls&attributes(attributes)
-      input.input-controls__input(placeholder=placeholder, type=type, name=name)
+      input.input-controls__input(placeholder=placeholder, type=type, name=name, value!=value)
       .input-controls__controls
          if block
             block

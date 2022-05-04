@@ -5,3 +5,8 @@ mixin header__menu(menu)
     .header__menu-content
       each href, li in menu
         +link(li, href).header__menu-li.ml1o25.rel
+      <?php if ($account_manager->is_logged_in()) : ?>
+        +link('Личный кабинет', '../office').header__menu-li.ml1o25.rel
+      <?php else : ?>
+        +link('Вход/Регистрация', '../login').header__menu-li.ml1o25.rel
+      <?php endif; ?>

@@ -1,0 +1,72 @@
+mixin shop-products()
+   .shop-products.products.row.wrap.jcc&attributes(attributes)
+      :php
+         $query = url_query_decode(); // from select__option mixin, at start of page
+         
+         $target_theme = false;
+         $target_price = false;
+         $target_type = false;
+
+         if (array_key_exists('theme', $query) && $query['theme'] != '*')
+            $target_theme = $query['theme'];
+         if (array_key_exists('price', $query) && $query['price'] != '*')
+            $target_price = $query['price'];
+         if (array_key_exists('type', $query) && $query['type'] != '*')
+            $target_type = $query['type'];
+
+         $target_products = [];
+         foreach ($products as $product) {
+            $is_target_theme = true;
+            $is_target_price = true;
+            $is_target_type = true;
+
+            if ($target_theme) {
+               $tags = $product->props->tags->get_children();
+
+               $is_target_theme = false;
+               foreach ($tags as $tag) {
+                  if ($tag->value == $target_theme) {
+                     $is_target_theme = true;
+                     break;
+                  }
+               }
+            }
+            
+            if ($target_price) {
+               $target_price_split = explode('-', $target_price);
+               $target_price_min = intval($target_price_split[0]);
+               $target_price_max = intval($target_price_split[1]);
+
+               $_product = $product->walker;
+
+               $price = $_product->price->normal();
+               $price_sale = $_product->price->sale();
+
+               if ($price_sale)
+                  $price = $price_sale;
+                  
+               if (!$price)
+                  $price = 0;
+               else {
+                  $price = preg_replace('/[^\d.]/', '', $price);
+                  $price = intval($price);
+               }
+
+               $is_target_price = $target_price_min <= $price && $price <= $target_price_max;
+            }
+
+            if ($target_type) {
+               $is_target_type = $product->props->type->value == $target_type;
+            }
+
+            if ($is_target_theme && $is_target_price && $is_target_type)
+               array_push($target_products, $product);
+         }
+
+      <?php if (count($target_products) != 0) : ?>
+         <?php foreach ($target_products as $product) : ?>
+            +product-shop()
+         <?php endforeach; ?>
+      <?php else : ?>
+         +title('Нет найденных товаров')(style='color: var(--c3); margin-bottom: 6rem; letter-spacing: 0.25em;')
+      <?php endif; ?>

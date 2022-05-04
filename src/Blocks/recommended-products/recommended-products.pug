@@ -3,22 +3,12 @@ mixin recommended-products(isShowTitle = true, moreButtonModifiers = [])
    .recommended-products&attributes(attributes)
       if isShowTitle
          center.title.ff-ars-b.mb2 Рекомендуемые товары
-      
-      - 
-         let products = [
-            { title: 'Курс по практикам личностного роста', price: '10 000', image: 'photo_3T5A0219.jpg',
-              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor, consectetur adipiscing elit' },
-            { title: 'Основы нумерологии', price: '8 950', image: 'photo_IMG_9403-1.jpg',
-              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor' },
-            { title: '12 секретов семейного счастья', price: '21 000', image: 'photo_3T5A9906.jpg',
-              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempororem ipsum dolor sit amet, consectetur, adipiscing elit, sed do eiusmod tempor' },
-            { title: 'Как успеть везде?', price: '17 500', image: 'photo_3T5A0395.jpg',
-              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor' },
-         ]
          
       .recommended-products__content.row.jcc
-         each product in products
-            +product(product.title, product.price, product.description, product.image, { moreLink: '../product' }).product_normal
+         <?php for ($i = 0; $i < 4; $i++) : ?>
+            <?php $product = $db->at_path('pages/shop/product1'); ?>
+            +product().product_normal
+         <?php endfor; ?>
             
       center.more-recommended
          a(href="../shop")

@@ -1,0 +1,69 @@
+mixin page-block(title, icon, link, options = {})
+   .page-block.row.aic(class=([ 
+      options.isFullWidth ? 'page-block_full-width' : '', 
+   ].join(' ')))&attributes(attributes)
+      a(href=link).page-block__title= title
+      img.page-block__icon(src=`../__attach/Images/${icon}`)
+      if options.isFullWidth
+         .page-block__content
+            if block
+               block
+
+mixin maybe-other-page()
+   .maybe-other-page&attributes(attributes)
+      +title('Возможно вы искали?').title_pages
+      .page-blocks
+         .page-blocks_1-2
+            +page-block('БЛОГ', 'icon_blog.svg', '../blog', { isFullWidth: true }).page-block_blog
+               .row
+                  :php
+                     $posts = $db->at_path('pages/blog/posts')->get_children();
+                     $posts_data = [];
+                     
+                     foreach ($posts as $post) {
+                        $data = new stdClass();
+                        
+                        $data->views = $post->props->viewed_count->value;
+                        $data->item = $post;
+
+                        array_push($posts_data, $data);
+                     }
+                     
+                     usort($posts_data, function ($a, $b) {
+                        return ($a->views <=> $b->views) * -1;
+                     });
+                     $posts_popular = array_map(function ($data) { return $data->item; }, $posts_data);
+                     
+                  - tmp = "<?= $posts_popular[0]->id ?>"
+                  - tmp1 = "<?= $posts_popular[0]->props->title ?>"
+                  a(href!=`../product/?id=${tmp}`)
+                     | !{tmp1}
+                  - tmp = "<?= $posts_popular[1]->id ?>"
+                  - tmp1 = "<?= $posts_popular[1]->props->title ?>"
+                  a(href!=`../product/?id=${tmp}`)
+                     | !{tmp1}
+            +page-block('КОНСУЛЬТАЦИИ', 'icon_promotion.svg', '../consult', { isFullWidth: true }).page-block_consult
+               .row
+                  .row.page-block_consult__directions
+                     - 
+                        const directions = [
+                           ['Разовые', "<?= $db->at_path('pages/consult/types/once/annotation/image') ?>", "<?= $db->at_path('pages/consult/types/once')->id ?>"], 
+                           ['Серийные', "<?= $db->at_path('pages/consult/types/serial/annotation/image') ?>", "<?= $db->at_path('pages/consult/types/serial')->id ?>"], 
+                           ['Семейные', "<?= $db->at_path('pages/consult/types/family/annotation/image') ?>", "<?= $db->at_path('pages/consult/types/family')->id ?>"]]
+                     each set in directions
+                        - let [title, icon, linkId] = set
+                        a(href!=`../product/?id=${linkId}`).col.aic
+                           img(src!=icon)
+                           span= title
+                  .col.page-block_consult__top.jcc
+                     <?php $consult_rating = $db->at_path('pages/consult/rating')->get_children(); ?>
+                     - tmp = "<?= $consult_rating[0]->id ?>"
+                     - tmp1 = "<?= $consult_rating[0]->props->title ?>"
+                     a(href!=`../product/?id=${tmp}`) !{tmp1}
+                     - tmp = "<?= $consult_rating[1]->id ?>"
+                     - tmp1 = "<?= $consult_rating[1]->props->title ?>"
+                     a(href!=`../product/?id=${tmp}`) !{tmp1}
+         .page-blocks_3-4
+            +page-block('ОБО МНЕ', 'icon_drawing-tablet.svg', '../about-me').page-block_about-me
+            +page-block('О ПРОЕКТЕ', 'icon_startup.svg', '../about-project').page-block_about-project
+   

@@ -3,7 +3,7 @@ mixin product(options={})
       - options = {};
    .product&attributes(attributes).col
       .product__image-wrapper.rel.row.jcc.aic
-         .product__image.w100.h100.abs.ct-abs.w100.h100(style!=`background-image: url('../__attach/Images/<?= $product->walker->annotation->image ?>'); width: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>); height: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>)`)
+         .product__image.w100.h100.abs.ct-abs.w100.h100(style!=`background-image: url('<?= $product->walker->annotation->image ?>'); width: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>); height: calc(100% - 2 * <?= $product->walker->annotation->image_padding('exists') ?>)`)
          .product__image-gradient.abs.top0.left0.w100.h100(style=`background-image: linear-gradient(#ffffff00 8.85%, #F6D3CE90);`)
             - tmp = "<?= $product->props->title ?>"
             .product__title.ct-abs_horiz.bottomo5.w100.tac.ff-ars-b.fz1o25 !{tmp}

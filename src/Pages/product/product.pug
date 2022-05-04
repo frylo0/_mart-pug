@@ -3,15 +3,40 @@ include ../../bundle.pug
 include ../../Blocks/product-preview/product-preview.pug
 
 <?php $id = $_GET['id']; ?>
+:php
+  if (!$db->has_id($id)) {
+    exit('<meta http-equiv="refresh" content="0; url=../home/">');
+    die;
+  }
 <?php $product = fi($id); ?>
-<?php // TODO: make check if product available ?>
 
 :php
   if (!array_key_exists("-jf_product-$id-visited", $_COOKIE)) {
-    // time steps are:                                  1h   1d 1y  10y
+    // time steps are --------------------------------- 1h   1d 1y  10y
     setcookie("-jf_product-$id-visited", 'true', time()+3600*24*365*10);
     $product_viewed = $product->props->viewed_count;
     $product_viewed->update('value', intval($product_viewed->value) + 1);
+  }
+
+:php
+  if ($account_manager->is_logged_in()) {
+    $account = $account_manager->get_account();
+    $item = $account->item();
+
+    $tags_viewed_item = $item->props->tags_viewed;
+    $tags_viewed_value = $tags_viewed_item->value;
+    $tags_viewed = $tags_viewed_value ? json_decode($tags_viewed_value) : [];
+
+    foreach ($product->props->tags->get_children() as $tag) {
+      $tag = $tag->value;
+
+      if (property_exists($tags_viewed, $tag))
+        $tags_viewed->{$tag} += 1;
+      else
+        $tags_viewed->{$tag} = 1;
+    }
+
+    $tags_viewed_item->update('value', json_encode($tags_viewed));
   }
 
 <!DOCTYPE html>

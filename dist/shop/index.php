@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../path-to-jf-folder.php';
+require_once __DIR__ . '/../__php/account-manager.php';
 ?><?php
 function url_query_decode() {
    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -38,7 +39,66 @@ function url_query_update($prop, $value) {
    return $target_link;
 }
 ?><?php $_root = $db->get_root()->walker; ?>
-<?php $products = $_root->pages->shop('children'); ?><?php
+<?php $products = $_root->pages->shop('children'); ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Магазин шпаргалок | Шпаргалка для лучшей жизни</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+  <link href="../shop/shop.bundle.css" rel="stylesheet"></head>
+  <body>
+    <header class="header fix top0 left0 w100">
+      <div class="devicer mA">
+        <div class="header__wrapper row aic mA">
+          <div class="header__logo"><a class="cup" href="./shop"><img src="<?= fi(47) ?>"></a></div>
+          <div class="header__menu-wrapper col tar"><span class="header__slogan header__slogan_pc ff-ars-i fwn"><?= fi(49) ?> <a class="link dib shadow_link" href="#"><?= fi(50) ?></a></span>
+            <div class="header__menu rel">
+              <div class="header__menu-underline header__menu-underline_main abs"></div>
+              <div class="header__menu-underline abs"></div>
+              <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-me">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-project">О проекте</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../consult">Консультации психолога</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../event">Мероприятия</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../numerology">Нумерология</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../shop">Магазин шпаргалок</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../blog">Блог</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home#contacts">Контакты</a><?php if ($account_manager->is_logged_in()) : ?><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../office">Личный кабинет</a><?php else : ?><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../login">Вход/Регистрация</a><?php endif; ?>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header__slogan_mobile row jcsb aic">
+          <div class="header__mobile-line"></div><span class="header__slogan ff-ars-i fwn"><?= fi(49) ?> <a class="link dib shadow_link" href="#"><?= fi(50) ?></a></span>
+        </div>
+      </div>
+    </header>
+    <button class="button rel cup scroll-top-button fix right2 bottom2 dn">
+      <div class="button__inflation button__inflation_1 abs"></div>
+      <div class="button__inflation button__inflation_2 abs"></div>
+      <div class="button__inflation button__inflation_3 abs"></div>
+      <div class="button__inflation button__inflation_4 abs"></div>
+      <div class="button__inflation button__inflation_5 abs"></div>
+      <div class="button__inflation button__inflation_6 abs"></div>
+      <div class="arrow rel">
+        <svg class="abs" width="24" viewBox="0 0 42 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg) translate(50%, 50%);">
+          <path d="M0.339661 1.05658L19.5 12.2918V12.2918C20.3281 12.7774 21.3532 12.7809 22.1846 12.3009L22.2003 12.2918L41.6603 1.05658" stroke="#000"></path>
+        </svg>
+      </div>
+    </button>
+    <div class="devicer mA">
+      <center class="title ff-ars-b title_page">Магазин шпаргалок</center><?php
 function prepare_select(&$select_props, $select_placeholder, &$select_selected, $get_param, &$select_url_prop, $criteria_path, $criteria_modifier) {
    global $products;
 
@@ -84,69 +144,9 @@ function prepare_select(&$select_props, $select_placeholder, &$select_selected, 
          }
       }
    }
-
 }
-
-?><!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Магазин шпаргалок | Шпаргалка для лучшей жизни</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-    <link rel="manifest" href="../manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-  <link href="../shop/shop.bundle.css" rel="stylesheet"></head>
-  <body>
-    <header class="header fix top0 left0 w100">
-      <div class="devicer mA">
-        <div class="header__wrapper row aic mA">
-          <div class="header__logo"><a class="cup" href="./shop"><img src="<?= fi(47) ?>"></a></div>
-          <div class="header__menu-wrapper col tar"><span class="header__slogan header__slogan_pc ff-ars-i fwn"><?= fi(49) ?> <a class="link dib shadow_link" href="#"><?= fi(50) ?></a></span>
-            <div class="header__menu rel">
-              <div class="header__menu-underline header__menu-underline_main abs"></div>
-              <div class="header__menu-underline abs"></div>
-              <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-me">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-project">О проекте</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../consult">Консультации психолога</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../event">Мероприятия</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../numerology">Нумерология</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../shop">Магазин шпаргалок</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../blog">Блог</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home#contacts">Контакты</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../office">Личный кабинет</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="header__slogan_mobile row jcsb aic">
-          <div class="header__mobile-line"></div><span class="header__slogan ff-ars-i fwn"><?= fi(49) ?> <a class="link dib shadow_link" href="#"><?= fi(50) ?></a></span>
-        </div>
-      </div>
-    </header>
-    <button class="button rel cup scroll-top-button fix right2 bottom2 dn">
-      <div class="button__inflation button__inflation_1 abs"></div>
-      <div class="button__inflation button__inflation_2 abs"></div>
-      <div class="button__inflation button__inflation_3 abs"></div>
-      <div class="button__inflation button__inflation_4 abs"></div>
-      <div class="button__inflation button__inflation_5 abs"></div>
-      <div class="button__inflation button__inflation_6 abs"></div>
-      <div class="arrow rel">
-        <svg class="abs" width="24" viewBox="0 0 42 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg) translate(50%, 50%);">
-          <path d="M0.339661 1.05658L19.5 12.2918V12.2918C20.3281 12.7774 21.3532 12.7809 22.1846 12.3009L22.2003 12.2918L41.6603 1.05658" stroke="#000"></path>
-        </svg>
-      </div>
-    </button>
-    <div class="devicer mA">
-      <center class="title ff-ars-b title_page">Магазин шпаргалок</center>
-      <div class="row selects jcc"><?php prepare_select($select_props, 'Любая тематика', $select_selected, 'theme', $select_url_prop, 'tags', 'children'); ?>
+?>
+      <div class="shop-filters row selects jcc"><?php prepare_select($select_props, 'Любая тематика', $select_selected, 'theme', $select_url_prop, 'tags', 'children'); ?>
         <div class="select rel">
           <div class="select__basis row"><?php $title = $select_props[array_keys($select_props)[$select_selected]]; ?>
             <div class="select__title"><?= $title ?></div>
@@ -237,7 +237,7 @@ foreach (array_keys($select_props) as $range) {
           </div>
         </div>
       </div>
-      <div class="products row wrap jcc">
+      <div class="shop-products products row wrap jcc">
         <?php
 $query = url_query_decode(); // from select__option mixin, at start of page
 
@@ -363,29 +363,49 @@ $use_read_button = !$product->props->is_enroll->value && !$product->props->is_bu
 <?php else : ?>
         <center class="title ff-ars-b" style="color: var(--c3); margin-bottom: 6rem; letter-spacing: 0.25em;">Нет найденных товаров</center><?php endif; ?>
       </div>
-      <center class="title ff-ars-b title_pages">Возможно вы искали?</center>
-      <div class="page-blocks">
-        <div class="page-blocks_1-2">
-          <div class="page-block row aic page-block_full-width page-block_blog"><a class="page-block__title" href="../blog">БЛОГ</a><img class="page-block__icon" src="../__attach/Images/icon_blog.svg">
-            <div class="page-block__content">
-              <div class="row"><a href="../product/?id=undefined">Как не позволять людям влиять на нас</a><a href="../product">Не играйте мне на нервах или как научиться противостоять третированию</a></div>
-            </div>
-          </div>
-          <div class="page-block row aic page-block_full-width page-block_consult"><a class="page-block__title" href="../consult">КОНСУЛЬТАЦИИ</a><img class="page-block__icon" src="../__attach/Images/icon_promotion.svg">
-            <div class="page-block__content">
-              <div class="row">
-                <div class="row page-block_consult__directions"><a class="col aic" href="../product/?id=<?= $db->at_path('pages/consult/types/once')->id ?>"><img src="../__attach/Images/pink_mentor.svg"><span>Разовые</span></a><a class="col aic" href="../product/?id=<?= $db->at_path('pages/consult/types/serial')->id ?>"><img src="../__attach/Images/pink_meeting.svg"><span>Серийные</span></a><a class="col aic" href="../product/?id=<?= $db->at_path('pages/consult/types/family')->id ?>"><img src="../__attach/Images/pink_networking.svg"><span>Семейные</span></a>
+      <div class="maybe-other-page">
+        <center class="title ff-ars-b title_pages">Возможно вы искали?</center>
+        <div class="page-blocks">
+          <div class="page-blocks_1-2">
+            <div class="page-block row aic page-block_full-width page-block_blog"><a class="page-block__title" href="../blog">БЛОГ</a><img class="page-block__icon" src="../__attach/Images/icon_blog.svg">
+              <div class="page-block__content">
+                <div class="row"><?php
+$posts = $db->at_path('pages/blog/posts')->get_children();
+$posts_data = [];
+
+foreach ($posts as $post) {
+   $data = new stdClass();
+   
+   $data->views = $post->props->viewed_count->value;
+   $data->item = $post;
+
+   array_push($posts_data, $data);
+}
+
+usort($posts_data, function ($a, $b) {
+   return ($a->views <=> $b->views) * -1;
+});
+$posts_popular = array_map(function ($data) { return $data->item; }, $posts_data);
+?><a href="../product/?id=<?= $posts_popular[0]->id ?>"><?= $posts_popular[0]->props->title ?></a><a href="../product/?id=<?= $posts_popular[1]->id ?>"><?= $posts_popular[1]->props->title ?></a>
                 </div>
-                <div class="col page-block_consult__top jcc"><?php $consult_rating = $db->at_path('pages/consult/rating')->get_children(); ?><a href="../product/?id=<?= $consult_rating[0]->id ?>"><?= $consult_rating[0]->props->title ?></a><a href="../product/?id=<?= $consult_rating[1]->id ?>"><?= $consult_rating[1]->props->title ?></a>
+              </div>
+            </div>
+            <div class="page-block row aic page-block_full-width page-block_consult"><a class="page-block__title" href="../consult">КОНСУЛЬТАЦИИ</a><img class="page-block__icon" src="../__attach/Images/icon_promotion.svg">
+              <div class="page-block__content">
+                <div class="row">
+                  <div class="row page-block_consult__directions"><a class="col aic" href="../product/?id=<?= $db->at_path('pages/consult/types/once')->id ?>"><img src="<?= $db->at_path('pages/consult/types/once/annotation/image') ?>"><span>Разовые</span></a><a class="col aic" href="../product/?id=<?= $db->at_path('pages/consult/types/serial')->id ?>"><img src="<?= $db->at_path('pages/consult/types/serial/annotation/image') ?>"><span>Серийные</span></a><a class="col aic" href="../product/?id=<?= $db->at_path('pages/consult/types/family')->id ?>"><img src="<?= $db->at_path('pages/consult/types/family/annotation/image') ?>"><span>Семейные</span></a>
+                  </div>
+                  <div class="col page-block_consult__top jcc"><?php $consult_rating = $db->at_path('pages/consult/rating')->get_children(); ?><a href="../product/?id=<?= $consult_rating[0]->id ?>"><?= $consult_rating[0]->props->title ?></a><a href="../product/?id=<?= $consult_rating[1]->id ?>"><?= $consult_rating[1]->props->title ?></a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="page-blocks_3-4">
-          <div class="page-block row aic page-block_about-me"><a class="page-block__title" href="../about-me">ОБО МНЕ</a><img class="page-block__icon" src="../__attach/Images/icon_drawing-tablet.svg">
-          </div>
-          <div class="page-block row aic page-block_about-project"><a class="page-block__title" href="../about-project">О ПРОЕКТЕ</a><img class="page-block__icon" src="../__attach/Images/icon_startup.svg">
+          <div class="page-blocks_3-4">
+            <div class="page-block row aic page-block_about-me"><a class="page-block__title" href="../about-me">ОБО МНЕ</a><img class="page-block__icon" src="../__attach/Images/icon_drawing-tablet.svg">
+            </div>
+            <div class="page-block row aic page-block_about-project"><a class="page-block__title" href="../about-project">О ПРОЕКТЕ</a><img class="page-block__icon" src="../__attach/Images/icon_startup.svg">
+            </div>
           </div>
         </div>
       </div>

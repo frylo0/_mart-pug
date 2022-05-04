@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../path-to-jf-folder.php';
+require_once __DIR__ . '/../__php/account-manager.php';
 ?><?php
 function url_query_decode() {
    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -37,14 +38,36 @@ function url_query_update($prop, $value) {
 
    return $target_link;
 }
-?><?php $id = $_GET['id']; ?>
-<?php $product = fi($id); ?>
-<?php // TODO: make check if product available ?><?php
+?><?php $id = $_GET['id']; ?><?php
+if (!$db->has_id($id)) {
+  exit('<meta http-equiv="refresh" content="0; url=../home/">');
+  die;
+}?><?php $product = fi($id); ?><?php
 if (!array_key_exists("-jf_product-$id-visited", $_COOKIE)) {
-  // time steps are:                                  1h   1d 1y  10y
+  // time steps are --------------------------------- 1h   1d 1y  10y
   setcookie("-jf_product-$id-visited", 'true', time()+3600*24*365*10);
   $product_viewed = $product->props->viewed_count;
   $product_viewed->update('value', intval($product_viewed->value) + 1);
+}
+?><?php
+if ($account_manager->is_logged_in()) {
+  $account = $account_manager->get_account();
+  $item = $account->item();
+
+  $tags_viewed_item = $item->props->tags_viewed;
+  $tags_viewed_value = $tags_viewed_item->value;
+  $tags_viewed = $tags_viewed_value ? json_decode($tags_viewed_value) : [];
+
+  foreach ($product->props->tags->get_children() as $tag) {
+    $tag = $tag->value;
+
+    if (property_exists($tags_viewed, $tag))
+      $tags_viewed->{$tag} += 1;
+    else
+      $tags_viewed->{$tag} = 1;
+  }
+
+  $tags_viewed_item->update('value', json_encode($tags_viewed));
 }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -80,7 +103,7 @@ if (!array_key_exists("-jf_product-$id-visited", $_COOKIE)) {
             <div class="header__menu rel">
               <div class="header__menu-underline header__menu-underline_main abs"></div>
               <div class="header__menu-underline abs"></div>
-              <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-me">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-project">О проекте</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../consult">Консультации психолога</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../event">Мероприятия</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../numerology">Нумерология</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../shop">Магазин шпаргалок</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../blog">Блог</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home#contacts">Контакты</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../office">Личный кабинет</a>
+              <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-me">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-project">О проекте</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../consult">Консультации психолога</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../event">Мероприятия</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../numerology">Нумерология</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../shop">Магазин шпаргалок</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../blog">Блог</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home#contacts">Контакты</a><?php if ($account_manager->is_logged_in()) : ?><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../office">Личный кабинет</a><?php else : ?><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../login">Вход/Регистрация</a><?php endif; ?>
               </div>
             </div>
           </div>
@@ -134,8 +157,8 @@ if ($product->has_path('datetime'))
         </div>
         <div class="product-preview__type"><?= $product->props->type ?></div>
         <div><?php if ($price->props->sale->value) : ?>
-          <div class="product-preview__price product-preview__price-after"><?= $product->at_path('price/normal') ?></div>
-          <div class="product-preview__price product-preview__price-before"><?= $product->at_path('price/sale') ?></div><?php else : ?>
+          <div class="product-preview__price product-preview__price-sale"><?= $product->at_path('price/sale') ?></div>
+          <div class="product-preview__price product-preview__price-before"><?= $product->at_path('price/normal') ?></div><?php else : ?>
           <div class="product-preview__price product-preview__price-normal"><?= $product->at_path('price/normal') ?></div><?php endif; ?>
         </div>
       </div>
@@ -170,8 +193,8 @@ if ($product->has_path('datetime'))
           </div>
           <div class="product-preview__type"><?= $product->props->type ?></div>
           <div><?php if ($price->props->sale->value) : ?>
-            <div class="product-preview__price product-preview__price-after"><?= $product->at_path('price/normal') ?></div>
-            <div class="product-preview__price product-preview__price-before"><?= $product->at_path('price/sale') ?></div><?php else : ?>
+            <div class="product-preview__price product-preview__price-sale"><?= $product->at_path('price/sale') ?></div>
+            <div class="product-preview__price product-preview__price-before"><?= $product->at_path('price/normal') ?></div><?php else : ?>
             <div class="product-preview__price product-preview__price-normal"><?= $product->at_path('price/normal') ?></div><?php endif; ?>
           </div>
         </div><?= $product->at_path('page/text') ?>
@@ -206,8 +229,8 @@ if ($product->has_path('datetime'))
           </div>
           <div class="product-preview__type"><?= $product->props->type ?></div>
           <div><?php if ($price->props->sale->value) : ?>
-            <div class="product-preview__price product-preview__price-after"><?= $product->at_path('price/normal') ?></div>
-            <div class="product-preview__price product-preview__price-before"><?= $product->at_path('price/sale') ?></div><?php else : ?>
+            <div class="product-preview__price product-preview__price-sale"><?= $product->at_path('price/sale') ?></div>
+            <div class="product-preview__price product-preview__price-before"><?= $product->at_path('price/normal') ?></div><?php else : ?>
             <div class="product-preview__price product-preview__price-normal"><?= $product->at_path('price/normal') ?></div><?php endif; ?>
           </div>
         </div>

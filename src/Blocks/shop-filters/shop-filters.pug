@@ -1,0 +1,80 @@
+mixin shop-filters()
+   :php
+      function prepare_select(&$select_props, $select_placeholder, &$select_selected, $get_param, &$select_url_prop, $criteria_path, $criteria_modifier) {
+         global $products;
+
+         $select_props = ['*' => $select_placeholder];
+         $select_selected = 0;
+         $target = array_key_exists($get_param, $_GET) ? $_GET[$get_param] : null;
+         
+         $select_url_prop = $get_param;
+
+         $i = 1;
+         foreach ($products as $product) {
+            $criteria = $product->at_path($criteria_path);
+
+            if ($criteria_modifier == 'children') {
+               $criterias = $criteria->get_children();
+               foreach ($criterias as $item) {
+                  $value = $item->value;
+                  
+                  if (!array_key_exists($value, $select_props)) {
+                     $value_pretty = str_replace('-', ' ', $value);
+                     $value_pretty = mb_strtoupper(mb_substr($value_pretty, 0, 1)) . mb_substr($value_pretty, 1);
+                     $select_props[$value] = $value_pretty;
+
+                     if ($value == $target)
+                        $select_selected = $i;
+
+                     $i++;
+                  }
+               }
+            }
+            else if ($criteria_modifier == 'item') {
+               $value = $criteria->value;
+               
+               if (!array_key_exists($value, $select_props)) {
+                  $value_pretty = str_replace('-', ' ', $value);
+                  $value_pretty = mb_strtoupper(mb_substr($value_pretty, 0, 1)) . mb_substr($value_pretty, 1);
+                  $select_props[$value] = $value_pretty;
+
+                  if ($value == $target)
+                     $select_selected = $i;
+
+                  $i++;
+               }
+            }
+         }
+      }
+
+   .shop-filters.row.selects.jcc&attributes(attributes)
+      <?php prepare_select($select_props, 'Любая тематика', $select_selected, 'theme', $select_url_prop, 'tags', 'children'); ?>
+      +select()
+      <?php prepare_select($select_props, 'Любая цена', $select_selected, 'price', $select_url_prop, 'price/normal', 'item'); ?>
+      :php
+         $select_selected = 0;
+         $select_url_prop = 'price';
+         $select_props = [
+            '*' => 'Любая цена',
+            '0-0' => 'Бесплатно',
+            '1-200' => '1 - 200 руб',
+            '200-500' => '200 - 500 руб',
+            '500-1000' => '500 - 1 000 руб',
+            '1000-2000' => '1 000 - 2 000 руб',
+            '2000-5000' => '2 000 - 5 000 руб',
+            '5000-10000' => '5 000 - 10 000 руб',
+            '10000-20000' => '10 000 - 20 000 руб',
+            '20000-50000' => '20 000 - 50 000 руб',
+         ];
+         $target_range = array_key_exists($select_url_prop, $_GET) ? $_GET[$select_url_prop] : null;
+         $i = 0;
+         foreach (array_keys($select_props) as $range) {
+            if ($range == $target_range) {
+               $select_selected = $i;
+               break;
+            }
+            $i++;
+         }
+      +select()
+      <?php prepare_select($select_props, 'Любой формат', $select_selected, 'type', $select_url_prop, 'type', 'item'); ?>
+      +select()

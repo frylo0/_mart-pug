@@ -1,4 +1,5 @@
 import './../../bundle';
+import md5 from 'md5';
 
 // Code libs and plugins
 import { globalEventone } from '../../Plugins/eventone.js';
@@ -6,6 +7,8 @@ import { globalEventone } from '../../Plugins/eventone.js';
 globalEventone();
 
 $('.button_input-controls-eye').on('click', e => {
+   e.preventDefault();
+
    const $input = $('.button_input-controls-eye').parent().prev('input');
    if ($input.attr('type') == 'password') $input.attr('type', 'text')
    else $input.attr('type', 'password');
@@ -45,6 +48,30 @@ $inputsPassword.on('keyup', e => $changePasswordButton.disable() || passwordTime
       $changePasswordButton.enable();
    }
 }));
+
+$('#formLogin').on('submit', e => {
+   let $passwordView = $('#loginPasswordView > input');
+   let $password = $('#loginPassword');
+   
+   $password.val(md5($passwordView.val()));
+   $passwordView.remove();
+
+   return true;
+});
+$('#formRegister').on('submit', e => {
+   let $passwordView0 = $('#registerPass0View > input');
+   let $passwordView1 = $('#registerPass1View > input');
+   let $password0 = $('#registerPass0');
+   let $password1 = $('#registerPass1');
+   
+   $password0.val(md5($passwordView0.val()));
+   $password1.val(md5($passwordView1.val()));
+   $passwordView0.remove();
+   $passwordView1.remove();
+
+   return true;
+});
+
 
 import './../../Blocks/product/product';
 import './../../Blocks/product-office/product-office';

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../path-to-jf-folder.php';
+require_once __DIR__ . '/../__php/account-manager.php';
 ?><?php
 function url_query_decode() {
    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -37,6 +38,10 @@ function url_query_update($prop, $value) {
 
    return $target_link;
 }
+?><?php session_start(); ?><?php
+if ($account_manager->is_logged_in()) {
+   header('location: ../office/');
+}
 ?><!DOCTYPE html>
 <html lang="en">
   <head>
@@ -71,7 +76,7 @@ function url_query_update($prop, $value) {
             <div class="header__menu rel">
               <div class="header__menu-underline header__menu-underline_main abs"></div>
               <div class="header__menu-underline abs"></div>
-              <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-me">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-project">О проекте</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../consult">Консультации психолога</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../event">Мероприятия</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../numerology">Нумерология</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../shop">Магазин шпаргалок</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../blog">Блог</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home#contacts">Контакты</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../office">Личный кабинет</a>
+              <div class="header__menu-content"><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home">Главная</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-me">Обо мне</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../about-project">О проекте</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../consult">Консультации психолога</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../event">Мероприятия</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../numerology">Нумерология</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../shop">Магазин шпаргалок</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../blog">Блог</a><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../home#contacts">Контакты</a><?php if ($account_manager->is_logged_in()) : ?><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../office">Личный кабинет</a><?php else : ?><a class="link dib shadow_link header__menu-li ml1o25 rel" href="../login">Вход/Регистрация</a><?php endif; ?>
               </div>
             </div>
           </div>
@@ -97,86 +102,97 @@ function url_query_update($prop, $value) {
     <div class="devicer mA">
       <div class="login_wrapper">
         <center class="title ff-ars-b">Вход</center>
-        <div class="office_input-title">Email</div>
-        <div class="input-controls">
-          <input class="input-controls__input" placeholder="Ваш email..." type="email" name="email">
-          <div class="input-controls__controls">
+        <form action="../__php/login.php" method="post" id="formLogin">
+          <div class="office_input-title">Email</div>
+          <div class="input-controls">
+            <input class="input-controls__input" placeholder="Ваш email..." type="email" name="email" value="">
+            <div class="input-controls__controls">
+            </div>
           </div>
-        </div>
-        <div class="office_input-title">Пароль</div>
-        <div class="input-controls">
-          <input class="input-controls__input" placeholder="Пароль..." type="password" name="pass0">
-          <div class="input-controls__controls">
-            <button class="button rel cup button_input-controls-eye">
-              <div class="button__inflation button__inflation_1 abs"></div>
-              <div class="button__inflation button__inflation_2 abs"></div>
-              <div class="button__inflation button__inflation_3 abs"></div>
-              <div class="button__inflation button__inflation_4 abs"></div>
-              <div class="button__inflation button__inflation_5 abs"></div>
-              <div class="button__inflation button__inflation_6 abs"></div>
-              <div class="row jcc aic ovh"><img src="../__attach/Images/icon-eye.png"></div>
-            </button>
+          <div class="office_input-title">Пароль</div>
+          <div class="input-controls" id="loginPasswordView">
+            <input class="input-controls__input" placeholder="Пароль..." type="password" name="password_view" value="">
+            <div class="input-controls__controls">
+              <button class="button rel cup button_input-controls-eye">
+                <div class="button__inflation button__inflation_1 abs"></div>
+                <div class="button__inflation button__inflation_2 abs"></div>
+                <div class="button__inflation button__inflation_3 abs"></div>
+                <div class="button__inflation button__inflation_4 abs"></div>
+                <div class="button__inflation button__inflation_5 abs"></div>
+                <div class="button__inflation button__inflation_6 abs"></div>
+                <div class="row jcc aic ovh"><img src="../__attach/Images/icon-eye.png"></div>
+              </button>
+            </div>
           </div>
-        </div>
-        <button class="button rel cup button_full-width">Войти
-          <div class="button__inflation button__inflation_1 abs"></div>
-          <div class="button__inflation button__inflation_2 abs"></div>
-          <div class="button__inflation button__inflation_3 abs"></div>
-          <div class="button__inflation button__inflation_4 abs"></div>
-          <div class="button__inflation button__inflation_5 abs"></div>
-          <div class="button__inflation button__inflation_6 abs"></div>
-        </button>
+          <input type="hidden" name="password" value="" id="loginPassword"><?php if (array_key_exists('login_error', $_SESSION) && $_SESSION['login_error']) : ?>
+          <div class="request-error"><?= $_SESSION['login_error'] ?>
+          </div><?php endif; ?>
+          <button class="button rel cup button_full-width">Войти
+            <div class="button__inflation button__inflation_1 abs"></div>
+            <div class="button__inflation button__inflation_2 abs"></div>
+            <div class="button__inflation button__inflation_3 abs"></div>
+            <div class="button__inflation button__inflation_4 abs"></div>
+            <div class="button__inflation button__inflation_5 abs"></div>
+            <div class="button__inflation button__inflation_6 abs"></div>
+          </button>
+        </form>
         <center class="title ff-ars-b">Регистрация</center>
-        <div class="office_input-title">Имя</div>
-        <div class="input-controls">
-          <input class="input-controls__input" placeholder="Ваше имя..." type="text" name="name">
-          <div class="input-controls__controls">
+        <form action="../__php/register.php" method="post" id="formRegister">
+          <div class="office_input-title">Имя</div>
+          <div class="input-controls">
+            <input class="input-controls__input" placeholder="Ваше имя..." type="text" name="name" value="">
+            <div class="input-controls__controls">
+            </div>
           </div>
-        </div>
-        <div class="office_input-title">Email</div>
-        <div class="input-controls">
-          <input class="input-controls__input" placeholder="Ваш email..." type="email" name="email">
-          <div class="input-controls__controls">
+          <div class="office_input-title">Email</div>
+          <div class="input-controls">
+            <input class="input-controls__input" placeholder="Ваш email..." type="email" name="email" value="">
+            <div class="input-controls__controls">
+            </div>
           </div>
-        </div>
-        <div class="office_input-title">Пароль</div>
-        <div class="input-controls login_register-input">
-          <input class="input-controls__input" placeholder="Пароль..." type="password" name="pass0">
-          <div class="input-controls__controls">
-            <button class="button rel cup button_input-controls-eye">
-              <div class="button__inflation button__inflation_1 abs"></div>
-              <div class="button__inflation button__inflation_2 abs"></div>
-              <div class="button__inflation button__inflation_3 abs"></div>
-              <div class="button__inflation button__inflation_4 abs"></div>
-              <div class="button__inflation button__inflation_5 abs"></div>
-              <div class="button__inflation button__inflation_6 abs"></div>
-              <div class="row jcc aic ovh"><img src="../__attach/Images/icon-eye.png"></div>
-            </button>
+          <div class="office_input-title">Пароль</div>
+          <div class="input-controls login_register-input" id="registerPass0View">
+            <input class="input-controls__input" placeholder="Пароль..." type="password" name="" value="">
+            <div class="input-controls__controls">
+              <button class="button rel cup button_input-controls-eye">
+                <div class="button__inflation button__inflation_1 abs"></div>
+                <div class="button__inflation button__inflation_2 abs"></div>
+                <div class="button__inflation button__inflation_3 abs"></div>
+                <div class="button__inflation button__inflation_4 abs"></div>
+                <div class="button__inflation button__inflation_5 abs"></div>
+                <div class="button__inflation button__inflation_6 abs"></div>
+                <div class="row jcc aic ovh"><img src="../__attach/Images/icon-eye.png"></div>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="input-controls office_repeat-password login_register-input">
-          <input class="input-controls__input" placeholder="Повторите..." type="password" name="pass1">
-          <div class="input-controls__controls">
-            <button class="button rel cup button_input-controls-eye">
-              <div class="button__inflation button__inflation_1 abs"></div>
-              <div class="button__inflation button__inflation_2 abs"></div>
-              <div class="button__inflation button__inflation_3 abs"></div>
-              <div class="button__inflation button__inflation_4 abs"></div>
-              <div class="button__inflation button__inflation_5 abs"></div>
-              <div class="button__inflation button__inflation_6 abs"></div>
-              <div class="row jcc aic ovh"><img src="../__attach/Images/icon-eye.png"></div>
-            </button>
+          <input type="hidden" name="pwd0" value="" id="registerPass0">
+          <div class="input-controls office_repeat-password login_register-input" id="registerPass1View">
+            <input class="input-controls__input" placeholder="Повторите..." type="password" name="" value="">
+            <div class="input-controls__controls">
+              <button class="button rel cup button_input-controls-eye">
+                <div class="button__inflation button__inflation_1 abs"></div>
+                <div class="button__inflation button__inflation_2 abs"></div>
+                <div class="button__inflation button__inflation_3 abs"></div>
+                <div class="button__inflation button__inflation_4 abs"></div>
+                <div class="button__inflation button__inflation_5 abs"></div>
+                <div class="button__inflation button__inflation_6 abs"></div>
+                <div class="row jcc aic ovh"><img src="../__attach/Images/icon-eye.png"></div>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="office_password-message"><small class="rel w100 db"><span class="dn abs left0 right0" role="error" style="color: red">Пароли не совпадают</span><span class="dn abs left0 right0" role="free" style="color: blue">Пароль не должен быть пустым</span><span class="dn abs left0 right0" role="correct" style="color: green">Пароли совпадают</span></small></div>
-        <button class="button rel cup button_full-width login_register-button" disabled="disabled">Зарегистрироваться
-          <div class="button__inflation button__inflation_1 abs"></div>
-          <div class="button__inflation button__inflation_2 abs"></div>
-          <div class="button__inflation button__inflation_3 abs"></div>
-          <div class="button__inflation button__inflation_4 abs"></div>
-          <div class="button__inflation button__inflation_5 abs"></div>
-          <div class="button__inflation button__inflation_6 abs"></div>
-        </button>
+          <input type="hidden" name="pwd1" value="" id="registerPass1">
+          <div class="office_password-message"><small class="rel w100 db"><span class="dn abs left0 right0" role="error" style="color: red">Пароли не совпадают</span><span class="dn abs left0 right0" role="free" style="color: blue">Пароль не должен быть пустым</span><span class="dn abs left0 right0" role="correct" style="color: green">Пароли совпадают</span></small></div><?php if (array_key_exists('register_error', $_SESSION) && $_SESSION['register_error']) : ?>
+          <div class="request-error"><?= $_SESSION['register_error'] ?>
+          </div><?php endif; ?>
+          <button class="button rel cup button_full-width login_register-button" disabled="disabled">Зарегистрироваться
+            <div class="button__inflation button__inflation_1 abs"></div>
+            <div class="button__inflation button__inflation_2 abs"></div>
+            <div class="button__inflation button__inflation_3 abs"></div>
+            <div class="button__inflation button__inflation_4 abs"></div>
+            <div class="button__inflation button__inflation_5 abs"></div>
+            <div class="button__inflation button__inflation_6 abs"></div>
+          </button>
+        </form>
       </div>
     </div>
     <div class="footer ptbo5 w100 rel">
